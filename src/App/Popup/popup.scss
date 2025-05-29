@@ -1,0 +1,73 @@
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; // важно для мобильной адаптации
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+
+  max-height: 100dvh;
+  overflow-y: auto;
+}
+
+.popup__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__form input,
+.popup__form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.popup__form button,
+.popup__success button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-button-action, #ff9900);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup__success {
+  text-align: center;
+}
+
+.popup-open {
+  overflow: hidden;
+  height: 100%;
+  touch-action: none; // для предотвращения нежелательных свайпов
+}

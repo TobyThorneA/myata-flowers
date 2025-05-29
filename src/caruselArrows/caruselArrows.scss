@@ -1,0 +1,44 @@
+@use "../variables.scss" as *;
+
+.carousel-arrows {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: none;
+  justify-content: space-between;
+  transform: translateY(-30%);
+  pointer-events: none;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+
+  &__btn {
+    background: rgba(243, 224, 226, 0.8);
+    border: 0.5px solid rgb(251, 187, 97);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    width: 60px;
+    height: 60px;
+
+    &:hover {
+      background: rgba(243, 224, 226, 1);
+    }
+
+    &.left {
+      margin-left: 1rem;
+    }
+
+    &.right {
+      margin-right: 1rem;
+    }
+  }
+
+}

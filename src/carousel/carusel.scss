@@ -1,0 +1,38 @@
+@use "../variables.scss" as *;
+
+.carusel {
+  position: relative;
+  padding: 0 2rem;
+  margin-top: 0.5rem;
+  &__title {
+    margin-bottom: 0.2rem;
+  }
+  &__wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE 10+
+    margin: 0 -2rem;
+    padding: 0 2rem;
+  }
+  &__wrapper::-webkit-scrollbar {
+    display: none; // Chrome, Safari
+  }
+  &__bouquets {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  @media (max-width: 767px) and (orientation: landscape){
+    
+  }
+  @media (min-width: $bp-tablet){
+    margin-top: 1rem;
+    &__title{
+      margin-bottom: 1rem;
+    }
+  }
+  @media (min-width: $bp-desktop){
+
+  }
+}
