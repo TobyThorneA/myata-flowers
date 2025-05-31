@@ -64,7 +64,7 @@ const Popup = ({ onClose }: PopupProps) => {
 
   const sendToTelegram = async (data: FormData) => {
     // const token = '7883440050:AAFjOUgdwQktiD0U3PDkDQa8iowtj9CJhpY';
-    const chatId = '7911798658'; // chat_id
+    const chatId = '7911798658'; // chat_i
     const message = `
       💐 Новая заявка на букет:
       👤 Имя: ${data.name}
