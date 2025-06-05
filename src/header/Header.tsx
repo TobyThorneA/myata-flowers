@@ -5,12 +5,13 @@ import WhatsApp from "../assets/whatsapp.png"
 import Avito from "../assets/avito.png"
 import Popup from "../App/Popup/Popup"
 import { useEffect, useState } from "react"
+import OrderButton from "../orderButton/OrderButton"
 
 const Header = () => {
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const openPopup = () => setIsPopupOpen(true);
+    // const openPopup = () => setIsPopupOpen(true);
     const closePopup = () => setIsPopupOpen(false);
 
   useEffect(() => {
@@ -37,9 +38,7 @@ const Header = () => {
           Заказывайте цветы онлайн —
           быстро, удобно, с заботой
         </h1>
-        <button className="header__buttonAction" onClick={() => openPopup()}>
-          Подобрать букет
-        </button>
+        <OrderButton/>
       </div>
       <div className="header__contacts">
         <div className="header__contact-wrapper">

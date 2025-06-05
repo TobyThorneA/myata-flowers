@@ -1,13 +1,34 @@
 @use "../variables.scss" as *;
 
-.delivery-decoration {
+.advantages {
   padding: 0 2rem;
   margin-top: 1rem;
+  &__title {
+    margin-bottom: 0.5rem;
+  }
+  &__text {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+  }
+  &__itemes {
+    font-size: 14px;
+    margin-bottom: 2rem;
+  }
+  &__itemes {
+    list-style: none;
+  }
   @media (max-width: 767px) and (orientation: landscape){
     
   }
   @media (min-width: $bp-tablet){
     margin-top: 1.5rem;
+    &__text {
+      font-size: 16px;
+    }
+    &__itemes {
+      font-size: 16px;
+    }
   }
   @media (min-width: $bp-desktop){
     margin-top: 2rem;
@@ -24,6 +45,7 @@
   &__text {
     padding: 0.5rem;
     font-weight: 500;
+    font-size: 14px;
   }
   @media (max-width: 767px) and (orientation: landscape){
     &__text {
@@ -39,11 +61,10 @@
   }
   @media (min-width: $bp-desktop){
     &__text {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1rem;
     }
     &__photo {
-      width: 130px;
+      width: 50px;
       color: var(--color-icons); 
       stroke-width: 1.5;
     }

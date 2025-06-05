@@ -4,6 +4,16 @@
   position: relative;
   padding: 0 2rem;
   margin-top: 0.5rem;
+  // //////////////////////////////
+  &__item {
+    cursor: pointer;
+    transition: transform 0.3s;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+  // ////////////////////////////////
   &__title {
     margin-bottom: 0.2rem;
   }

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.php
+./public/yandex_66e54b7ff21dad55.html
+*.php
+public/yandex_*.html

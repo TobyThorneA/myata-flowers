@@ -11,6 +11,7 @@ interface FormData {
   question1: string,
   question2: string,
   question3: string,
+  honeypot: string,
 }
 
 const Popup = ({ onClose }: PopupProps) => {
@@ -60,10 +61,15 @@ const Popup = ({ onClose }: PopupProps) => {
     question1: '',
     question2: '',
     question3: '',
+    honeypot: '',
   });
 
   const sendToTelegram = async (data: FormData) => {
-    // const token = '7883440050:AAFjOUgdwQktiD0U3PDkDQa8iowtj9CJhpY';
+    if (data.honeypot && data.honeypot.trim() !== '') {
+      console.warn('Бот обнаружен, отправка отменена.');
+      return;
+    }
+
     const chatId = '7911798658'; // chat_id
     const message = `
       💐 Новая заявка на букет:
@@ -74,11 +80,9 @@ const Popup = ({ onClose }: PopupProps) => {
       📦 Доставка: ${data.question3}
     `.trim();
 
-    // const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
     try {
-      // const response = await fetch(url, {
-      const response = await fetch('/send.php', {
+      const response = await fetch('/api.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,6 +90,7 @@ const Popup = ({ onClose }: PopupProps) => {
         body: JSON.stringify({
           chat_id: chatId,
           text: message,
+          honeypot: data.honeypot,
           parse_mode: 'HTML',
         }),
       });
@@ -112,7 +117,6 @@ const Popup = ({ onClose }: PopupProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Здесь будет логика отправки
     sendToTelegram(formData);
     setIsSubmitted(true);
   };
@@ -125,6 +129,13 @@ const Popup = ({ onClose }: PopupProps) => {
         {!isSubmitted ? (
           <form onSubmit={handleSubmit} className="popup__form">
             <h2>Подобрать букет</h2>
+            <input
+              type="text"
+              name="honeypot"
+              style={{ display: 'none' }}
+              autoComplete="off"
+              onChange={handleFormData}
+            />
             <input onChange={handleFormData}
              type="text" name="name" placeholder="Имя" required />
             <input onChange={handleFormData} type="tel" name="phone" placeholder="Телефон" required />
