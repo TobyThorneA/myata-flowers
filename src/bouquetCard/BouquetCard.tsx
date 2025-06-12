@@ -20,6 +20,7 @@ const BouquetCard = ({name, photo, price, oldPrice, handleOpenModal}: DataCard) 
           className="bouquet-card__photo"
           src={photo}
           alt={name}
+          loading="lazy"
         />
       <div className="bouquet-card__info">
         <p className="bouquet-card__name-wrapper">

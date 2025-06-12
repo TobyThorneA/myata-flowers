@@ -4,11 +4,11 @@ import './bouquetModal.scss';
 
 interface BouquetModalProps {
   bouquet: {
-    id: number;
+    _id: string;
     name: string;
     price: number;
-    oldPrice: number;
-    photos: string[]; // Теперь массив фотографий
+    oldprice: number;
+    images: string[]; // Теперь массив фотографий
     description?: string;
     size?: string;
   };
@@ -38,13 +38,13 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
 
   const nextPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev === bouquet.photos.length - 1 ? 0 : prev + 1
+      prev === bouquet.images.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev === 0 ? bouquet.photos.length - 1 : prev - 1
+      prev === 0 ? bouquet.images.length - 1 : prev - 1
     );
   };
 
@@ -55,29 +55,31 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
         
         <div className="modal-photo-section">
           <img 
-            src={bouquet.photos[currentPhotoIndex]} 
+            src={bouquet.images[currentPhotoIndex]} 
             alt={bouquet.name} 
             className="modal-photo"
+            loading="lazy"
           />
           
-          {bouquet.photos.length > 1 && (
+          {bouquet.images.length > 1 && (
             <div className="photo-navigation">
               <button className="nav-btn prev" onClick={prevPhoto}>&lt;</button>
               <div className="photo-counter">
-                {currentPhotoIndex + 1} / {bouquet.photos.length}
+                {currentPhotoIndex + 1} / {bouquet.images.length}
               </div>
               <button className="nav-btn next" onClick={nextPhoto}>&gt;</button>
             </div>
           )}
           
           <div className="photo-thumbnails">
-            {bouquet.photos.map((photo, index) => (
+            {bouquet.images.map((photo, index) => (
               <img
                 key={index}
                 src={photo}
                 alt={`Вариант ${index + 1}`}
                 className={`thumbnail ${index === currentPhotoIndex ? 'active' : ''}`}
                 onClick={() => setCurrentPhotoIndex(index)}
+                loading="lazy"
               />
             ))}
           </div>
@@ -87,9 +89,9 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
           <h2 className="modal-title">{bouquet.name}</h2>
           
           <div className="modal-prices">
-            {bouquet.oldPrice > 0 && (
+            {bouquet.oldprice > 0 && (
               <div className="modal-old-price">
-                {bouquet.oldPrice.toLocaleString('ru-RU')} ₽
+                {bouquet.oldprice.toLocaleString('ru-RU')} ₽
               </div>
             )}
             <div className="modal-price">

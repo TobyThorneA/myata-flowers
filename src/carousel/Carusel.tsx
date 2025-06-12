@@ -5,12 +5,12 @@ import BouquetCard from "../bouquetCard/BouquetCard"
 import CaruselArrows from "../caruselArrows/CaruselArrows"
 import { useState } from "react"
 import BouquetModal from "../BouquetModal/BouquetModal"
-import { products, type Bouquet } from "../mocks/productsData"
+import { bouquets, type Bouquet } from "../mocks/productsData"
 
 
 const Carusel = () => {
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, dragFree: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true });
   const [selectedBouquet, setSelectedBouquet] = useState<null | Bouquet>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,26 +27,28 @@ const Carusel = () => {
   };
 
 
-
   return (
     <div className='carusel'>
       <h2 className="carusel__title">Наши букеты</h2>
       <div className="carusel__wrapper" ref={emblaRef}>
         <div className="carusel__bouquets">
 
-          {products.map(it => <BouquetCard 
-            key={it.id} 
+          {bouquets.map(it => <BouquetCard 
+            key={it._id} 
             name={it.name} 
             price={it.price} 
-            oldPrice={it.oldPrice} 
-            photo={it.photos[0]}
+            oldPrice={it.oldprice} 
+            photo={it.images[0]}
             handleOpenModal={() => handleOpenModal(it)}
             />
           )}
 
         </div>
       </div>
-      <CaruselArrows onPrev={scrollPrev} onNext={scrollNext}/>
+      <CaruselArrows 
+        onPrev={scrollPrev} 
+        onNext={scrollNext}
+      />
 
       {/* Рендерим модалку, если она открыта и есть выбранный букет */}
       {isModalOpen && selectedBouquet && (
