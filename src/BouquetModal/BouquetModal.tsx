@@ -1,6 +1,7 @@
 // BouquetModal.tsx
 import React, { useEffect } from 'react';
 import './bouquetModal.scss';
+import OrderButton from '../orderButton/OrderButton';
 
 interface BouquetModalProps {
     bouquet: {
@@ -133,9 +134,14 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
                 Написать в Telegram
               </a>
             </div>
+            
           </div>
           
           {/* <button className="order-button-modal">Заказать обратный звонок</button> */}
+          
+          <div className="order-page-wrapper">
+            <OrderButton/>
+          </div>
         </div>
       </div>
     </div>
