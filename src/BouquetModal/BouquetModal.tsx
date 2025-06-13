@@ -3,38 +3,37 @@ import React, { useEffect } from 'react';
 import './bouquetModal.scss';
 
 interface BouquetModalProps {
-  bouquet: {
+    bouquet: {
     _id: string;
     name: string;
     price: number;
     oldprice: number;
-    images: string[]; // Теперь массив фотографий
+    images: string[];
     description?: string;
     size?: string;
   };
   onClose: () => void;
 }
-const isModalOpen = true
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
-  document.body.style.overflow = 'hidden';
-      useEffect(() => {
-    if (isModalOpen) {
-      // Блокируем скролл при открытии
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Возвращаем скролл при закрытии
-      document.body.style.overflow = 'auto';
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if(e.key === 'Escape') {
+        onClose();
+      }
     }
 
-    // Очистка при размонтировании
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isModalOpen]);
-
-  if (!isModalOpen) return null;
+  }, [onClose]);
 
   const nextPhoto = () => {
     setCurrentPhotoIndex((prev) => 

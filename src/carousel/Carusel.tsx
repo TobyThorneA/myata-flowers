@@ -3,28 +3,23 @@ import "./carusel.scss"
 import useEmblaCarousel from 'embla-carousel-react'
 import BouquetCard from "../bouquetCard/BouquetCard"
 import CaruselArrows from "../caruselArrows/CaruselArrows"
-import { useState } from "react"
-import BouquetModal from "../BouquetModal/BouquetModal"
 import { bouquets, type Bouquet } from "../mocks/productsData"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 const Carusel = () => {
 
+  const navigate = useNavigate();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true });
-  const [selectedBouquet, setSelectedBouquet] = useState<null | Bouquet>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const location = useLocation()
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
   const handleOpenModal = (bouquet: Bouquet) => {
-    setSelectedBouquet(bouquet);
-    setIsModalOpen(true);
+    navigate(`/store/${bouquet._id}`, { state: { backgroundLocation: location } }); // рисуем модалку поверх карусели
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
 
   return (
@@ -49,14 +44,6 @@ const Carusel = () => {
         onPrev={scrollPrev} 
         onNext={scrollNext}
       />
-
-      {/* Рендерим модалку, если она открыта и есть выбранный букет */}
-      {isModalOpen && selectedBouquet && (
-        <BouquetModal
-          bouquet={selectedBouquet} 
-          onClose={handleCloseModal} 
-        />
-      )}
 
     </div>
   )
