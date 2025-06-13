@@ -3,28 +3,26 @@ import logo from "../assets/logo.jpg"
 import Telegram from "../assets/telegram.png"
 import WhatsApp from "../assets/whatsapp.png"
 import Avito from "../assets/avito.png"
-import Popup from "../App/Popup/Popup"
+import OrderForm from "../orderForm/OrderForm"
 import { useEffect, useState } from "react"
 import OrderButton from "../orderButton/OrderButton"
 
 const Header = () => {
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    // const openPopup = () => setIsPopupOpen(true);
-    const closePopup = () => setIsPopupOpen(false);
+    const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
+    const closeOrderForm = () => setIsOrderFormOpen(false);
 
   useEffect(() => {
-  if (isPopupOpen) {
-    document.body.classList.add('popup-open');
+  if (isOrderFormOpen) {
+    document.body.classList.add('OrderForm-open');
   } else {
-    document.body.classList.remove('popup-open');
+    document.body.classList.remove('OrderForm-open');
   }
-}, [isPopupOpen]);
+}, [isOrderFormOpen]);
 
   return (
     <header className='header'>
-      {isPopupOpen && <Popup onClose={closePopup}/>}
+      {isOrderFormOpen && <OrderForm onClose={closeOrderForm}/>}
       <div className="header__left">
         <img 
           className="header__logo"

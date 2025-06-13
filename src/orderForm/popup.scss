@@ -53,8 +53,10 @@
 .popup__form button,
 .popup__success button {
   width: 100%;
+  height: 50px;
   padding: 0.75rem;
-  background: var(--color-button-action, #ff9900);
+  background: var(--color-button-action);
+  // background: rgb(2, 196, 2);
   color: white;
   border: none;
   border-radius: 0.5rem;

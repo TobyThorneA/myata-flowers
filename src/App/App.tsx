@@ -1,20 +1,31 @@
-import Header from '../header/Header'
 import './App.scss'
-import Carusel from '../carousel/Carusel'
-import DeliveryDicoration from '../delivery-and-dicoration/DeliveryDicoration'
-import Reviwes from '../reviews/Reviews'
-import OrderBottom from '../orderBottom/OrderBottom'
-import ProductDescription from '../productDescription/ProductDescription'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import MainPage from '../MainPage/MainPage'
+import BouquetPage from '../bouquetPage/BouquetPage'
+import OrderPage from '../orderPage/OrderPage'
 
 const App = () => {
+  const location = useLocation()
+  const state = location.state as { backgroundLocation?: Location }
+  const backgroundLocation = state?.backgroundLocation
+
   return (
-    <div className='container'>
-      <Header/>
-      <Carusel/>
-      <ProductDescription/>
-      <DeliveryDicoration/>
-      <Reviwes />
-      <OrderBottom />
+    <div className="container">
+      {/* Основные маршруты (фон) */}
+      <Routes location={backgroundLocation || location}>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/store" element={<MainPage />} />
+        <Route path="/store/:bouquetId" element={<BouquetPage />} />
+        <Route path="/order" element={<OrderPage />} />
+      </Routes>
+
+      {/* Модалки, если есть фон */}
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/store/:bouquetId" element={<BouquetPage />} />
+          <Route path="/order" element={<OrderPage  />} />
+        </Routes>
+      )}
     </div>
   )
 }

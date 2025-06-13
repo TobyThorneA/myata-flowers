@@ -1,7 +1,8 @@
+// orderForm
 import { useEffect, useState } from "react";
 import "./popup.scss";
 
-interface PopupProps {
+interface OrderFormProps {
   onClose: () => void;
 }
 
@@ -14,7 +15,7 @@ interface FormData {
   honeypot: string,
 }
 
-const Popup = ({ onClose }: PopupProps) => {
+const OrderForm = ({ onClose }: OrderFormProps) => {
 
   // Для закрытия скролла на айфоне
   useEffect(() => {
@@ -76,8 +77,8 @@ const Popup = ({ onClose }: PopupProps) => {
       👤 Имя: ${data.name}
       📞 Телефон: ${data.phone}
       🌸 Предпочтения: ${data.question1}
-      💰 Бюджет: ${data.question2}
-      📦 Доставка: ${data.question3}
+      💰 Повод: ${data.question2}
+      📦 Пожелания по оформлению: ${data.question3}
     `.trim();
 
 
@@ -156,4 +157,4 @@ const Popup = ({ onClose }: PopupProps) => {
   );
 };
 
-export default Popup;
+export default OrderForm;
