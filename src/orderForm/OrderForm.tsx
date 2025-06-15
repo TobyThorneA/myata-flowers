@@ -4,18 +4,42 @@ import "./popup.scss";
 
 interface OrderFormProps {
   onClose: () => void;
+  bouquetName?: string;
+  watchField?: boolean;
 }
 
 interface FormData {
   name: string,
   phone: string,
+  contactMethod: string,
+  bouquetName: string,
   question1: string,
   question2: string,
   question3: string,
   honeypot: string,
 }
 
-const OrderForm = ({ onClose }: OrderFormProps) => {
+const OrderForm = ({ onClose, bouquetName, watchField = false }: OrderFormProps ) => {
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    bouquetName: bouquetName || 'Не указан',
+    phone: '',
+    contactMethod: 'telegram',
+    question1: '',
+    question2: '',
+    question3: '',
+    honeypot: '',
+  });
+
+    // Добавляем эффект для обновления bouquetName при изменении пропса
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      bouquetName: bouquetName || 'Не указан'
+    }));
+  }, [bouquetName]);
 
   // Для закрытия скролла на айфоне
   useEffect(() => {
@@ -54,16 +78,6 @@ const OrderForm = ({ onClose }: OrderFormProps) => {
     };
   }, [onClose]);
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    question1: '',
-    question2: '',
-    question3: '',
-    honeypot: '',
-  });
 
   const sendToTelegram = async (data: FormData) => {
     if (data.honeypot && data.honeypot.trim() !== '') {
@@ -73,9 +87,10 @@ const OrderForm = ({ onClose }: OrderFormProps) => {
 
     const chatId = '7911798658'; // chat_id
     const message = `
-      💐 Новая заявка на букет:
+      💐 Новая заявка на букет: ${data.bouquetName}
       👤 Имя: ${data.name}
       📞 Телефон: ${data.phone}
+          Предпочтительный способ связи: ${data.contactMethod}
       🌸 Предпочтения: ${data.question1}
       💰 Повод: ${data.question2}
       📦 Пожелания по оформлению: ${data.question3}
@@ -119,8 +134,12 @@ const OrderForm = ({ onClose }: OrderFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sendToTelegram(formData);
+    // ////////////////////////////////////////////
+    console.log('PostTelegram', formData)
     setIsSubmitted(true);
   };
+
+
 
   return (
     <div className="popup-overlay" onClick={onClose}>
@@ -140,9 +159,55 @@ const OrderForm = ({ onClose }: OrderFormProps) => {
             <input onChange={handleFormData}
              type="text" name="name" placeholder="Имя" required />
             <input onChange={handleFormData} type="tel" name="phone" placeholder="Телефон" required />
-            <textarea onChange={handleFormData} name="question1" placeholder="Какие цветы хотите?" required />
-            <textarea onChange={handleFormData} name="question2" placeholder="Повод / кому дарите?" required />
-            <textarea onChange={handleFormData} name="question3" placeholder="Пожелания по оформлению" />
+            <textarea onChange={handleFormData} name="question1" placeholder="Какие цветы хотите?" hidden={watchField}/>
+            <textarea onChange={handleFormData} name="question2" placeholder="Повод / кому дарите?"  hidden={watchField}/>
+            <textarea onChange={handleFormData} name="question3" placeholder="Пожелания по оформлению" hidden={watchField}/>
+
+
+            {/* ////////////////////////////////////////////////////////////////////////////////////////////// */}
+            <div className="contact-methods">
+              <p>Предпочтительный способ связи:</p>
+              <div className="method-options">
+                <label className={`method-option ${formData.contactMethod === 'call' ? 'active' : ''}`}>
+                  <input
+                    type="radio"
+                    value="call"
+                    name="contactMethod"
+                    checked={formData.contactMethod === 'call'}
+                    onChange={handleFormData}
+                  />
+                  <span className="option-icon">📞</span>
+                  <span className="option-text">Позвонить</span>
+                </label>
+                
+                <label className={`method-option ${formData.contactMethod === 'telegram' ? 'active' : ''}`}>
+                  <input
+                    type="radio"
+                    value="telegram"
+                    name="contactMethod"
+                    checked={formData.contactMethod === 'telegram'}
+                    onChange={handleFormData}
+                    // onChange={() => setContactMethod('telegram')}
+                  />
+                  <span className="option-icon">✈️</span>
+                  <span className="option-text">Telegram</span>
+                </label>
+                
+                <label className={`method-option ${formData.contactMethod === 'whatsapp' ? 'active' : ''}`}>
+                  <input
+                    type="radio"
+                    value="whatsapp"
+                    name="contactMethod"
+                    checked={formData.contactMethod === 'whatsapp'}
+                    onChange={handleFormData}
+                  />
+                  <span className="option-icon">💬</span>
+                  <span className="option-text">WhatsApp</span>
+                </label>
+              </div>
+            </div>
+          {/* ///////////////////////////////////////////////////////////////////////////////////////// */}
+
             <button type="submit">Заказать</button>
           </form>
         ) : (

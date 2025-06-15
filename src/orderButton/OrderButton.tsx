@@ -3,21 +3,39 @@ import './orderButton.scss';
 import { useState } from 'react';
 import OrderForm from '../orderForm/OrderForm';
 
-const OrderButton = ({ popup = false }: { popup?: boolean }) => {
+interface OrderButtonProps {
+  popup?: boolean;
+  watchField?: boolean;
+  bouquetName?: string; // Добавляем необязательное имя букета
+  contextNameButton?: string;
+}
+
+
+const OrderButton = ({ popup = false, bouquetName, contextNameButton = 'Подобрать букет', watchField = false }: OrderButtonProps) => {
   const navigate = useNavigate();
   const location = useLocation(); // <--- Получаем текущий location
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  if (popup) {
+    if (popup) {
     return (
       <div>
-        {isPopupOpen && <OrderForm onClose={() => setIsPopupOpen(false)} />}
-        <button className="order-button" onClick={() => setIsPopupOpen(true)}>
-          Подобрать букет
+        {isPopupOpen && (
+          <OrderForm 
+            onClose={() => setIsPopupOpen(false)} 
+            bouquetName={bouquetName}
+            watchField={watchField}
+          />
+        )}
+        <button 
+          className="order-button" 
+          onClick={() => setIsPopupOpen(true)}
+        >
+          {contextNameButton}
         </button>
       </div>
     );
   }
+
 
   return (
     <button

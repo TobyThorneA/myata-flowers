@@ -1,0 +1,244 @@
+// FlowerSubscriptionLanding.scss
+@import "../../variables.scss";
+
+.subscription-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  font-family: var(--font-main);
+}
+
+.subscription-hero {
+  background: linear-gradient(135deg, #FF6F61 0%, #FF914D 100%);
+  border-radius: var(--radius);
+  padding: 60px 20px;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+}
+
+.benefits-section {
+  margin: 60px 0;
+  
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+}
+
+.benefit {
+  text-align: center;
+  background: white;
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  
+  .benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--color-icons);
+  }
+  
+  h3 {
+    color: #174142;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+  
+  p {
+    color: #67A799;
+    font-size: 1rem;
+  }
+}
+
+.plans-section {
+  margin: 80px 0;
+  
+  h2 {
+    text-align: center;
+    color: #174142;
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.plan-card {
+  background: white;
+  border: 2px solid #EAF6F3;
+  border-radius: var(--radius);
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &.selected {
+    border-color: var(--color-button-action);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  }
+  
+  h3 {
+    color: #174142;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .price {
+    color: var(--color-button-action);
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .discount {
+    color: #FF6F61;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    color: #67A799;
+    margin-bottom: 20px;
+    min-height: 60px;
+  }
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  text-align: left;
+  
+  li {
+    padding: 8px 0;
+    color: #174142;
+    
+    &::before {
+      content: "✓";
+      color: var(--color-button-action);
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  }
+}
+
+.bouquets-preview {
+  margin: 80px 0;
+  
+  h2 {
+    text-align: center;
+    color: #174142;
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+}
+
+.bouquets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.bouquet-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.bouquet-image {
+  height: 180px;
+  background: #EAF6F3;
+}
+
+.bouquet-info {
+  padding: 20px;
+  
+  h3 {
+    color: #174142;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  p {
+    color: #67A799;
+    font-size: 0.95rem;
+  }
+}
+
+.subscription-cta {
+  background: linear-gradient(to right, #8E44AD, #67A799);
+  border-radius: var(--radius);
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+  
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+}
+
+.cta-button {
+  background: white;
+  color: #174142;
+  border: none;
+  border-radius: var(--radius);
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Адаптивность
+@media (max-width: $bp-tablet) {
+  .subscription-hero {
+    padding: 40px 15px;
+    
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+  
+  .plans-grid,
+  .bouquets-grid {
+    grid-template-columns: 1fr;
+  }
+}

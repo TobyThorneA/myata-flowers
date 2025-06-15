@@ -77,7 +77,7 @@ export const bouquets: Bouquet[] = [
   "_id": "684729bc033f41de0158efce",
   "name": "Вечерний сад",
   "price": 6900,
-  "oldprice": 12000,
+  "oldprice": 8700,
   "size": "50×50 см",
   "description": "Пышное сочетание текстур и оттенков, где каждый элемент будто дышит. Воздушность, объем и природная гармония - как если бы летний вечер в цветущем саду застыл в ваших руках. Обрамленный дикой зеленью он заучит как свежая мелодия в дуэте роскоши и легкости💞",
   "images": [
@@ -571,4 +571,57 @@ export const bouquets: Bouquet[] = [
   ],
   "__v": 3
 }
+];
+
+
+export const freeDeliveryPromoBouquets = [
+  {
+  "_id": "68484c51033f41de0158effd",
+  "name": "Два сердца",
+  "price": 4200,
+  "oldprice": 5300,
+  "size": " 40х60 см",
+  "description": "Алые розы, горящие как страсть, в сочетании с облаком белой гортензии. Контраст энергичного и нежного создает гармонию вне времени.",
+  "images": [
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/6.5.1.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/6.5.2.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/6.5.3.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/6.5.4.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/photo_5339132184654638635_y.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/photo_5339132184654638638_y.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/два-сердца/photo_5339132184654638639_y (1).webp"
+  ],
+  "__v": 3
+  },
+  {
+  "_id": "68484bb3033f41de0158effb",
+  "name": "Мелодия",
+  "price": 5500,
+  "oldprice": 6900,
+  "size": " 45х50 см",
+  "description": "Белые кустовые розы, сплетенные в нежную симфонию. Каждый бутон - как тихая нота чистоты, а весь букет - гармоничный аккорд свежести и роскоши.",
+  "images": [
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F/photo_2025-06-15_16-02-30.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F/photo_2025-06-15_16-02-43.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F/photo_2025-06-15_16-02-48.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F/photo_2025-06-15_16-02-52.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/%D0%9C%D0%B5%D0%BB%D0%BE%D0%B4%D0%B8%D1%8F/photo_2025-06-15_16-02-56.webp"
+  ],
+  "__v": 3
+},
+{
+  "_id": "684729bc033f41de0158efce",
+  "name": "Вечерний сад",
+  "price": 6900,
+  "oldprice": 8700,
+  "size": "50×50 см",
+  "description": "Пышное сочетание текстур и оттенков, где каждый элемент будто дышит. Воздушность, объем и природная гармония - как если бы летний вечер в цветущем саду застыл в ваших руках. Обрамленный дикой зеленью он заучит как свежая мелодия в дуэте роскоши и легкости💞",
+  "images": [
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/вечерний-сад/6.6.1.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/вечерний-сад/6.6.2.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/вечерний-сад/6.6.3.webp",
+    "https://storage.yandexcloud.net/myata-bouquets/catalog/вечерний-сад/6.6.4.webp"
+  ],
+  "__v": 3
+},
 ];

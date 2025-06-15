@@ -18,6 +18,8 @@ interface BouquetModalProps {
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
+  const contextButtonName = 'Заказать букет';
+  const watchField = true;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -104,6 +106,10 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
               <strong>Размер:</strong> {bouquet.size}
             </div>
           )}
+
+          <div className="order-page-wrapper">
+            <OrderButton popup bouquetName={bouquet.name} contextNameButton={contextButtonName} watchField={watchField} />
+          </div>
           
           {bouquet.description && (
             <div className="modal-description">
@@ -112,7 +118,7 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
           )}
           
           <div className="modal-contacts">
-            <h3>Как заказать:</h3>
+            <h3>Связаться с нами:</h3>
             <div className="contact-methods">
               <a href="tel:+79656003600" className="contact-link phone">
                 Позвонить: +7 (965) 600-3-600
@@ -136,12 +142,7 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
             </div>
             
           </div>
-          
-          {/* <button className="order-button-modal">Заказать обратный звонок</button> */}
-          
-          <div className="order-page-wrapper">
-            <OrderButton/>
-          </div>
+
         </div>
       </div>
     </div>

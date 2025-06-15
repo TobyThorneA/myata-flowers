@@ -1,0 +1,576 @@
+      {/* Букеты по акции */}
+      <section className="promo-bouquets">
+        <h2>Выберите ваш букет</h2>
+        <p className="subtitle">Все букеты участвуют в акции с бесплатной доставкой</p>
+        
+        <div className="bouquets-grid">
+          {bouquetsPromo.map(bouquet => (
+            <div className="bouquet-card" key={bouquet._id}>
+              <div 
+              className="bouquet-image"
+              onClick={() => setViewingBouquet(bouquet)} // Открываем модалку
+              >
+                <div className="promo-badge">-20%</div>
+                <img src={bouquet.images[0]} alt={bouquet.name} />
+              </div>
+              <div className="bouquet-details">
+                <h3>{bouquet.name}</h3>
+                <p className="description">{bouquet.description?.slice(0, 50)}</p>
+                <div className="price-container">
+                  <span className="old-price">{bouquet.oldprice}₽</span>
+                  <span className="current-price">{bouquet.price}₽</span>
+                </div>
+                <div className="size">{bouquet.size}</div>
+                <button 
+                  className="select-button"
+                  onClick={() => handleSelect(bouquet)}
+                >
+                  Выбрать этот букет
+                </button>
+              </div>
+            </div>
+          ))}
+          {/* // 3. Добавьте модалку в рендер: */}
+          {viewingBouquet && (
+            <BouquetModal
+              bouquet={viewingBouquet}
+              onClose={() => setViewingBouquet(null)}
+            />
+          )}
+
+        </div>
+      </section>
+
+
+
+
+      старый scss
+
+      // PromoKazanDelivery.scss
+// @import "../../variables.scss";
+
+// .promo-page {
+//   max-width: var(--max-width);
+//   margin: 0 auto;
+//   padding: 0 20px 80px;
+//   font-family: var(--font-main);
+// }
+
+// .promo-header {
+//   background: linear-gradient(135deg, #67A799 0%, #EAF6F3 100%);
+//   border-radius: var(--radius);
+//   padding: 40px 20px;
+//   text-align: center;
+//   color: #174142;
+//   margin-bottom: 40px;
+//   position: relative;
+//   overflow: hidden;
+  
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-image: url('/promo-pattern.svg');
+//     background-size: cover;
+//     opacity: 0.1;
+//   }
+
+//   h1 {
+//     font-size: 2.5rem;
+//     margin-bottom: 20px;
+//     position: relative;
+//     z-index: 1;
+//   }
+  
+//   p {
+//     font-size: 1.2rem;
+//     max-width: 700px;
+//     margin: 0 auto 25px;
+//     position: relative;
+//     z-index: 1;
+//   }
+// }
+
+// .promo-badge {
+//   display: inline-block;
+//   background: #FF914D;
+//   color: white;
+//   padding: 8px 20px;
+//   border-radius: 30px;
+//   font-weight: bold;
+//   font-size: 1.1rem;
+//   position: relative;
+//   z-index: 1;
+// }
+
+// .promo-benefits {
+//   margin: 60px 0;
+  
+//   .benefits-grid {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+//     gap: 25px;
+//   }
+// }
+
+// .benefit-card {
+//   background: var(--color-accent);
+//   border-radius: var(--radius);
+//   padding: 30px 20px;
+//   text-align: center;
+//   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+//   transition: transform 0.3s ease;
+  
+//   &:hover {
+//     transform: translateY(-5px);
+//   }
+  
+//   .benefit-icon {
+//     font-size: 2.5rem;
+//     margin-bottom: 20px;
+//     color: var(--color-icons);
+//   }
+  
+//   h3 {
+//     color: #174142;
+//     margin-bottom: 10px;
+//     font-size: 1.3rem;
+//   }
+  
+//   p {
+//     color: #67A799;
+//     font-size: 1rem;
+//   }
+// }
+// //////////////////////////////////////////////////////////////////////////////
+// .promo-bouquets {
+//   margin: 60px 0;
+  
+//   h2 {
+//     text-align: center;
+//     color: #174142;
+//     font-size: 2rem;
+//     margin-bottom: 15px;
+//   }
+  
+//   .subtitle {
+//     text-align: center;
+//     color: #67A799;
+//     max-width: 600px;
+//     margin: 0 auto 40px;
+//     font-size: 1.1rem;
+//   }
+// }
+
+// .bouquets-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+//   gap: 30px;
+// }
+
+// .bouquet-card {
+//   background: white;
+//   border-radius: var(--radius);
+//   overflow: hidden;
+//   box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+//   transition: all 0.3s ease;
+  
+//   &:hover {
+//     transform: translateY(-10px);
+//     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+//   }
+// }
+
+// .bouquet-image {
+//   height: 380px;
+//   background-size: cover;
+//   background-position: center;
+//   position: relative;
+
+  
+//   &:hover img {
+//     transform: scale(1.03); // Более тонкий эффект увеличения
+//   }
+
+//   .promo-badge {
+//     position: absolute;
+//     top: 20px;
+//     right: 20px;
+//     background: #55A630;
+//     padding: 6px 15px;
+//     font-size: 1rem;
+//   }
+// }
+
+// .bouquet-details {
+//   padding-top: 100px;
+  
+//   h3 {
+//     color: #174142;
+//     font-size: 1.5rem;
+//     margin-bottom: 10px;
+//   }
+  
+//   .description {
+//     color: #67A799;
+//     margin-bottom: 15px;
+//     min-height: 60px;
+//   }
+// }
+
+// .price-container {
+//   display: flex;
+//   align-items: center;
+//   gap: 15px;
+//   margin: 15px 0;
+  
+//   .old-price {
+//     color: #A9A9A9;
+//     text-decoration: line-through;
+//     font-size: 1.1rem;
+//   }
+  
+//   .current-price {
+//     color: #55A630;
+//     font-weight: bold;
+//     font-size: 1.4rem;
+//   }
+// }
+
+// .parameters {
+//   list-style: none;
+//   padding: 0;
+//   margin: 20px 0;
+  
+//   li {
+//     padding: 5px 0;
+//     color: #174142;
+    
+//     &::before {
+//       content: "•";
+//       color: var(--color-icons);
+//       margin-right: 10px;
+//     }
+//   }
+// }
+// /////////////////////////////////////////////////////////////////////////
+// /// 
+// /// 
+
+//     .promo-bouquets {
+//   margin: 80px 0;
+//   padding: 0 20px;
+  
+//   .container {
+//     max-width: 1200px;
+//     margin: 0 auto;
+//   }
+  
+//   h2 {
+//     text-align: center;
+//     color: #174142;
+//     font-size: 2.5rem;
+//     margin-bottom: 15px;
+//     font-weight: 600;
+//   }
+  
+//   .subtitle {
+//     text-align: center;
+//     color: #67A799;
+//     max-width: 600px;
+//     margin: 0 auto 60px;
+//     font-size: 1.2rem;
+//     line-height: 1.6;
+//   }
+// }
+
+// .bouquets-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+//   gap: 40px;
+//   justify-items: center;
+//   padding: 0 20px;
+  
+//   @media (max-width: 768px) {
+//     grid-template-columns: minmax(300px, 400px);
+//     justify-content: center;
+//     gap: 30px;
+//     padding: 0;
+//   }
+// }
+
+// .bouquet-card {
+//   width: 100%;
+//   max-width: 380px;
+//   perspective: 1000px;
+  
+//   .card-inner {
+//     position: relative;
+//     width: 100%;
+//     height: 100%;
+//     transition: transform 0.6s;
+//     transform-style: preserve-3d;
+//     border-radius: 16px;
+//     overflow: hidden;
+//     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
+//     &:hover {
+//       transform: translateY(-5px) scale(1.02);
+//       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+//     }
+//   }
+// }
+
+// .bouquet-image {
+//   // height: 360px;
+//   // position: relative;
+//   // overflow: hidden;
+//   // cursor: pointer;
+  
+//   // img {
+//   //   width: 100%;
+//   //   height: 100%;
+//   //   object-fit: cover;
+//   //   transition: transform 0.5s ease;
+//   // }
+  
+//   // &:hover img {
+//   //   transform: scale(1.05);
+//   // }
+  
+//   // .promo-badge {
+//   //   position: absolute;
+//   //   top: 20px;
+//   //   right: 20px;
+//   //   background: linear-gradient(135deg, #55A630, #8BC34A);
+//   //   color: white;
+//   //   padding: 8px 18px;
+//   //   font-size: 1rem;
+//   //   font-weight: 600;
+//   //   border-radius: 20px;
+//   //   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+//   //   z-index: 2;
+//   // }
+
+//     height: 800px; // Увеличил высоту
+//   position: relative;
+//   overflow: hidden;
+//   border-radius: 12px 12px 0 0; // Закругленные углы только сверху
+  
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     object-position: center; // Гарантирует центрирование изображения
+//     transition: transform 0.5s ease;
+//   }
+  
+//   &:hover img {
+//     transform: scale(1.03); // Более тонкий эффект увеличения
+//   }
+  
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     height: 40%;
+//     background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+//     z-index: 1;
+//   }
+// }
+
+// .bouquet-details {
+//   padding: 25px;
+//   background: white;
+  
+//   h3 {
+//     color: #174142;
+//     font-size: 1.6rem;
+//     margin-bottom: 12px;
+//     font-weight: 600;
+//     line-height: 1.3;
+//   }
+  
+//   .description-wrapper {
+//     min-height: 72px;
+//     margin-bottom: 15px;
+    
+//     .description {
+//       color: #5E6D6D;
+//       font-size: 1rem;
+//       line-height: 1.5;
+//       margin: 0;
+//       display: -webkit-box;
+//       -webkit-line-clamp: 3;
+//       -webkit-box-orient: vertical;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//     }
+//   }
+  
+//   .size {
+//     color: #67A799;
+//     font-size: 0.9rem;
+//     margin-bottom: 20px;
+//     font-weight: 500;
+//   }
+// }
+
+// .price-container {
+//   display: flex;
+//   align-items: center;
+//   gap: 15px;
+//   margin: 15px 0;
+  
+//   .old-price {
+//     color: #A9A9A9;
+//     text-decoration: line-through;
+//     font-size: 1.2rem;
+//   }
+  
+//   .current-price {
+//     color: #55A630;
+//     font-weight: 700;
+//     font-size: 1.6rem;
+//   }
+// }
+
+// .select-button {
+//   width: 100%;
+//   padding: 14px;
+//   background: linear-gradient(135deg, #67A799, #174142);
+//   color: white;
+//   border: none;
+//   border-radius: 8px;
+//   font-size: 1.1rem;
+//   font-weight: 600;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   margin-top: 10px;
+  
+//   &:hover {
+//     background: linear-gradient(135deg, #174142, #67A799);
+//     transform: translateY(-2px);
+//     box-shadow: 0 5px 15px rgba(103, 167, 153, 0.3);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .bouquet-card {
+//     max-width: 100%;
+//   }
+  
+//   .bouquet-image {
+//     height: 300px;
+//   }
+  
+//   .bouquet-details {
+//     padding: 20px;
+//   }
+// }
+
+
+
+
+// // //////////////////////////////////////////////
+
+
+
+// .select-button {
+//   background: var(--color-button-action);
+//   color: var(--color-text-button);
+//   border: none;
+//   border-radius: var(--radius);
+//   padding: 14px 25px;
+//   font-size: 1.1rem;
+//   font-weight: 600;
+//   cursor: pointer;
+//   width: 100%;
+//   transition: background 0.3s ease;
+  
+//   &:hover {
+//     background: #3D7C22;
+//   }
+// }
+
+
+
+// // Адаптивность
+// @media (max-width: $bp-tablet) {
+//   .promo-header {
+//     padding: 30px 15px;
+    
+//     h1 {
+//       font-size: 2rem;
+//     }
+//   }
+  
+//   .bouquets-grid {
+//     grid-template-columns: 1fr;
+//   }
+  
+//   .benefits-grid {
+//     grid-template-columns: 1fr;
+//   }
+// }
+
+// // ........................
+
+
+.promo-cta {
+  background: linear-gradient(to right, #67A799, #8E44AD);
+  border-radius: var(--radius);
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+  margin-top: 60px;
+  
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+}
+
+.cta-button {
+  background: white;
+  color: #174142;
+  border: none;
+  border-radius: var(--radius);
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+}
+
+
+.bouquet-image {
+  height: 400px !important;
+}
+
+
+
+
+
+

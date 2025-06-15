@@ -54,7 +54,7 @@ function DeliveryDicoration() {
           </p>
           </li>
 
-          <li className="advantage">
+          {/* <li className="advantage">
             <svg 
             className="advantage__photo"   
             viewBox="0 0 24 24" 
@@ -72,7 +72,7 @@ function DeliveryDicoration() {
           <p className="advantage__text">
             Удобная доставка по Казани: при заказе от 4 000 ₽ бесплатно
           </p>
-          </li>
+          </li> */}
 
           <li className="advantage">
                         <svg 
