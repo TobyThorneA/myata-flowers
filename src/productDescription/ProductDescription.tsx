@@ -2,7 +2,7 @@ import './productDescription.scss'
 
 const ProductDescription = () => {
   return (
-    <div className='features'>
+    <div className='features-description'>
       <h2 className="features__title">Наш ассортимент</h2>
 
       <p className="features__text">Ищете идеальный подарок? В Myata Flowers мы создаём уникальные букеты из пионовидных роз, эквадорских и классических роз, хризантем, альстромерий и других свежих цветов с душой и заботой. Каждая композиция подарит радость вашим близким и создаст настроение праздника.</p>

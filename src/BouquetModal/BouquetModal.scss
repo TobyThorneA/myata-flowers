@@ -1,4 +1,11 @@
 @use "../variables.scss" as *;
+@use "sass:color";
+
+// потом засунуть в стили норм
+.order-page-wrapper button {
+  width: 100%;  /* растянуть кнопку по ширине контейнера */
+  height: 45px;
+}
 
 .modal-overlay {
   position: fixed;
@@ -203,7 +210,8 @@
   transition: background 0.3s;
   
   &:hover {
-    background: darken(#d4007a, 10%);
+    background: color.adjust(#d4007a, $lightness: -10%);
+
   }
 }
 

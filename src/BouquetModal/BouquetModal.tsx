@@ -1,50 +1,52 @@
 // BouquetModal.tsx
 import React, { useEffect } from 'react';
 import './bouquetModal.scss';
+import OrderButton from '../orderButton/OrderButton';
 
 interface BouquetModalProps {
-  bouquet: {
-    id: number;
+    bouquet: {
+    _id: string;
     name: string;
     price: number;
-    oldPrice: number;
-    photos: string[]; // Теперь массив фотографий
+    oldprice: number;
+    images: string[];
     description?: string;
     size?: string;
   };
   onClose: () => void;
 }
-const isModalOpen = true
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
-  document.body.style.overflow = 'hidden';
-      useEffect(() => {
-    if (isModalOpen) {
-      // Блокируем скролл при открытии
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Возвращаем скролл при закрытии
-      document.body.style.overflow = 'auto';
+  const contextButtonName = 'Заказать букет';
+  const watchField = true;
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if(e.key === 'Escape') {
+        onClose();
+      }
     }
 
-    // Очистка при размонтировании
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isModalOpen]);
-
-  if (!isModalOpen) return null;
+  }, [onClose]);
 
   const nextPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev === bouquet.photos.length - 1 ? 0 : prev + 1
+      prev === bouquet.images.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevPhoto = () => {
     setCurrentPhotoIndex((prev) => 
-      prev === 0 ? bouquet.photos.length - 1 : prev - 1
+      prev === 0 ? bouquet.images.length - 1 : prev - 1
     );
   };
 
@@ -55,29 +57,31 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
         
         <div className="modal-photo-section">
           <img 
-            src={bouquet.photos[currentPhotoIndex]} 
+            src={bouquet.images[currentPhotoIndex]} 
             alt={bouquet.name} 
             className="modal-photo"
+            loading="lazy"
           />
           
-          {bouquet.photos.length > 1 && (
+          {bouquet.images.length > 1 && (
             <div className="photo-navigation">
               <button className="nav-btn prev" onClick={prevPhoto}>&lt;</button>
               <div className="photo-counter">
-                {currentPhotoIndex + 1} / {bouquet.photos.length}
+                {currentPhotoIndex + 1} / {bouquet.images.length}
               </div>
               <button className="nav-btn next" onClick={nextPhoto}>&gt;</button>
             </div>
           )}
           
           <div className="photo-thumbnails">
-            {bouquet.photos.map((photo, index) => (
+            {bouquet.images.map((photo, index) => (
               <img
                 key={index}
                 src={photo}
                 alt={`Вариант ${index + 1}`}
                 className={`thumbnail ${index === currentPhotoIndex ? 'active' : ''}`}
                 onClick={() => setCurrentPhotoIndex(index)}
+                loading="lazy"
               />
             ))}
           </div>
@@ -87,9 +91,9 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
           <h2 className="modal-title">{bouquet.name}</h2>
           
           <div className="modal-prices">
-            {bouquet.oldPrice > 0 && (
+            {bouquet.oldprice > 0 && (
               <div className="modal-old-price">
-                {bouquet.oldPrice.toLocaleString('ru-RU')} ₽
+                {bouquet.oldprice.toLocaleString('ru-RU')} ₽
               </div>
             )}
             <div className="modal-price">
@@ -102,6 +106,10 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
               <strong>Размер:</strong> {bouquet.size}
             </div>
           )}
+
+          <div className="order-page-wrapper">
+            <OrderButton popup bouquetName={bouquet.name} contextNameButton={contextButtonName} watchField={watchField} />
+          </div>
           
           {bouquet.description && (
             <div className="modal-description">
@@ -110,7 +118,7 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
           )}
           
           <div className="modal-contacts">
-            <h3>Как заказать:</h3>
+            <h3>Связаться с нами:</h3>
             <div className="contact-methods">
               <a href="tel:+79656003600" className="contact-link phone">
                 Позвонить: +7 (965) 600-3-600
@@ -132,9 +140,9 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
                 Написать в Telegram
               </a>
             </div>
+            
           </div>
-          
-          {/* <button className="order-button-modal">Заказать обратный звонок</button> */}
+
         </div>
       </div>
     </div>
