@@ -6,6 +6,7 @@ import Avito from "../assets/avito.png"
 import OrderForm from "../orderForm/OrderForm"
 import { useEffect, useState } from "react"
 import OrderButton from "../orderButton/OrderButton"
+// import { Link } from "react-router-dom"
 
 const Header = () => {
 
@@ -23,6 +24,8 @@ const Header = () => {
   return (
     <header className='header'>
       {isOrderFormOpen && <OrderForm onClose={closeOrderForm}/>}
+                  {/* Основной враппер для содержимого */}
+            {/* <div className="header__wrapper"> */}
       <div className="header__left">
         <img 
           className="header__logo"
@@ -31,6 +34,8 @@ const Header = () => {
         />
         <span className="header__storeName">цветочная студия</span>
       </div>
+
+
       <div className="header__slogan-wrapper">
         <h1 className="header__slogan">
           Заказывайте цветы онлайн —
@@ -81,7 +86,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      
+      {/* </div> */}
     </header>
   )
 }

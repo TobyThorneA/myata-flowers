@@ -1,11 +1,12 @@
 @use "../variables.scss" as *;
 
-.features {
+.features-description {
   background: var(--color-primary);
   padding: 1rem 2rem;
   margin-top: 1rem;
   &__title {
     margin-bottom: 0.5rem;
+    list-style: none;
   }
   &__text {
     text-align: center;
@@ -16,7 +17,7 @@
     font-size: 14px;
     margin-bottom: 2rem;
   }
-  &__advantages {
+  &__advantages1 {
     list-style: none;
   }
   @media (max-width: 767px) and (orientation: landscape){
@@ -24,10 +25,10 @@
   }
   @media (min-width: $bp-tablet){
     margin-top: 1.5rem;
-    &__text {
+    &__text1 {
       font-size: 16px;
     }
-    &__itemes {
+    &__itemes1 {
       font-size: 16px;
     }
   }

@@ -131,13 +131,38 @@ const OrderForm = ({ onClose, bouquetName, watchField = false }: OrderFormProps 
     }))
   }
 
+
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    sendToTelegram(formData);
-    // ////////////////////////////////////////////
-    console.log('PostTelegram', formData)
-    setIsSubmitted(true);
-  };
+  e.preventDefault();
+  
+  // Отправляем цель ДО фактической отправки в Telegram
+  if (window.ym) {
+    // Для основной метрики
+    if (!window.location.pathname.includes('/promo')) {
+      window.ym(102322325, 'reachGoal', 'form_submit', {
+        bouquetName: formData.bouquetName
+        
+      });
+    }
+    // Для промо-метрики
+    else {
+      window.ym(102654832, 'reachGoal', 'promo_form_submit', {
+        bouquetName: formData.bouquetName
+      });
+    }
+  }
+
+  // Затем отправляем данные в Telegram
+  sendToTelegram(formData);
+  setIsSubmitted(true);
+};
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   sendToTelegram(formData);
+  //   // ////////////////////////////////////////////
+  //   console.log('PostTelegram', formData)
+  //   setIsSubmitted(true);
+  // };
 
 
 

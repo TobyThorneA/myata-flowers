@@ -16,6 +16,7 @@
     font-size: 13px;
     margin-bottom: 0.5rem;
   }
+  
   &__buttonAction {
     background: var(--color-button-action);
     width: 12rem;
@@ -190,3 +191,151 @@
   }
 
 }
+
+// @use "../variables.scss" as *;
+
+// .header {
+//   display: flex;
+//   flex-direction: column;
+//   background: var(--color-primary);
+//   padding: 1rem;
+  
+//   /* Основной враппер */
+//   &__wrapper {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 100%;
+//     max-width: var(--max-width);
+//     margin: 0 auto;
+    
+//     @media (min-width: $bp-tablet) {
+//       flex-direction: row;
+//       justify-content: space-between;
+//       flex-wrap: wrap;
+//     }
+//   }
+
+//   /* Левый блок с лого */
+//   &__left {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin-bottom: 1rem;
+    
+//     @media (min-width: $bp-tablet) {
+//       margin-bottom: 0;
+//       flex: 0 0 auto;
+//     }
+//   }
+
+//   &__logo {
+//     border-radius: 50%;
+//     width: 7rem;
+//     margin-bottom: 0.3rem;
+//   }
+  
+//   &__storeName {
+//     font-size: 13px;
+//     margin-bottom: 0.5rem;
+    
+//     @media (min-width: $bp-desktop) {
+//       font-size: 1rem;
+//     }
+//   }
+
+//   /* Блок с слоганом */
+//   &__slogan-wrapper {
+//     text-align: center;
+//     margin-bottom: 1rem;
+    
+//     @media (min-width: $bp-tablet) {
+//       flex: 1 1 auto;
+//       margin: 0 2rem;
+//       text-align: left;
+//     }
+    
+//     @media (min-width: $bp-desktop) {
+//       margin: 0 3rem;
+//     }
+//   }
+  
+//   &__slogan {
+//     display: none;
+    
+//     @media (min-width: $bp-tablet) {
+//       display: block;
+//       font-size: 1.2rem;
+//     }
+    
+//     @media (min-width: $bp-desktop) {
+//       font-size: 1.5rem;
+//     }
+//   }
+
+//   /* Контакты */
+//   &__contacts {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+    
+//     @media (min-width: $bp-tablet) {
+//       flex: 0 0 auto;
+//       align-items: flex-end;
+//     }
+//   }
+  
+//   &__contact-wrapper {
+//     text-align: center;
+    
+//     @media (min-width: $bp-tablet) {
+//       text-align: right;
+//     }
+//   }
+  
+//   &__messengrs-wrapper {
+//     list-style: none;
+//     margin: 0;
+//     padding: 0;
+//     display: flex;
+//     gap: 1.5rem;
+//     margin-top: 0.5rem;
+//   }
+  
+//   &__messenger {
+//     width: 2.5rem;
+    
+//     @media (min-width: $bp-desktop) {
+//       width: 3rem;
+//     }
+//   }
+
+//   /* Ландшафтный режим для мобилок */
+//   @media (max-width: 767px) and (orientation: landscape) {
+//     &__wrapper {
+//       flex-direction: row;
+//       flex-wrap: wrap;
+//       justify-content: center;
+//     }
+    
+//     &__left {
+//       margin-right: 1rem;
+//       margin-bottom: 0;
+//     }
+    
+//     &__slogan-wrapper {
+//       order: 1;
+//       width: 100%;
+//       margin: 0.5rem 0;
+//     }
+    
+//     &__slogan {
+//       display: block;
+//       font-size: 1.1rem;
+//     }
+    
+//     &__contacts {
+//       margin-left: auto;
+//     }
+//   }
+// }

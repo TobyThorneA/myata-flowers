@@ -1,44 +1,71 @@
 // PromoKazanDelivery.tsx
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import './PromoKazanDelivery.scss';
 import OrderForm from '../../orderForm/OrderForm';
 import { freeDeliveryPromoBouquets, type Bouquet } from '../../mocks/productsData';
 import BouquetModal from '../../bouquetModal/BouquetModal';
+import logo from "../../assets/logo.jpg"
+// import { useLocation } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const PromoKazanDelivery = () => {
-
-  // const bouquetsPromo = bouquets.slice(0,3);
   const [selectedBouquet, setSelectedBouquet] = useState<Bouquet | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  // const navigate = useNavigate();
-  
-  
+  const [viewingBouquet, setViewingBouquet] = useState<Bouquet | null>(null);
+
+  // Универсальная функция для отправки целей в промо-счетчик (102654832)
+  const sendPromoMetricaGoal = (goalName: string, params?: object) => {
+    if (typeof window !== 'undefined' && window.ym) {
+      try {
+        window.ym(102654832, 'reachGoal', goalName, params);
+        console.log(`[Промо-Метрика] Отправлено: ${goalName}`, params);
+      } catch (e) {
+        console.error('Ошибка отправки цели:', e);
+      }
+    } else {
+      console.warn('Метрика не загружена!');
+    }
+  };
+
+  // Обработчик клика по основной кнопке
   const handleCtaClick = () => {
-    // Можно выбрать первый букет из промо или оставить bouquetName как "Не указан"
-    // setSelectedBouquet(bouquetsPromo[0]); // или null, если не нужно выбирать букет
+    sendPromoMetricaGoal('promo_cta_click');
     setIsFormOpen(true);
   };
 
-  // Добавим состояние для просмотра букета
-const [viewingBouquet, setViewingBouquet] = useState<Bouquet | null>(null);
-
-
+  // Обработчик выбора букета
   const handleSelect = (bouquet: Bouquet) => {
+    sendPromoMetricaGoal('promo_bouquet_select', {
+      bouquetName: bouquet.name,
+      bouquetPrice: bouquet.price
+    });
     setSelectedBouquet(bouquet);
     setIsFormOpen(true);
+  };
+
+  // Обработчик просмотра букета
+  const handleViewBouquet = (bouquet: Bouquet) => {
+    sendPromoMetricaGoal('promo_bouquet_view', {
+      bouquetId: bouquet._id,
+      bouquetName: bouquet.name
+    });
+    setViewingBouquet(bouquet);
   };
 
   return (
     <div className="promo-page">
       {/* Шапка промо-лендинга */}
       <header className="promo-header">
+        <div className='promo-header__logo'>
+          <img src={logo} alt="логотип" />
+        </div>
         <div className="promo-header__content">
           <h1>Бесплатная доставка по Казани!</h1>
           <p>Выберите один из трех премиальных букетов со скидкой 20%</p>
           <div className="promo-badge">
-            <span>Акция действует до 30 июня</span>
+              <span>Акция действует до 30 июня</span>
           </div>
+          {/* <Link to={'/order'}> главная</Link> */}
         </div>
       </header>
 
@@ -75,7 +102,8 @@ const [viewingBouquet, setViewingBouquet] = useState<Bouquet | null>(null);
           <div className="card-inner">
             <div 
               className="bouquet-image"
-              onClick={() => setViewingBouquet(bouquet)}
+              onClick={() => handleViewBouquet(bouquet)}
+              // onClick={() => setViewingBouquet(bouquet)}
             >
               <div className="promo-badge">-20%</div>
               <img 
