@@ -1,0 +1,1 @@
+export const CONTACTS_METHODS_NAMES = ['call', 'telegram', 'whatsapp',] as const;

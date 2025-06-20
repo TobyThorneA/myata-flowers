@@ -1,8 +1,8 @@
 import './App.scss';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import MainPage from '../MainPage/MainPage';
-import BouquetPage from '../bouquetPage/BouquetPage';
-import OrderPage from '../orderPage/OrderPage';
+import MainPage from '@pages/MainPage/MainPage';
+import BouquetPage from '../pages/bouquetPage/BouquetPage';
+import OrderPage from '../pages/orderPage/OrderPage';
 import PromoKazanDelivery from '../actions/promoKazanDelivery/PromoKazanDelivery';
 import PersonalFloristLanding from '../actions/personalFloristLanding/PersonalFloristLanding';
 import FlowerSubscriptionLanding from '../actions/flowerSubscriptionLanding/FlowerSubscriptionLanding';

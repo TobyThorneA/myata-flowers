@@ -1,0 +1,75 @@
+@use "../../variables.scss" as *;
+
+.reviews {
+  background: var(--color-primary);
+  padding-bottom: 1rem ;
+  &__wrapper {
+    margin: 1rem 2rem 1rem 2rem;
+    position: relative; //Сделал для стрелок в десктопе
+  }
+  &__title {
+    padding: 0.5rem 0;
+  }
+  &__link-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  &__text{
+    font-size: 14px;
+  }
+  &__button {
+    border: 0.5px solid rgb(0, 0, 0);
+    background: var(--color-button-action);
+    color: var(--color-text-button);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    margin-top: 0.5rem;
+    font-weight: 700;
+  }
+  &__carusel {
+    overflow: hidden;
+    margin: 0 -2rem;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  &__container {
+    display: flex;
+    will-change: transform; // для производительности
+  }
+  &__slide {
+    position: relative;
+    flex: 0 0 80%; // ширина слайда
+    padding: 0 0.6rem;
+    box-sizing: border-box;
+  }
+  @media (max-width: 767px) and (orientation: landscape){
+    &__slide {
+      flex: 0 0 40%;
+    }
+  }
+  @media (min-width: $bp-tablet){
+    margin-top: 1.5rem;
+    &__slide {
+      flex: 0 0 40%; // ширина слайда
+    }
+      &__link-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  &__text{
+    font-size: 14px;
+  }
+  &__button {
+    width: 400px;
+  }
+  }
+  @media (min-width: $bp-desktop){
+    margin-top: 2rem;
+  }
+}

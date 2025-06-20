@@ -21,7 +21,19 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+        "baseUrl": "src", // 🔹 говорит TypeScript, что всё начинается из src/
+    "paths": {
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"],
+      "@store/*": ["store/*"],
+      "@orderForm/*": ["orderForm/*"],
+      "@helpers/*": ["helpers/*"],
+      "@constants/*": ["constants/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"], // если понадобится в будущем
+      "@pages/*": ["pages/*"], // если понадобится в будущем
+    }
   },
   "include": ["src"]
 }

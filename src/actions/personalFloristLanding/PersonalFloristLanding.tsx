@@ -2,7 +2,7 @@
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './PersonalFloristLanding.scss';
-import OrderForm from '../../orderForm/OrderForm';
+import OrderForm from '@components/orderForm/OrderForm';
 
 const PersonalFloristLanding = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);

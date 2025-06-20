@@ -1,7 +1,7 @@
 // FlowerSubscriptionLanding.tsx
 import { useState } from 'react';
 import './FlowerSubscriptionLanding.scss';
-import OrderForm from '../../orderForm/OrderForm';
+import OrderForm from '@components/orderForm/OrderForm';
 
 const FlowerSubscriptionLanding = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);

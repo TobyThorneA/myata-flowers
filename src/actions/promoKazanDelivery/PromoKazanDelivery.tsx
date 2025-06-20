@@ -1,9 +1,9 @@
 // PromoKazanDelivery.tsx
 import { useState } from 'react';
 import './PromoKazanDelivery.scss';
-import OrderForm from '../../orderForm/OrderForm';
+import OrderForm from '@components/orderForm/OrderForm';
 import { freeDeliveryPromoBouquets, type Bouquet } from '../../mocks/productsData';
-import BouquetModal from '../../bouquetModal/BouquetModal';
+import BouquetModal from '../../components/bouquetModal/BouquetModal';
 import logo from "../../assets/logo.jpg"
 // import { useLocation } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
@@ -172,7 +172,7 @@ const PromoKazanDelivery = () => {
         <OrderForm 
           onClose={() => setIsFormOpen(false)}
           bouquetName={selectedBouquet?.name || 'Не указан'}
-          watchField
+          // watchField
         />
       )}
     </div>
