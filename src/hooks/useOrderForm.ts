@@ -1,3 +1,5 @@
+// UserOrderForm
+
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/app/hook";
 import { type OrderState } from "../store/slices/orderSlice";
@@ -29,17 +31,11 @@ export const useOrderForm = (bouquetName?: string) => {
   // Отправка формы
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const goal = window.location.pathname.includes("/promo")
+      ? "promo_form_submit"
+      : "form_submit";
 
-    if (window.ym) {
-      const id = window.location.pathname.includes("/promo")
-        ? 102654832
-        : 102322325;
-      const goal = window.location.pathname.includes("/promo")
-        ? "promo_form_submit"
-        : "form_submit";
-
-      window.ym(id, "reachGoal", goal, { bouquetName: order.bouquetName });
-    }
+    window.ym?.(102322325, "reachGoal", goal, { bouquetName: order.bouquetName });
 
     sendToTelegram(order);
     setIsSubmitted(true);

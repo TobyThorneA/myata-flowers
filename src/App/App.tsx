@@ -16,36 +16,49 @@ declare global {
 }
 
 // Компонент для отслеживания основной метрики
-function TrackMainMetrica() {
+function TrackYandexMetrica() {
   const location = useLocation();
 
   useEffect(() => {
-    if (window.ym && !location.pathname.includes('/promo')) {
-      window.ym(102322325, 'hit', window.location.href, {
-        title: document.title,
-        referer: document.referrer
-      });
-    }
+    window.ym?.(102322325, 'hit', window.location.href, {
+      title: document.title,
+      referer: document.referrer,
+    });
   }, [location.pathname]);
 
   return null;
 }
+
+// function TrackMainMetrica() {
+//   const location = useLocation();
+
+//   useEffect(() => {
+//     if (window.ym && !location.pathname.includes('/promo')) {
+//       window.ym(102322325, 'hit', window.location.href, {
+//         title: document.title,
+//         referer: document.referrer
+//       });
+//     }
+//   }, [location.pathname]);
+
+//   return null;
+// }
 
 // Компонент для отслеживания промо-метрики
-function TrackPromoMetrica() {
-  const location = useLocation();
+// function TrackPromoMetrica() {
+//   const location = useLocation();
 
-  useEffect(() => {
-    if (window.ym && location.pathname.includes('/promo')) {
-      window.ym(102654832, 'hit', window.location.href, {
-        title: document.title,
-        referer: document.referrer
-      });
-    }
-  }, [location.pathname]);
+//   useEffect(() => {
+//     if (window.ym && location.pathname.includes('/promo')) {
+//       window.ym(102654832, 'hit', window.location.href, {
+//         title: document.title,
+//         referer: document.referrer
+//       });
+//     }
+//   }, [location.pathname]);
 
-  return null;
-}
+//   return null;
+// }
 
 const App = () => {
   const location = useLocation();
@@ -54,8 +67,8 @@ const App = () => {
 
   return (
     <div className="container">
-      <TrackMainMetrica />
-      <TrackPromoMetrica />
+      <TrackYandexMetrica />
+      {/* <TrackPromoMetrica /> */}
       
       {/* Основные маршруты */}
       <Routes location={backgroundLocation || location}>
