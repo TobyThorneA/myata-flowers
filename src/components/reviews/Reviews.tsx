@@ -13,7 +13,7 @@ const Reviwes = () => {
   const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className="reviews">
+    <div className="reviews" id="reviews">
       <div className="reviews__wrapper">
         <h2 className="reviews__title">Отзывы</h2>
         <div className="reviews__link-wrapper">

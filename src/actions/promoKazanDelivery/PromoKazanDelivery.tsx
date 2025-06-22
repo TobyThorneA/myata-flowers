@@ -57,7 +57,7 @@ const PromoKazanDelivery = () => {
           <h2>Выберите ваш букет</h2>
           <p className="subtitle">Букеты которые участвуют в акции с бесплатной доставкой</p>
 
-          <div className="bouquets-grid">
+          <div className="bouquets-grid" id='catalog'>
             {freeDeliveryPromoBouquets.map(bouquet => (
               <div className="bouquet-card" key={bouquet._id}>
                 <div className="card-inner">

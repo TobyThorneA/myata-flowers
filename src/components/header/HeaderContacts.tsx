@@ -6,16 +6,15 @@ import Avito from "../../assets/avito.png";
 const HeaderContacts = () => {
   const handleClickContacts = (label: string) => {
     const goal = label.toLowerCase(); // "telegram", "whatsapp", "avito"
-    const isPromo = window.location.pathname.includes("/promo");
-    const goalName = isPromo ? `promo_click_${goal}` : `click_${goal}`;
-    window.ym?.(102322325, "reachGoal", goalName);
+    window.ym?.(102322325, "reachGoal", `click_${goal}`);
+    console.log('click: ', goal)
   };
 
   const handleClickPhone = () => {
-    const isPromo = window.location.pathname.includes("/promo");
-    const goalName = isPromo ? "promo_click_phone" : "click_phone";
-    window.ym?.(102322325, "reachGoal", goalName);
+    window.ym?.(102322325, "reachGoal", "click_phone");
+    console.log('click_phone')
   };
+
 
   return (
     <div className="header__contacts">

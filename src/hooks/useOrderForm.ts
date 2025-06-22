@@ -31,11 +31,10 @@ export const useOrderForm = (bouquetName?: string) => {
   // Отправка формы
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const goal = window.location.pathname.includes("/promo")
-      ? "promo_form_submit"
-      : "form_submit";
 
-    window.ym?.(102322325, "reachGoal", goal, { bouquetName: order.bouquetName });
+    window.ym?.(102322325, "reachGoal", "form_submit", {
+      bouquetName: order.bouquetName,
+    });
 
     sendToTelegram(order);
     setIsSubmitted(true);

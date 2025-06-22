@@ -29,37 +29,6 @@ function TrackYandexMetrica() {
   return null;
 }
 
-// function TrackMainMetrica() {
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     if (window.ym && !location.pathname.includes('/promo')) {
-//       window.ym(102322325, 'hit', window.location.href, {
-//         title: document.title,
-//         referer: document.referrer
-//       });
-//     }
-//   }, [location.pathname]);
-
-//   return null;
-// }
-
-// Компонент для отслеживания промо-метрики
-// function TrackPromoMetrica() {
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     if (window.ym && location.pathname.includes('/promo')) {
-//       window.ym(102654832, 'hit', window.location.href, {
-//         title: document.title,
-//         referer: document.referrer
-//       });
-//     }
-//   }, [location.pathname]);
-
-//   return null;
-// }
-
 const App = () => {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
