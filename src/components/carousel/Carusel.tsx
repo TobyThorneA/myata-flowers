@@ -1,17 +1,22 @@
 import "./carusel.scss";
 import useEmblaCarousel from 'embla-carousel-react';
 import CaruselArrows from "../caruselArrows/CaruselArrows";
-import { bouquets, type Bouquet } from "../../mocks/productsData";
+import { type Bouquet } from "../../mocks/productsData";
 import { useState } from "react";
 import BouquetModal from "../bouquetModal/BouquetModal";
 import OrderForm from "../orderForm/OrderForm";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppSelector } from "@store/app/hook";
 
 const Carusel = () => {
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true });
   const [viewingBouquet, setViewingBouquet] = useState<Bouquet | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedBouquet, setSelectedBouquet] = useState<Bouquet | null>(null);
+  const bouquets = useAppSelector(state => state.bouquets.items);
+
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,6 +48,18 @@ const Carusel = () => {
       <h2 className="carusel__title">Наши букеты</h2>
 
       <div className="carusel__wrapper" ref={emblaRef}>
+      {bouquets.length === 0 && (
+  <p style={{ textAlign: "center", color: "red" }}>
+    Букеты не загружены или произошла ошибка
+  </p>
+)}
+
+
+
+
+
+
+
         <div className="carusel__bouquets" id="catalog">
           {bouquets.map((bouquet) => (
             <div className="bouquet-card" key={bouquet._id}>

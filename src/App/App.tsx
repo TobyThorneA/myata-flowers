@@ -7,6 +7,9 @@ import PromoKazanDelivery from '../actions/promoKazanDelivery/PromoKazanDelivery
 import PersonalFloristLanding from '../actions/personalFloristLanding/PersonalFloristLanding';
 import FlowerSubscriptionLanding from '../actions/flowerSubscriptionLanding/FlowerSubscriptionLanding';
 import { useEffect } from 'react';
+import { useAppDispatch } from '@store/app/hook';
+import { fetchBouquets } from '@store/slices/bouquetsSlice';
+import CatalogPage from '@pages/catalogPage/catalogPage';
 
 declare global {
   interface Window {
@@ -33,6 +36,11 @@ const App = () => {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const backgroundLocation = state?.backgroundLocation;
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+  dispatch(fetchBouquets());
+}, [dispatch]);
 
   return (
     <div className="container">
@@ -46,6 +54,7 @@ const App = () => {
         <Route path="/store/:bouquetId" element={<BouquetPage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/promo" element={<PromoKazanDelivery />} />
+        <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/personalFlorist" element={<PersonalFloristLanding />} />
         <Route path="/FlowerSubscription" element={<FlowerSubscriptionLanding />} />
       </Routes>

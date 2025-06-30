@@ -50,9 +50,9 @@
   &__name-wrapper {
     text-align: center;
   }
-  &__name {
-    // padding-left: 0.5rem;
-  }
+  // &__name {
+  //   // padding-left: 0.5rem;
+  // }
   @media (max-width: 767px) and (orientation: landscape){
     flex: 0 0 40%;
     &__photo {
@@ -73,6 +73,7 @@
   @media (min-width: $bp-desktop){
 
   }
-}:hover {
-  // border: 4px solid yellow;
 }
+// :hover {
+//   // border: 4px solid yellow;
+// }

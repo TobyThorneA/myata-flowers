@@ -1,7 +1,7 @@
 // BouquetPage
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { bouquets } from "../../mocks/productsData";
 import BouquetModal from "../../components/bouquetModal/BouquetModal";
+import { useAppSelector } from "@store/app/hook";
 
 interface LocationState {
   backgroundLocation?: { pathname: string };
@@ -11,6 +11,8 @@ const BouquetModalPage = () => {
   const { bouquetId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const bouquets = useAppSelector(state => state.bouquets.items)
+  console.log('BouquetPage',bouquets)
   const bouquet = bouquets.find(b => b._id === bouquetId);
   const backgroundLocation = (location.state as LocationState)?.backgroundLocation;
 
