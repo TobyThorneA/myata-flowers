@@ -29,7 +29,20 @@
     display: flex;
     gap: 1.5rem;
     padding-bottom: 1rem;
+    display: flex;
+    gap: 12px;
+    padding: 0 8px;
   }
+
+  &__slide {
+  flex: 0 0 80%;
+  max-width: 80%;
+  
+  @media (min-width: 768px) {
+    flex: 0 0 260px;
+    max-width: 260px;
+  }
+}
 
   // Стили карточек в карусели
   .bouquet-card {

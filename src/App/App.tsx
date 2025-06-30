@@ -3,13 +3,15 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import MainPage from '@pages/MainPage/MainPage';
 import BouquetPage from '../pages/bouquetPage/BouquetPage';
 import OrderPage from '../pages/orderPage/OrderPage';
-import PromoKazanDelivery from '../actions/promoKazanDelivery/PromoKazanDelivery';
-import PersonalFloristLanding from '../actions/personalFloristLanding/PersonalFloristLanding';
-import FlowerSubscriptionLanding from '../actions/flowerSubscriptionLanding/FlowerSubscriptionLanding';
+import PromoKazanDelivery from '../components/promoKazanDelivery/PromoKazanDelivery';
+// import PersonalFloristLanding from '../actions/personalFloristLanding/PersonalFloristLanding';
+// import FlowerSubscriptionLanding from '../actions/flowerSubscriptionLanding/FlowerSubscriptionLanding';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@store/app/hook';
 import { fetchBouquets } from '@store/slices/bouquetsSlice';
 import CatalogPage from '@pages/catalogPage/catalogPage';
+import NavBar from '@components/NavBar/NavBar';
+import AdminPanel from '@components/adminPanel/AdminPanel';
 
 declare global {
   interface Window {
@@ -46,7 +48,7 @@ const App = () => {
     <div className="container">
       <TrackYandexMetrica />
       {/* <TrackPromoMetrica /> */}
-      
+      <NavBar />
       {/* Основные маршруты */}
       <Routes location={backgroundLocation || location}>
         <Route path="/" element={<MainPage />} />
@@ -55,8 +57,9 @@ const App = () => {
         <Route path="/order" element={<OrderPage />} />
         <Route path="/promo" element={<PromoKazanDelivery />} />
         <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/personalFlorist" element={<PersonalFloristLanding />} />
-        <Route path="/FlowerSubscription" element={<FlowerSubscriptionLanding />} />
+        <Route path="/1" element={<AdminPanel />} />
+        {/* <Route path="/personalFlorist" element={<PersonalFloristLanding />} /> */}
+        {/* <Route path="/FlowerSubscription" element={<FlowerSubscriptionLanding />} /> */}
       </Routes>
 
       {/* Модалки */}

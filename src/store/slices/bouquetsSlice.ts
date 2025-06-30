@@ -80,6 +80,9 @@ const bouquetSlice = createSlice({
 
       // При успешном добавлении — добавить букет в начало массива
       .addCase(addBouquet.fulfilled, (state, action) => {
+        // Удаляем временный букет с temp_ id
+        state.items = state.items.filter(b => !b._id.startsWith("temp_"));
+        // Добавляем букет с серверным id
         state.items.unshift(action.payload); // unshift добавляет элемент в начало массива
       })
 

@@ -1,4 +1,4 @@
-import Catalog from "@components/catalogComponent/catalog"
+import Catalog from "@components/catalog/catalog"
 
 function CatalogPage() {
   return (

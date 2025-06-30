@@ -1,4 +1,5 @@
 // BouquetModal.tsx
+import ReactDOM from "react-dom";
 import React, { useEffect } from 'react';
 import './bouquetModal.scss';
 import OrderButton from '../orderButton/OrderButton';
@@ -15,6 +16,8 @@ interface BouquetModalProps {
   };
   onClose: () => void;
 }
+
+const modalRoot = document.getElementById("modal-root")!;
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
@@ -50,7 +53,7 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
     );
   };
 
-  return (
+  return ReactDOM.createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>X</button>
@@ -145,7 +148,8 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
 
         </div>
       </div>
-    </div>
+    </div>,
+    modalRoot
   );
 };
 

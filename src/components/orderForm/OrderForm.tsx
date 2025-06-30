@@ -1,4 +1,5 @@
 // orderForm
+import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import "./popup.scss";
 import { useAppDispatch } from "../../store/app/hook";
@@ -16,11 +17,15 @@ interface OrderFormProps {
   hideExtraFields?: boolean;
 }
 
+const modalRoot = document.getElementById("modal-root")!;
+
 const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormProps ) => {
 
   const { isSubmitted, handleFormData, handleSubmit } = useOrderForm(bouquetName);
 
   const dispatch = useAppDispatch();
+
+
 
     // Добавляем эффект для обновления bouquetName при изменении пропса
   useEffect(() => {
@@ -47,7 +52,7 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
     };
   }, [onClose]);
 
-  return (
+  return ReactDOM.createPortal(
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup" onClick={(e) => e.stopPropagation()}>
         <button className="popup__close" onClick={onClose}>×</button>
@@ -65,7 +70,8 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
           />
         )}
       </div>
-    </div>
+    </div>,
+    modalRoot
   );
 };
 
