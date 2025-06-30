@@ -151,6 +151,7 @@ const AdminPanel = () => {
   // Сохранение букета: добавление или обновление
   const handleSave = (bouquetToSave: Bouquet) => {
     if (bouquetToSave._id.startsWith("temp_")) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _id, __v, ...dataToCreate } = bouquetToSave;
       dispatch(addBouquet(dataToCreate))
         .unwrap()
