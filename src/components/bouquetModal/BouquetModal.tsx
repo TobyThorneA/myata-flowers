@@ -1,11 +1,166 @@
-// BouquetModal.tsx
+// // BouquetModal.tsx
+// import ReactDOM from "react-dom";
+// import React, { useEffect } from 'react';
+// import './bouquetModal.scss';
+// import OrderButton from '../orderButton/OrderButton';
+
+// interface BouquetModalProps {
+//     bouquet: {
+//     _id: string;
+//     name: string;
+//     price: number;
+//     oldprice: number;
+//     images: string[];
+//     description?: string;
+//     size?: string;
+//   };
+//   onClose: () => void;
+// }
+
+// const modalRoot = document.getElementById("modal-root")!;
+
+// const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
+//   const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
+//   const contextButtonName = 'Заказать букет';
+//   const watchField = true;
+
+//   useEffect(() => {
+//     document.body.style.overflow = 'hidden';
+
+//     const handleKeyDown = (e: KeyboardEvent) => {
+//       if(e.key === 'Escape') {
+//         onClose();
+//       }
+//     }
+
+//     window.addEventListener('keydown', handleKeyDown)
+
+//     return () => {
+//       document.body.style.overflow = 'auto';
+//       window.removeEventListener('keydown', handleKeyDown);
+//     };
+//   }, [onClose]);
+
+//   const nextPhoto = () => {
+//     setCurrentPhotoIndex((prev) => 
+//       prev === bouquet.images.length - 1 ? 0 : prev + 1
+//     );
+//   };
+
+//   const prevPhoto = () => {
+//     setCurrentPhotoIndex((prev) => 
+//       prev === 0 ? bouquet.images.length - 1 : prev - 1
+//     );
+//   };
+
+//   return ReactDOM.createPortal(
+//     <div className="modal-overlay" onClick={onClose}>
+//       <div className="modal-content" onClick={e => e.stopPropagation()}>
+//         <button className="modal-close" onClick={onClose}>X</button>
+        
+//         <div className="modal-photo-section">
+//           <img 
+//             src={bouquet.images[currentPhotoIndex]} 
+//             alt={bouquet.name} 
+//             className="modal-photo"
+//             loading="lazy"
+//           />
+          
+//           {bouquet.images.length > 1 && (
+//             <div className="photo-navigation">
+//               <button className="nav-btn prev" onClick={prevPhoto}>&lt;</button>
+//               <div className="photo-counter">
+//                 {currentPhotoIndex + 1} / {bouquet.images.length}
+//               </div>
+//               <button className="nav-btn next" onClick={nextPhoto}>&gt;</button>
+//             </div>
+//           )}
+          
+//           <div className="photo-thumbnails">
+//             {bouquet.images.map((photo, index) => (
+//               <img
+//                 key={index}
+//                 src={photo}
+//                 alt={`Вариант ${index + 1}`}
+//                 className={`thumbnail ${index === currentPhotoIndex ? 'active' : ''}`}
+//                 onClick={() => setCurrentPhotoIndex(index)}
+//                 loading="lazy"
+//               />
+//             ))}
+//           </div>
+//         </div>
+        
+//         <div className="modal-info-section">
+//           <h2 className="modal-title">{bouquet.name}</h2>
+          
+//           <div className="modal-prices">
+//             {bouquet.oldprice > 0 && (
+//               <div className="modal-old-price">
+//                 {bouquet.oldprice.toLocaleString('ru-RU')} ₽
+//               </div>
+//             )}
+//             <div className="modal-price">
+//               {bouquet.price.toLocaleString('ru-RU')} ₽
+//             </div>
+//           </div>
+          
+//           {bouquet.size && (
+//             <div className="modal-size">
+//               <strong>Размер:</strong> {bouquet.size}
+//             </div>
+//           )}
+
+//           <div className="order-page-wrapper">
+//             <OrderButton popup bouquetName={bouquet.name} contextNameButton={contextButtonName} watchField={watchField} />
+//           </div>
+          
+//           {bouquet.description && (
+//             <div className="modal-description">
+//               <strong>Описание:</strong> {bouquet.description}
+//             </div>
+//           )}
+          
+//           <div className="modal-contacts">
+//             <h3>Связаться с нами:</h3>
+//             <div className="contact-methods">
+//               <a href="tel:+79656003600" className="contact-link phone">
+//                 Позвонить: +7 (965) 600-3-600
+//               </a>
+//               <a 
+//                 href="https://wa.me/79270387435" 
+//                 className="contact-link whatsapp"
+//                 target="_blank"
+//                 rel="noreferrer"
+//               >
+//                 Написать в WhatsApp
+//               </a>
+//               <a 
+//                 href="https://t.me/myata_flow" 
+//                 className="contact-link telegram"
+//                 target="_blank"
+//                 rel="noreferrer"
+//               >
+//                 Написать в Telegram
+//               </a>
+//             </div>
+            
+//           </div>
+
+//         </div>
+//       </div>
+//     </div>,
+//     modalRoot
+//   );
+// };
+
+// export default BouquetModal;
+
+import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import React, { useEffect } from 'react';
-import './bouquetModal.scss';
-import OrderButton from '../orderButton/OrderButton';
+import OrderButton from "../orderButton/OrderButton";
 
 interface BouquetModalProps {
-    bouquet: {
+  bouquet: {
     _id: string;
     name: string;
     price: number;
@@ -20,132 +175,261 @@ interface BouquetModalProps {
 const modalRoot = document.getElementById("modal-root")!;
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet, onClose }) => {
-  const [currentPhotoIndex, setCurrentPhotoIndex] = React.useState(0);
-  const contextButtonName = 'Заказать букет';
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  const contextButtonName = "Заказать букет";
   const watchField = true;
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if(e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
-    }
+    };
 
-    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = 'auto';
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === overlayRef.current) {
+      onClose();
+    }
+  };
+
   const nextPhoto = () => {
-    setCurrentPhotoIndex((prev) => 
+    setCurrentPhotoIndex((prev) =>
       prev === bouquet.images.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevPhoto = () => {
-    setCurrentPhotoIndex((prev) => 
+    setCurrentPhotoIndex((prev) =>
       prev === 0 ? bouquet.images.length - 1 : prev - 1
     );
   };
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>X</button>
-        
-        <div className="modal-photo-section">
-          <img 
-            src={bouquet.images[currentPhotoIndex]} 
-            alt={bouquet.name} 
-            className="modal-photo"
+    <div
+      ref={overlayRef}
+      onClick={handleOverlayClick}
+      className="
+        fixed inset-0 z-[1000] bg-black bg-opacity-70 backdrop-blur-sm
+        overflow-y-auto
+        p-4
+        flex justify-center items-start
+        md:items-center
+      "
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <div
+        className="
+          bg-colorPrimary rounded-2xl shadow-xl
+          w-full max-w-5xl
+          mt-8 md:mt-0
+          flex flex-col md:flex-row
+          overflow-visible
+        "
+        style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }}
+      >
+        {/* Кнопка закрытия */}
+        <button
+          onClick={onClose}
+          aria-label="Закрыть окно"
+          className="
+            absolute top-4 right-4 w-10 h-10 rounded-full
+            bg-color-icons text-white flex items-center justify-center
+            hover:bg-color-action transition-colors shadow-md z-10
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={3}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        {/* Фото-секция */}
+        <div
+          className="
+            flex-1 p-4 md:p-6
+            flex flex-col
+            min-w-[280px]
+          "
+        >
+          <img
+            src={bouquet.images[currentPhotoIndex]}
+            alt={bouquet.name}
             loading="lazy"
+            className="
+              rounded-xl object-cover w-full
+              shadow-lg
+              max-h-none
+            "
+            style={{ maxHeight: "none" }}
           />
-          
+
           {bouquet.images.length > 1 && (
-            <div className="photo-navigation">
-              <button className="nav-btn prev" onClick={prevPhoto}>&lt;</button>
-              <div className="photo-counter">
-                {currentPhotoIndex + 1} / {bouquet.images.length}
+            <>
+              <div className="flex justify-center items-center mt-4 gap-4 select-none">
+                <button
+                  onClick={prevPhoto}
+                  className="
+                    bg-color-icons text-white w-10 h-10 rounded-full
+                    flex items-center justify-center
+                    hover:bg-color-action transition-colors shadow
+                  "
+                  aria-label="Предыдущее фото"
+                >
+                  ‹
+                </button>
+
+                <div className="font-semibold text-color-text">
+                  {currentPhotoIndex + 1} / {bouquet.images.length}
+                </div>
+
+                <button
+                  onClick={nextPhoto}
+                  className="
+                    bg-color-icons text-white w-10 h-10 rounded-full
+                    flex items-center justify-center
+                    hover:bg-color-action transition-colors shadow
+                  "
+                  aria-label="Следующее фото"
+                >
+                  ›
+                </button>
               </div>
-              <button className="nav-btn next" onClick={nextPhoto}>&gt;</button>
-            </div>
+
+              <div
+                className="
+                  flex flex-wrap gap-3 mt-4 justify-center
+                  overflow-x-auto
+                  scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-color-icons
+                "
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {bouquet.images.map((photo, index) => (
+                  <img
+                    key={index}
+                    src={photo}
+                    alt={`Вариант ${index + 1}`}
+                    loading="lazy"
+                    onClick={() => setCurrentPhotoIndex(index)}
+                    className={`
+                      w-16 h-16 rounded-md object-cover cursor-pointer
+                      transition-shadow duration-200
+                      ${index === currentPhotoIndex
+                        ? "ring-4 ring-color-action"
+                        : "ring-0 hover:ring-2 hover:ring-color-icons"
+                      }
+                    `}
+                  />
+                ))}
+              </div>
+            </>
           )}
-          
-          <div className="photo-thumbnails">
-            {bouquet.images.map((photo, index) => (
-              <img
-                key={index}
-                src={photo}
-                alt={`Вариант ${index + 1}`}
-                className={`thumbnail ${index === currentPhotoIndex ? 'active' : ''}`}
-                onClick={() => setCurrentPhotoIndex(index)}
-                loading="lazy"
-              />
-            ))}
-          </div>
         </div>
-        
-        <div className="modal-info-section">
-          <h2 className="modal-title">{bouquet.name}</h2>
-          
-          <div className="modal-prices">
+
+        {/* Инфо-секция */}
+        <div
+          className="
+            flex-1 bg-[#f9f9f9] p-6
+            rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl
+            flex flex-col min-w-0
+          "
+        >
+          <h2
+            id="modal-title"
+            className="text-2xl md:text-3xl font-bold mb-4 text-color-text"
+          >
+            {bouquet.name}
+          </h2>
+
+          <div className="flex items-baseline gap-6 mb-6 flex-wrap">
             {bouquet.oldprice > 0 && (
-              <div className="modal-old-price">
-                {bouquet.oldprice.toLocaleString('ru-RU')} ₽
+              <div className="line-through text-gray-500 text-lg md:text-xl">
+                {bouquet.oldprice.toLocaleString("ru-RU")} ₽
               </div>
             )}
-            <div className="modal-price">
-              {bouquet.price.toLocaleString('ru-RU')} ₽
+            <div className="text-3xl md:text-4xl font-extrabold text-color-action">
+              {bouquet.price.toLocaleString("ru-RU")} ₽
             </div>
           </div>
-          
+
           {bouquet.size && (
-            <div className="modal-size">
+            <div className="mb-4 p-3 bg-white rounded-md shadow-sm text-color-text leading-relaxed">
               <strong>Размер:</strong> {bouquet.size}
             </div>
           )}
 
-          <div className="order-page-wrapper">
-            <OrderButton popup bouquetName={bouquet.name} contextNameButton={contextButtonName} watchField={watchField} />
+          <div className="mb-6 w-full">
+            <OrderButton
+              popup
+              bouquetName={bouquet.name}
+              contextNameButton={contextButtonName}
+              watchField={watchField}
+            />
           </div>
-          
+
           {bouquet.description && (
-            <div className="modal-description">
+            <div
+              id="modal-description"
+              className="mb-6 p-4 bg-white rounded-md shadow-sm text-color-text leading-relaxed"
+            >
               <strong>Описание:</strong> {bouquet.description}
             </div>
           )}
-          
-          <div className="modal-contacts">
-            <h3>Связаться с нами:</h3>
-            <div className="contact-methods">
-              <a href="tel:+79656003600" className="contact-link phone">
+
+          <div>
+            <h3 className="text-xl font-semibold mb-3 text-color-text">
+              Связаться с нами:
+            </h3>
+
+            <div className="flex flex-col gap-3">
+              <a
+                href="tel:+79656003600"
+                className="block px-4 py-3 rounded-md font-semibold text-white bg-[#4dd0af] hover:opacity-90 transition-opacity"
+              >
                 Позвонить: +7 (965) 600-3-600
               </a>
-              <a 
-                href="https://wa.me/79270387435" 
-                className="contact-link whatsapp"
+              <a
+                href="https://wa.me/79270387435"
                 target="_blank"
                 rel="noreferrer"
+                className="block px-4 py-3 rounded-md font-semibold text-white bg-[#29A71A] hover:opacity-90 transition-opacity"
               >
                 Написать в WhatsApp
               </a>
-              <a 
-                href="https://t.me/myata_flow" 
-                className="contact-link telegram"
+              <a
+                href="https://t.me/myata_flow"
                 target="_blank"
                 rel="noreferrer"
+                className="block px-4 py-3 rounded-md font-semibold text-white bg-[#0088cc] hover:opacity-90 transition-opacity"
               >
                 Написать в Telegram
               </a>
             </div>
-            
           </div>
-
         </div>
       </div>
     </div>,

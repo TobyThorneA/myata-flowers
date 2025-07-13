@@ -1,12 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import './orderButton.scss';
 import { useState } from 'react';
 import OrderForm from '@components/orderForm/OrderForm';
 
 interface OrderButtonProps {
   popup?: boolean;
   watchField?: boolean;
-  bouquetName?: string; // Добавляем необязательное имя букета
+  bouquetName?: string;
   contextNameButton?: string;
 }
 
@@ -21,7 +20,7 @@ const OrderButton = ({
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleClick = () => {
-    window.ym?.(102322325, 'reachGoal', 'click_order_button');
+    window.ym?.(102322325, 'click_order_button');
     if (popup) {
       setIsPopupOpen(true);
     } else {
@@ -39,12 +38,26 @@ const OrderButton = ({
         />
       )}
 
-      <button className="order-button" onClick={handleClick}>
+      <button
+        onClick={handleClick}
+        className="
+          w-full max-w-[500px] 
+          px-4 py-3 
+          text-white text-sm md:text-base font-semibold 
+          rounded-lg 
+          bg-gradient-to-br from-[#67A799] to-[#174142] 
+          transition-all duration-300 ease-in-out
+          hover:from-[#174142] hover:to-[#67A799]
+          hover:-translate-y-[2px]
+          hover:shadow-lg
+          active:translate-y-0
+        "
+      >
         {contextNameButton}
       </button>
     </>
   );
 };
 
-
 export default OrderButton;
+

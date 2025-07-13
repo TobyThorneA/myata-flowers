@@ -12,7 +12,6 @@ const BouquetModalPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const bouquets = useAppSelector(state => state.bouquets.items)
-  console.log('BouquetPage',bouquets)
   const bouquet = bouquets.find(b => b._id === bouquetId);
   const backgroundLocation = (location.state as LocationState)?.backgroundLocation;
 

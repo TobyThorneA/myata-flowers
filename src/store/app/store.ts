@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import orderReducer from '../slices/orderSlice';
-import bouquetsReducer from '../slices/bouquetsSlice'
+import bouquetsReducer from '../slices/bouquetsSlice';
+import favoriteReducer from '../slices/favoritesSlice';
 
 export const store = configureStore({
   reducer: {
     order: orderReducer,
     bouquets: bouquetsReducer,
+    favoriets: favoriteReducer,
   },
 });
 

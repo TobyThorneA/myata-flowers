@@ -1,0 +1,27 @@
+/*  ./tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-main text-color-text bg-colorBg;
+  }
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  a {
+    @apply no-underline text-inherit;
+  }
+
+  img {
+    @apply block max-w-full;
+  }
+
+  button {
+    @apply cursor-pointer bg-transparent border-none;
+    font: inherit;
+  }
+}

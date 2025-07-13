@@ -3,7 +3,7 @@ import Telegram from "../../assets/telegram.png";
 import WhatsApp from "../../assets/whatsapp.png";
 import Avito from "../../assets/avito.png";
 
-const HeaderContacts = () => {
+const Contacts = () => {
   const handleClickContacts = (label: string) => {
     const goal = label.toLowerCase(); // "telegram", "whatsapp", "avito"
     window.ym?.(102322325, "reachGoal", `click_${goal}`);
@@ -52,5 +52,5 @@ const HeaderContacts = () => {
   );
 };
 
-export default HeaderContacts;
+export default Contacts;
 
