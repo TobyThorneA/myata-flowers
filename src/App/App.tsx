@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import MainPage from '@pages/MainPage/MainPage';
-import BouquetPage from '@pages/bouquetPage/BouquetPage';
+// import BouquetPage from '@pages/bouquetPage/BouquetPage';
 import OrderPage from '@pages/orderPage/OrderPage';
 import CatalogPage from '@pages/catalogPage/catalogPage';
 import Header from '@components/Header/Header';
@@ -24,6 +24,7 @@ import { fetchBouquetsThunk } from '@store/slices/bouquetSlice';
 
 import PrivateRouteCustom from '@components/privateRouteCustom/privateRouteCustom';
 import DesctopMenu from '@components/Header/DesctopMenu';
+import BouquetModal from '@components/bouquetModal/BouquetModal';
 
 const App = () => {
   const location = useLocation();
@@ -32,6 +33,10 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   const isAdminRoute = location.pathname.startsWith('/admin/');
+
+  // backgroundLocation — если была программная навигация (navigate(...))
+  // Определяем, нужно ли рендерить модалку:
+  const isModal = backgroundLocation !== undefined || location.pathname.match(/\/(\w+\/)?\w{24}$/); //Проверка \w{24} — это ID букета из MongoDB.
 
   useEffect(() => {
     dispatch(fetchBouquetsThunk());
@@ -58,7 +63,8 @@ const App = () => {
   <Route path="/promo" element={<PromoPage />} />
 
   {/* Прямые ссылки на букеты (вне каталога) */}
-  <Route path="/bouquet/:bouquetId" element={<BouquetPage />} />
+  {/* <Route path="/bouquet/:bouquetId" element={<BouquetPage />} /> */}
+  <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
 
   {/* Главная страница — тут сделаем универсальный маршрут для модалки */}
   <Route path="/:bouquetId" element={<MainPage />} />
@@ -95,6 +101,44 @@ const App = () => {
   </Routes>
 )}
 
+{/* {isModal && (
+  <Routes>
+    <Route path="/catalog/:category/:bouquetId" element={<BouquetModal />} />
+    <Route path="/promo/:bouquetId" element={<BouquetModal />} />
+    <Route path="/favorites/:bouquetId" element={<BouquetModal />} />
+    <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
+    <Route path="/:bouquetId" element={<BouquetModal />} />
+  </Routes>
+)} */}
+
+{/* {isModal && (
+  <Routes>
+    <Route path="/catalog/:category/:bouquetId" element={<BouquetPage />} />
+    <Route path="/promo/:bouquetId" element={<BouquetPage />} />
+    <Route path="/favorites/:bouquetId" element={<BouquetPage />} />
+    <Route path="/bouquet/:bouquetId" element={<BouquetPage />} />
+    <Route path="/:bouquetId" element={<BouquetPage />} />
+  </Routes>
+)} */}
+
+{/* {isModal && (
+  <Routes>
+    <Route path="/catalog/:category/:id" element={<BouquetModal />} />
+    <Route path="/:id" element={<BouquetModal />} />
+    <Route path="/promo/:id" element={<BouquetModal />} />
+  </Routes>
+)} */}
+
+{isModal && (
+  <Routes >
+    <Route path="/catalog/:category/:id" element={<BouquetModal />} />
+    <Route path="/promo/:id" element={<BouquetModal />} />
+    <Route path="/favorites/:id" element={<BouquetModal />} />
+    <Route path="/bouquet/:id" element={<BouquetModal />} />  {/* вот сюда */}
+    <Route path="/:id" element={<BouquetModal />} />
+  </Routes>
+)}
+
 
       {!isAdminRoute && <Footer />}
     </div>
@@ -102,53 +146,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-      // <Routes location={backgroundLocation || location}>
-      //   <Route path="/" element={<MainPage />} />
-      //   <Route path="/store" element={<MainPage />} />
-      //   <Route path="/order" element={<OrderPage />} />
-
-      //   {/* Каталог */}
-      //   <Route path="/catalog" element={<CatalogPage />} />
-      //   {/* <Route path="/catalog/:bouquetId" element={<CatalogPage />} /> */}
-      //   <Route path="/catalog/:category" element={<CatalogPage />} />
-      //   <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
-
-      //   {/* Прямые ссылки на букеты (вне каталога) */}
-      //   <Route path="/bouquet/:bouquetId" element={<BouquetPage />} />
-
-      //   <Route path="/promo" element={<PromoPage />} />
-      //   <Route path="/favorites" element={<FavoritesPage />} />
-      //   <Route path="/about" element={<AboutUs />} />
-      //   <Route path="/contacts" element={<ContactPage />} />
-      //   <Route path="/delivery" element={<DeliveryMethodsPage />} />
-      //   <Route path="/payment" element={<PaymentPage />} />
-      //   <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-      //   <Route path="/warranty" element={<WarrantyPage />} />
-
-      //   {/* Админ */}
-      //   <Route path="/admin" element={<AdminLogin />} />
-      //   <Route
-      //     path="/admin/dashboard"
-      //     element={
-      //       <PrivateRouteCustom>
-      //         <>
-      //           <DesctopMenu />
-      //           <Dashboard />
-      //         </>
-      //       </PrivateRouteCustom>
-      //     }
-      //   />
-
-      //   <Route path="*" element={<NotFoundPage />} />
-      // </Routes>
-
-      // {/* Модальные маршруты — поверх */}
-      // {backgroundLocation && (
-      //   <Routes>
-      //     <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
-      //     {/* <Route path="/catalog/:bouquetId" element={<CatalogPage />} /> */}
-      //   </Routes>
-      // )}

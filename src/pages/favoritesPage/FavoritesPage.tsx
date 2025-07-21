@@ -82,7 +82,14 @@ const FavoritesPage = () => {
         bouquets={favoriteBouquets} 
         title={TITLE_NAME}
         shortDescription="Отличный выбор 👌"
-        onViewBouquet={(b) => navigate(`/favorites/${b._id}`, { state: { backgroundLocation: location } })}
+        onViewBouquet={
+          (b) => 
+            navigate(`/bouquet/${b._id}`, {
+            state: { backgroundLocation: location },
+          })
+        }
+
+        // onViewBouquet={(b) => navigate(`/favorites/${b._id}`, { state: { backgroundLocation: location } })}
         className={"px-4 my-20 md:mt-5"}
       />
       {/* Модалка при наличии избранных */}
