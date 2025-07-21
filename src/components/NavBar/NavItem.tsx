@@ -14,7 +14,7 @@ const NavItem = ({ to, label, Icon, badgeLength }: NavItemProps) => (
     to={to}
     className={({ isActive }) =>
       `relative flex flex-col items-center transition-all duration-300 ${
-        isActive ? 'text-color-text scale-105 translate-y-[-1px]' : 'text-color-text'
+        isActive ? 'text-color-text scale-125 translate-y-[-1px]' : 'text-color-text'
       }`
     }
   >

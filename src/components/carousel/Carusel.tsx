@@ -1,13 +1,26 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import CaruselArrows from '../caruselArrows/CaruselArrows'
-import { type Bouquet } from '../../mocks/productsData'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAppSelector } from '@store/app/hook'
+import { useAppDispatch, useAppSelector } from '@store/app/hook'
 import BouquetCardCompact from '@components/BouquetCardCompact/BouquetCardCompact'
+import type { IBouquet } from '@pages/admin/types'
+import { useEffect } from 'react'
+import { fetchBouquetsByCategoryThunk } from '@store/slices/bouquetSlice'
+import { selectBouquetsByCategory } from '@store/selectors/bouquetSelectors'
+// import { fetchBouquetsByCategoriesThunk } from '@store/slices/bouquetSlice'
+
+const CATEGORY_NAME = "Популярное"  // Название  категории для получения популярных букетов
 
 const Carusel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true })
-  const bouquets = useAppSelector((state) => state.bouquets.items)
+  const dispatch = useAppDispatch();
+  // const bouquets = useAppSelector((state) => state.bouquet.bouquetsByCategory[CATEGORY_NAME] || []);
+  const bouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME));
+
+      useEffect(() => {
+      dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME));
+      // dispatch(fetchBouquetsByCategoriesThunk([CATEGORY_NAME]));
+    }, [dispatch]);
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -15,7 +28,7 @@ const Carusel = () => {
   const scrollPrev = () => emblaApi?.scrollPrev()
   const scrollNext = () => emblaApi?.scrollNext()
 
-  const handleViewBouquet = (bouquet: Bouquet) => {
+  const handleViewBouquet = (bouquet: IBouquet) => {
     window.ym?.(102322325, 'reachGoal', 'bouquet_view', {
       bouquetId: bouquet._id,
       bouquetName: bouquet.name,
@@ -38,7 +51,7 @@ const Carusel = () => {
           {bouquets.map((bouquet) => (
             <div
               key={bouquet._id}
-              className="flex-shrink-0 w-[70%]  sm:w-[30%] md:w-[260px] lg:w-[320px] xl:w-[350px] transition-transform duration-300"
+              className="flex-shrink-0 w-[70%]  sm:w-[30%] md:w-[270px] transition-transform duration-300"
             >
               <BouquetCardCompact
                 bouquet={bouquet}

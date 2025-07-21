@@ -1,13 +1,13 @@
 // // components/BouquetCardCompact/BouquetCardCompact.tsx
 
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
-import { type Bouquet } from "../../mocks/productsData";
 import OrderButton from "@components/orderButton/OrderButton";
 import { toggleFavorite } from "@store/slices/favoritesSlice";
 import HeartFavorite from "@assets/HeartFavorite.svg?react"
+import type { IBouquet } from "@pages/admin/types";
 
 type Props = {
-  bouquet: Bouquet;
+  bouquet: IBouquet;
   onClick?: () => void;
   badge?: string;
 };
@@ -16,7 +16,8 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
   const dispatch = useAppDispatch();
   const favorietsIds = useAppSelector(state => state.favoriets.favoriteIds);
   const isFavorite = favorietsIds.includes(bouquet._id);
-
+  const oldPrice = bouquet.oldPrice ?? 0;
+ 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     dispatch(toggleFavorite(bouquet._id))
@@ -43,25 +44,33 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
       onClick={onClick}
     >
       <div className="relative overflow-hidden w-full aspect-square rounded-xl">
-        <div className="px-2 py-1 flex gap-3 rounded absolute top-0 right-0 text-white text-base font-bold whitespace-nowrap z-10">
-          {badge && <div className="shadow-lg bg-green-500 rounded-full">{badge}</div>}
+        <div className="w-full px-2 py-1 flex items-center justify-between absolute top-0 right-0 left-0 text-white text-base font-bold whitespace-nowrap z-10 bg-transparent">
+          {badge ? (
+            <div className="w-12 h-7 bg-green-500 rounded-full shadow-lg text-center flex items-center justify-center">
+              {badge}
+            </div>
+          ) : (
+            <div />  // Пустышка, чтобы сердечко осталась справа при отсутствии badge
+          )}
           <button
-            className=""
-            style={{ WebkitTapHighlightColor: "transparent" }}
             onClick={handleToggleFavorite}
+            style={{ WebkitTapHighlightColor: "transparent" }}
           >
-            <HeartFavorite className={
-              `w-10 h-10 transition-colors 
-              ${isFavorite 
-                ? "fill-red-500" 
-                : "fill-white"}`
-            } />
+            <HeartFavorite
+              className={`w-10 h-10 transition-colors ${
+                isFavorite ? "fill-red-500" : "fill-white"
+              }`}
+            />
           </button>
         </div>
+
+
+
         <img
           src={bouquet.images?.[0] ?? "/placeholder.jpg"}
           alt={bouquet.name}
           className="block w-full h-full object-cover"
+           loading="lazy"
         />
       </div>
 
@@ -97,9 +106,9 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
           <span className="text-base font-bold text-[#e91e63]">
             {bouquet.price} ₽
           </span>
-          {bouquet.oldprice > bouquet.price && (
+          {oldPrice > bouquet.price && (
             <span className="text-sm text-[#aaa] line-through">
-              {bouquet.oldprice} ₽
+              {bouquet.oldPrice} ₽
             </span>
           )}
         </div>

@@ -1,19 +1,21 @@
 // BouquetGrid.tsx
 
-import { type Bouquet } from "../../mocks/productsData";
+import type { IBouquet } from "@pages/admin/types";
 import BouquetCardCompact from "@components/BouquetCardCompact/BouquetCardCompact";
 
 type BouquetsGridProps = {
   title?: string;
-  bouquets: Bouquet[];
-  onViewBouquet: (b: Bouquet) => void | Promise<void>;
-  className: string
-  shortDescription: string
+  bouquets: IBouquet[];
+  onViewBouquet: (b: IBouquet) => void | Promise<void>;
+  className: string;
+  shortDescription: string;
+  showSeeMoreCard?: boolean;
+  onSeeMoreClick?: () => void
 };
 
-const BouquetsGrid = ({ title = "Каталог букетов", bouquets, onViewBouquet, className, shortDescription }: BouquetsGridProps) => {
+const BouquetsGrid = ({ title = "Каталог букетов", bouquets, onViewBouquet, className, shortDescription, showSeeMoreCard, onSeeMoreClick }: BouquetsGridProps) => {
 
-  const handleViewBouquet = (bouquet: Bouquet) => {
+  const handleViewBouquet = (bouquet: IBouquet) => {
     window.ym?.(102322325, "reachGoal", "bouquet_view", {
       bouquetId: bouquet._id,
       bouquetName: bouquet.name,
@@ -29,19 +31,45 @@ const BouquetsGrid = ({ title = "Каталог букетов", bouquets, onVie
 
       <div
         className="
-          grid grid-cols-2 gap-3 md:gap-4
+          grid grid-cols-2 gap-3 md:gap-4 md:mx-3
           sm:grid-cols-2 
           md:grid-cols-3 
           lg:grid-cols-4
         "
       >
-        {bouquets.map((bouquet) => (
-          <BouquetCardCompact
-            key={bouquet._id}
-            bouquet={bouquet}
-            onClick={() => handleViewBouquet(bouquet)}
-          />
-        ))}
+
+        {bouquets.map((bouquet, index) => {
+          const isLast = index === bouquets.length - 1;
+          const shouldShowCTA = showSeeMoreCard && isLast;
+
+          if (shouldShowCTA) {
+            return (
+              <div
+                key={bouquet._id}
+                className="md:w-[290px] relative cursor-pointer"
+                onClick={onSeeMoreClick}
+              >
+                <BouquetCardCompact
+                  bouquet={bouquet}
+                  onClick={() => handleViewBouquet(bouquet)}
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-lg">
+                  <span className="text-white text-lg font-semibold">Больше букетов</span>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div key={bouquet._id} className="md:w-[290px]">
+              <BouquetCardCompact
+                bouquet={bouquet}
+                onClick={() => handleViewBouquet(bouquet)}
+              />
+            </div>
+          );
+        })}
+
       </div>
     </div>
   );

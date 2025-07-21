@@ -1,27 +1,15 @@
 // // Header.tsx
 
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import logo from "../../assets/logo.jpg";
 import Contacts from "@components/Contacts/Contacts";
 import NavBar from "@components/NavBar/NavBar";
-import { useAppSelector } from "@store/app/hook";
-
-const MENU_ITEMS = [
-  { name: "Главная", path: "/" },
-  { name: "Каталог", path: "/catalog" },
-  { name: "Акции", path: "/promo" },
-  { name: "Избранное", path: "/favorites" },
-  { name: "Оплата", path: "/payment" },
-  { name: "Гарантии", path: "/warranty" },
-  { name: "Контакты", path: "/contacts" },
-  { name: "О нас", path: "/about" },
-];
+import DesctopMenu from "./DesctopMenu";
 
 const Header = () => {
   const [hideText, setHideText] = useState(false);
-  const favorietsLenth = useAppSelector(state => state.favoriets.favoriteIds.length)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,45 +79,7 @@ const Header = () => {
       </header>
       
       {/* Меню десктоп */}
-      <div className="hidden md:flex sticky top-0 z-40 bg-colorPrimary shadow-md  bg-colorPrimary/70 backdrop-blur-md">
-  <nav className="mx-auto w-full max-w-7xl px-4">
-    <ul className="flex justify-center gap-10 text-lg text-color-text font-medium py-4">
-      {MENU_ITEMS.map((item) => (
-        <li key={item.path}>
-          <NavLink
-            to={item.path}
-            className={({ isActive }) =>
-              clsx(
-                "relative pb-1 transition-colors duration-200 hover:text-color-icons",
-                isActive && "text-color-icons font-semibold"
-              )
-            }
-          >
-            {({ isActive }) => (
-              <>
-                {item.name}
-                {
-                  item.name 
-                  === 'Избранное' 
-                  && !!favorietsLenth 
-                  ? <div className="w-5 h-5 bg-red-500 absolute -right-6 top-0 rounded-full text-white text-sm text-center">
-                      {favorietsLenth}
-                    </div> 
-                  : ''}
-                {isActive && (
-                  <span
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-color-text rounded-full"
-                    aria-hidden="true"
-                  />
-                )}
-              </>
-            )}
-          </NavLink>
-        </li>
-      ))}
-    </ul>
-  </nav>
-      </div>
+      <DesctopMenu />     
     </>
   );
 };
