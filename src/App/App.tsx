@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import MainPage from '@pages/MainPage/MainPage';
-// import BouquetPage from '@pages/bouquetPage/BouquetPage';
 import OrderPage from '@pages/orderPage/OrderPage';
 import CatalogPage from '@pages/catalogPage/catalogPage';
 import Header from '@components/Header/Header';
@@ -36,7 +35,14 @@ const App = () => {
 
   // backgroundLocation — если была программная навигация (navigate(...))
   // Определяем, нужно ли рендерить модалку:
-  const isModal = backgroundLocation !== undefined || location.pathname.match(/\/(\w+\/)?\w{24}$/); //Проверка \w{24} — это ID букета из MongoDB.
+  // const isModal = backgroundLocation !== undefined || location.pathname.match(/\/(\w+\/)?\w{24}$/); //Проверка \w{24} — это ID букета из MongoDB.
+
+  // Паттерн для MongoDB ObjectId: 24 символа, hex
+  const bouquetIdPattern = /^[a-f0-9]{24}$/i;
+
+  const isModal = 
+    (backgroundLocation !== undefined && bouquetIdPattern.test(location.pathname.split('/').pop() ?? ''))
+    || bouquetIdPattern.test(location.pathname.split('/').pop() ?? '');
 
   useEffect(() => {
     dispatch(fetchBouquetsThunk());
@@ -63,7 +69,6 @@ const App = () => {
   <Route path="/promo" element={<PromoPage />} />
 
   {/* Прямые ссылки на букеты (вне каталога) */}
-  {/* <Route path="/bouquet/:bouquetId" element={<BouquetPage />} /> */}
   <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
 
   {/* Главная страница — тут сделаем универсальный маршрут для модалки */}
@@ -100,34 +105,6 @@ const App = () => {
     <Route path="/:bouquetId" element={<MainPage />} />
   </Routes>
 )}
-
-{/* {isModal && (
-  <Routes>
-    <Route path="/catalog/:category/:bouquetId" element={<BouquetModal />} />
-    <Route path="/promo/:bouquetId" element={<BouquetModal />} />
-    <Route path="/favorites/:bouquetId" element={<BouquetModal />} />
-    <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
-    <Route path="/:bouquetId" element={<BouquetModal />} />
-  </Routes>
-)} */}
-
-{/* {isModal && (
-  <Routes>
-    <Route path="/catalog/:category/:bouquetId" element={<BouquetPage />} />
-    <Route path="/promo/:bouquetId" element={<BouquetPage />} />
-    <Route path="/favorites/:bouquetId" element={<BouquetPage />} />
-    <Route path="/bouquet/:bouquetId" element={<BouquetPage />} />
-    <Route path="/:bouquetId" element={<BouquetPage />} />
-  </Routes>
-)} */}
-
-{/* {isModal && (
-  <Routes>
-    <Route path="/catalog/:category/:id" element={<BouquetModal />} />
-    <Route path="/:id" element={<BouquetModal />} />
-    <Route path="/promo/:id" element={<BouquetModal />} />
-  </Routes>
-)} */}
 
 {isModal && (
   <Routes >

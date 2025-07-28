@@ -27,3 +27,4 @@ dist-ssr
 *.php
 *.zip
 public/yandex_*.html
+scripts

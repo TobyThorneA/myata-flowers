@@ -1,3 +1,4 @@
+//carousel/Carusel.tsx
 import useEmblaCarousel from 'embla-carousel-react'
 import CaruselArrows from '../caruselArrows/CaruselArrows'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -7,23 +8,20 @@ import type { IBouquet } from '@pages/admin/types'
 import { useEffect } from 'react'
 import { fetchBouquetsByCategoryThunk } from '@store/slices/bouquetSlice'
 import { selectBouquetsByCategory } from '@store/selectors/bouquetSelectors'
-// import { fetchBouquetsByCategoriesThunk } from '@store/slices/bouquetSlice'
+import LastCard from '@components/lastCard/LastCard'
 
-const CATEGORY_NAME = "Популярное"  // Название  категории для получения популярных букетов
+const CATEGORY_NAME = "Популярное";
 
 const Carusel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true })
-  const dispatch = useAppDispatch();
-  // const bouquets = useAppSelector((state) => state.bouquet.bouquetsByCategory[CATEGORY_NAME] || []);
-  const bouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME));
-
-      useEffect(() => {
-      dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME));
-      // dispatch(fetchBouquetsByCategoriesThunk([CATEGORY_NAME]));
-    }, [dispatch]);
-
+  const dispatch = useAppDispatch()
+  const bouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME))
   const navigate = useNavigate()
   const location = useLocation()
+
+  useEffect(() => {
+    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME))
+  }, [dispatch])
 
   const scrollPrev = () => emblaApi?.scrollPrev()
   const scrollNext = () => emblaApi?.scrollNext()
@@ -44,14 +42,12 @@ const Carusel = () => {
         <div className="w-20 h-1 bg-color-action mx-auto mt-3 rounded-full" />
       </div>
 
-      {/* Убираем overflow-x-auto, вместо него overflow-hidden,
-          чтобы браузерный скролл не показывался */}
       <div className="overflow-hidden overflow-y-hidden no-scrollbar pt-3 pb-8 -mx-4 md:-mx-12" ref={emblaRef}>
         <div className="flex gap-4 px-4 md:px-12 pb-4">
           {bouquets.map((bouquet) => (
             <div
               key={bouquet._id}
-              className="flex-shrink-0 w-[70%]  sm:w-[30%] md:w-[270px] transition-transform duration-300"
+              className="flex-shrink-0 w-[70%] sm:w-[30%] md:w-[270px] transition-transform duration-300"
             >
               <BouquetCardCompact
                 bouquet={bouquet}
@@ -59,14 +55,17 @@ const Carusel = () => {
               />
             </div>
           ))}
+          <div className="flex-shrink-0 w-[70%] sm:w-[30%] md:w-[270px] transition-transform duration-300">
+            <LastCard nameNav={() => navigate('/catalog')}/>
+          </div>
         </div>
       </div>
-
       <CaruselArrows onPrev={scrollPrev} onNext={scrollNext} />
     </div>
   )
 }
 
 export default Carusel
+
 
 

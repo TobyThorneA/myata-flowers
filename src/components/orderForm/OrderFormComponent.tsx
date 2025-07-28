@@ -82,7 +82,7 @@ const OrderFormComponent = ({
           </div>
 
           {/* Чекбокс согласия */}
-          <label className="mt-4 flex items-start gap-2 text-[9px] md:text-base cursor-pointer select-none">
+          <label className="mt-4 grid grid-cols-[auto_1fr] gap-2 items-start text-[9px] md:text-base cursor-pointer max-w-full">
             <input
               type="checkbox"
               checked={consentChecked}
@@ -90,13 +90,13 @@ const OrderFormComponent = ({
               required
               className="mt-1"
             />
-            <span>
+            <span className="whitespace-normal break-words">
               Я даю согласие на обработку моих персональных данных (имя и телефон) в соответствии с{" "}
               <a
                 href="/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-color-action underline"
+                className="text-color-action underline break-words"
               >
                 политикой конфиденциальности
               </a>

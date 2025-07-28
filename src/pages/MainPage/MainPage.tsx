@@ -8,11 +8,9 @@ import Reviwes from "@components/reviews/Reviews";
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
 import { fetchBouquetsByCategoryThunk } from "@store/slices/bouquetSlice";
 import { useEffect } from "react";
-/////////////////////////////////
 import BouquetModal from '@components/bouquetModal/BouquetModal';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { createPortal } from 'react-dom';
-
 const MainPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,6 +26,7 @@ const MainPage = () => {
   const backgroundLocation = location.state?.backgroundLocation;
 
     const categories = [
+      { name: 'Розы', description: 'Классика, которая говорит о чувствах без слов — для особенных моментов 🌹' },
       { name: 'Хризантемы', description: 'Пышные и яркие — идеальный выбор, если нужно вау-эффект 🌼' },
       { name: 'Стойкие', description: 'Не подвянут через день — дарите с уверенностью 💪' },
       { name: 'Сезонные', description: 'Самые свежие цветы по лучшей цене — только в сезон 🍂🌸' },
@@ -49,17 +48,17 @@ const MainPage = () => {
           title={'Незнаете какой букет выбрать?'}
           CTA={'Оставьть заявку, мы свяжемся с вами в течении 10 минут и подберем тот букет который нужен именно Вам'}
         />
+
       {categories.map(bouquetCategory => (
         <BouquetsGrid 
           key={bouquetCategory.name}
           title={bouquetCategory.name}
-          bouquets={(bouquetsByCategory[bouquetCategory.name] || []).slice(0, 8)}
+          bouquets={(bouquetsByCategory[bouquetCategory.name] || []).slice(0, 9)}
           shortDescription={bouquetCategory.description}
           onViewBouquet={(b) => navigate(`/${b._id}`, { state: { backgroundLocation: location } })}
           className={"px-4 my-10 md:mt-0"}
           showSeeMoreCard={true}
           onSeeMoreClick={() => navigate(`/catalog/${encodeURIComponent(bouquetCategory.name)}`)}
-          // onSeeMoreClick={() => navigate(`/catalog/category/${encodeURIComponent(bouquetCategory.name)}`)}
         />
       ))}
       <ProductDescription />

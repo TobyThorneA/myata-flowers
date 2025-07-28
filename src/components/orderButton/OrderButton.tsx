@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, /* useLocation */} from 'react-router-dom';
 import { useState } from 'react';
 import OrderForm from '@components/orderForm/OrderForm';
 
@@ -16,7 +16,7 @@ const OrderButton = ({
   watchField = false
 }: OrderButtonProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleClick = () => {
@@ -24,7 +24,8 @@ const OrderButton = ({
     if (popup) {
       setIsPopupOpen(true);
     } else {
-      navigate('/order', { state: { backgroundLocation: location } });
+      navigate('/order');
+      // navigate('/order', { state: { backgroundLocation: location } });
     }
   };
 

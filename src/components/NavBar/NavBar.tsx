@@ -61,6 +61,7 @@ const NavBar = () => {
           fixed bottom-0 left-0 w-full h-[70px] z-50 md:hidden
           flex justify-center items-center
           transition-all duration-300 shadow-md
+          border-t-[0.1px] border-color-icons
           ${hideText ? "bg-colorPrimary/50 backdrop-blur-sm" : "bg-colorPrimary"}
         `}
       >
