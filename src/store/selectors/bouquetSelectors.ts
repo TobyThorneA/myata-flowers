@@ -8,6 +8,7 @@ export const selectBouquetsByCategory = createSelector(
   (bouquetState, category) => {
     if (!category) return bouquetState.items;
     const bouquetsByCategory = bouquetState.bouquetsByCategory[category];
+
     if (!bouquetsByCategory) return [];
     return bouquetsByCategory.filter(bouquet => bouquet.categories?.includes(category));
   }

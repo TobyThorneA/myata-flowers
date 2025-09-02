@@ -49,18 +49,27 @@ const MainPage = () => {
           CTA={'Оставьть заявку, мы свяжемся с вами в течении 10 минут и подберем тот букет который нужен именно Вам'}
         />
 
-      {categories.map(bouquetCategory => (
-        <BouquetsGrid 
-          key={bouquetCategory.name}
-          title={bouquetCategory.name}
-          bouquets={(bouquetsByCategory[bouquetCategory.name] || []).slice(0, 9)}
-          shortDescription={bouquetCategory.description}
-          onViewBouquet={(b) => navigate(`/${b._id}`, { state: { backgroundLocation: location } })}
-          className={"px-4 my-10 md:mt-0"}
-          showSeeMoreCard={true}
-          onSeeMoreClick={() => navigate(`/catalog/${encodeURIComponent(bouquetCategory.name)}`)}
-        />
-      ))}
+      {categories.map(bouquetCategory => {
+
+        const bouquetsInCategory = bouquetsByCategory[bouquetCategory.name] || [];
+
+        // sort
+        const sortedAsc = [...bouquetsInCategory].sort((a, b) => a.price - b.price)
+
+        return (
+          <BouquetsGrid 
+            key={bouquetCategory.name}
+            title={bouquetCategory.name}
+            bouquets={(sortedAsc || []).slice(0, 9)}
+            // bouquets={(bouquetsByCategory[bouquetCategory.name] || []).slice(0, 9)}
+            shortDescription={bouquetCategory.description}
+            onViewBouquet={(b) => navigate(`/${b._id}`, { state: { backgroundLocation: location } })}
+            className={"px-4 my-10 md:mt-0"}
+            showSeeMoreCard={true}
+            onSeeMoreClick={() => navigate(`/catalog/${encodeURIComponent(bouquetCategory.name)}`)}
+          />
+        )
+      })}
       <ProductDescription />
       <DeliveryDicoration />
       <Reviwes />

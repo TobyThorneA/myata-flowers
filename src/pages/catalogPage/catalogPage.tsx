@@ -20,10 +20,15 @@ const CatalogPage = () => {
   // Если нет категории - показываем все букеты
   const catalogBouquets = category && category !== 'all' ? (bouquetsByCategory[category] || []) : allBouquets || [];
 
+  // sort
+  const sortedAsc = [...catalogBouquets].sort((a, b) => a.price - b.price)
+
   // Защита от undefined и фильтр по категории
   const filteredBouquets = category && category !== 'all'
-    ? catalogBouquets.filter((b) => b.categories?.includes(category))
-    : catalogBouquets;
+    ? sortedAsc.filter((b) => b.categories?.includes(category))
+    : sortedAsc;
+    // ? catalogBouquets.filter((b) => b.categories?.includes(category))
+    // : catalogBouquets;
 
   const title = category ? `Каталог: ${category}` : "Каталог букетов";
   const shortDescription = category

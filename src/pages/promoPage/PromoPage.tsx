@@ -22,7 +22,8 @@ const PromoPage = () =>  {
   const location = useLocation();
   const dispatch = useAppDispatch();
 
-
+  // sort
+  const sortedAsc = [...promoBouquets].sort((a, b) => a.price - b.price)
   
   const { bouquetId } = useParams<{ bouquetId?: string }>();
   const bouquets = useAppSelector(state => state.bouquet.items);
@@ -44,7 +45,8 @@ const PromoPage = () =>  {
   return (
     <>
       <Promo 
-        bouquets={promoBouquets} 
+        bouquets={sortedAsc} 
+        // bouquets={promoBouquets} 
         title={TITLE_NAME}
         shortDescription="Приятные цены, скидки на доставку до 100% ✨"
         onViewBouquet={(b) => navigate(`/promo/${b._id}`, { state: { backgroundLocation: location } })}

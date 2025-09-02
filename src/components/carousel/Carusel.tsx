@@ -10,17 +10,32 @@ import { fetchBouquetsByCategoryThunk } from '@store/slices/bouquetSlice'
 import { selectBouquetsByCategory } from '@store/selectors/bouquetSelectors'
 import LastCard from '@components/lastCard/LastCard'
 
-const CATEGORY_NAME = "Популярное";
+const CATEGORY_NAME_POPULAR = "Популярное";
+const CATEGORY_NAME_SPEC = "september";
+// const CATEGORY_NAME_SPEC = "Спец";
 
 const Carusel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true })
   const dispatch = useAppDispatch()
-  const bouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME))
+  const popularBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_POPULAR))
+  const specBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_SPEC))
+
+  // конкатенация и удаление дубликатов
+  const bouquets = [
+    ...new Map(
+      [...popularBouquets, ...specBouquets].map(b => [b._id, b])
+    ).values()
+  ]
+
   const navigate = useNavigate()
   const location = useLocation()
 
+  // sort
+  const sortedAsc = [...bouquets].sort((a, b) => a.price - b.price);
+
   useEffect(() => {
-    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME))
+    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_POPULAR))
+    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_SPEC))
   }, [dispatch])
 
   const scrollPrev = () => emblaApi?.scrollPrev()
@@ -34,6 +49,8 @@ const Carusel = () => {
     navigate(`/${bouquet._id}`, { state: { backgroundLocation: location } })
   }
 
+
+
   return (
     <div className="relative px-4 mt-10 md:px-12 md:mt-5">
       <div className="text-center mb-6">
@@ -44,7 +61,8 @@ const Carusel = () => {
 
       <div className="overflow-hidden overflow-y-hidden no-scrollbar pt-3 pb-8 -mx-4 md:-mx-12" ref={emblaRef}>
         <div className="flex gap-4 px-4 md:px-12 pb-4">
-          {bouquets.map((bouquet) => (
+          {sortedAsc.map((bouquet) => (
+          // {bouquets.map((bouquet) => (
             <div
               key={bouquet._id}
               className="flex-shrink-0 w-[70%] sm:w-[30%] md:w-[270px] transition-transform duration-300"

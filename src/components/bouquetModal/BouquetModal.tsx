@@ -194,7 +194,7 @@ if (!bouquet || !bouquet.images || bouquet.images.length === 0) {
                 </button>
               </div>
 
-              <div className="flex flex-wrap gap-3 mt-4 justify-center overflow-x-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-color-icons">
+              <div className="flex flex-wrap gap-3 mt-4 p-1 justify-center overflow-x-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-color-icons">
                 {bouquet.images.map((photo, index) => (
                   <img
                     key={index}
