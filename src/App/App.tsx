@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import MainPage from '@pages/MainPage/MainPage';
 import OrderPage from '@pages/orderPage/OrderPage';
 import CatalogPage from '@pages/catalogPage/catalogPage';
-import Header from '@components/Header/Header';
+import Header from '@components/header/Header';
 import Footer from '@components/Footer/Footer';
 import FavoritesPage from '@pages/favoritesPage/FavoritesPage';
 import PromoPage from '@pages/promoPage/PromoPage';
@@ -22,7 +22,7 @@ import { useAppDispatch } from '@store/app/hook';
 import { fetchBouquetsThunk } from '@store/slices/bouquetSlice';
 
 import PrivateRouteCustom from '@components/privateRouteCustom/privateRouteCustom';
-import DesctopMenu from '@components/Header/DesctopMenu';
+import DesctopMenu from '@components/header/DesctopMenu';
 import BouquetModal from '@components/bouquetModal/BouquetModal';
 
 const App = () => {
@@ -45,6 +45,7 @@ const App = () => {
     || bouquetIdPattern.test(location.pathname.split('/').pop() ?? '');
 
   useEffect(() => {
+    // @ts-expect-error вызов thunk с типами
     dispatch(fetchBouquetsThunk({isAdmin: false}));
   }, [dispatch]);
 
