@@ -5,7 +5,7 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": "src", // 🔹 говорит TypeScript, что всё начинается из src/
+    "baseUrl": "src",
     "paths": {
       "@hooks/*": ["hooks/*"],
       "@lib/*": ["lib/*"],
@@ -14,7 +14,33 @@
       "@helpers/*": ["helpers/*"],
       "@constants/*": ["constants/*"],
       "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"] // если понадобится в будущем
-    }
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"]
+    },
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": false
   }
 }
+
+
+// {
+//   "files": [],
+//   "references": [
+//     { "path": "./tsconfig.app.json" },
+//     { "path": "./tsconfig.node.json" }
+//   ],
+//   "compilerOptions": {
+//     "baseUrl": "src", // 🔹 говорит TypeScript, что всё начинается из src/
+//     "paths": {
+//       "@hooks/*": ["hooks/*"],
+//       "@lib/*": ["lib/*"],
+//       "@store/*": ["store/*"],
+//       "@orderForm/*": ["orderForm/*"],
+//       "@helpers/*": ["helpers/*"],
+//       "@constants/*": ["constants/*"],
+//       "@assets/*": ["assets/*"],
+//       "@components/*": ["components/*"] // если понадобится в будущем
+//     }
+//   },
+// }
