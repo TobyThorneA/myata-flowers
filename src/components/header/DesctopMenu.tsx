@@ -2,7 +2,7 @@ import { useAppSelector } from "@store/app/hook";
 import clsx from "clsx"
 import { NavLink } from "react-router-dom"
 
-const MENU_ITEMS = [
+const BASE_MENU_ITEMS = [
   { name: "Главная", path: "/" },
   { name: "Каталог", path: "/catalog" },
   { name: "Акции", path: "/promo" },
@@ -15,12 +15,17 @@ const MENU_ITEMS = [
 
 function DesctopMenu() {
     const favorietsLenth = useAppSelector(state => state.favoriets.favoriteIds.length)
+    const token = useAppSelector(state => state.auth.token);
+
+    const menuItems = token
+    ? [...BASE_MENU_ITEMS, { name: "Админка", path: "/admin/dashboard" }]
+    : BASE_MENU_ITEMS;
 
   return (
     <div className="hidden md:flex sticky top-0 z-40 bg-colorPrimary shadow-md  bg-colorPrimary/70 backdrop-blur-md">
       <nav className="mx-auto w-full max-w-7xl px-4">
         <ul className="flex justify-center gap-10 text-lg text-color-text font-medium py-4">
-          {MENU_ITEMS.map((item) => (
+          {menuItems.map((item) => (
             <li key={item.path}>
               <NavLink
                 to={item.path}

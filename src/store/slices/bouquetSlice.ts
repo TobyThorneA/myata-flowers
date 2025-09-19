@@ -6,18 +6,37 @@ import type { BouquetFormData } from '@pages/admin/BouquetForm';
 
 const API = 'https://api-v2.myata-flowers.ru/api/bouquets';
 
+// // 1. Fetch all bouquets
+// export const fetchBouquetsThunk = createAsyncThunk(
+//   'bouquets/fetchAll',
+//   async (_, thunkAPI) => {
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     const token = (thunkAPI.getState() as any).auth.token;
+//     const res = await axios.get(API, {
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+//     return res.data; // массив букетов
+//   }
+// );
+
 // 1. Fetch all bouquets
 export const fetchBouquetsThunk = createAsyncThunk(
   'bouquets/fetchAll',
-  async (_, thunkAPI) => {
+  async ({ isAdmin }: { isAdmin?: boolean } = {}, thunkAPI) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const token = (thunkAPI.getState() as any).auth.token;
+
     const res = await axios.get(API, {
-      headers: { Authorization: `Bearer ${token}` },
+      params: {
+        ...(isAdmin && { showHidden: true }) // добавляем showHidden=true только для админа
+      },
+      headers: isAdmin ? { Authorization: `Bearer ${token}` } : undefined,
     });
+
     return res.data; // массив букетов
   }
 );
+
 
 // 2. Create bouquet
 export const createBouquetThunk = createAsyncThunk(

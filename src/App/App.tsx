@@ -45,7 +45,7 @@ const App = () => {
     || bouquetIdPattern.test(location.pathname.split('/').pop() ?? '');
 
   useEffect(() => {
-    dispatch(fetchBouquetsThunk());
+    dispatch(fetchBouquetsThunk({isAdmin: false}));
   }, [dispatch]);
 
   return (

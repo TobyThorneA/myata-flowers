@@ -18,8 +18,24 @@ const AdminDashboard = () => {
   const [editingBouquet, setEditingBouquet] = useState<IBouquet | null>(null);
   const [showForm, setShowForm] = useState(false);
 
+  const sortedAsc = [...bouquets].sort((a, b) => a.price - b.price);
+//   const sortedAsc = [...bouquets].sort((a, b) => {
+//   // 1. Сначала по hidden
+//   if (a.hidden !== b.hidden) {
+//     return a.hidden ? 1 : -1; // скрытые идут в конец
+//   }
+
+//   // 2. Потом по available
+//   if (a.available !== b.available) {
+//     return a.available ? -1 : 1; // доступные раньше
+//   }
+
+//   // 3. Потом по цене
+//   return a.price - b.price;
+// });
+
   useEffect(() => {
-    dispatch(fetchBouquetsThunk());
+    dispatch(fetchBouquetsThunk({ isAdmin: true }));
   }, [dispatch]);
 
   const handleCreate = () => {
@@ -35,7 +51,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id: string) => {
     if (window.confirm('Удалить букет?')) {
       await dispatch(deleteBouquetThunk(id));
-      dispatch(fetchBouquetsThunk());
+      dispatch(fetchBouquetsThunk({ isAdmin: true }));
     }
   };
 
@@ -47,17 +63,17 @@ const AdminDashboard = () => {
     }
     setShowForm(false);
     setEditingBouquet(null);
-    dispatch(fetchBouquetsThunk());
+    dispatch(fetchBouquetsThunk({ isAdmin: true }));
   };
 
   const handleToggleAvailable = async (id: string, available: boolean) => {
     await dispatch(updateBouquetThunk({ id, data: { available } })).unwrap();
-    dispatch(fetchBouquetsThunk());
+    dispatch(fetchBouquetsThunk({ isAdmin: true }));
   };
 
   const handleToggleHidden = async (id: string, hidden: boolean) => {
     await dispatch(updateBouquetThunk({ id, data: { hidden } })).unwrap();
-    dispatch(fetchBouquetsThunk());
+    dispatch(fetchBouquetsThunk({ isAdmin: true }));
   };
 
   return (
@@ -85,7 +101,7 @@ const AdminDashboard = () => {
           </div>
 
           <BouquetTable
-            bouquets={bouquets}
+            bouquets={sortedAsc}
             onEdit={handleEdit}
             onDelete={handleDelete}
             onToggleAvailable={handleToggleAvailable}

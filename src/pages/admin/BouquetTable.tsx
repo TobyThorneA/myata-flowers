@@ -25,8 +25,8 @@ const BouquetTable: React.FC<Props> = ({
             <th className="p-2 border">Название</th>
             <th className="p-2 border">Цена</th>
             <th className="p-2 border">Размер</th>
-            <th className="p-2 border">Теги</th>
-            <th className="p-2 border">Категории</th>
+            {/* <th className="p-2 border">Теги</th>
+            <th className="p-2 border">Категории</th> */}
             <th className="p-2 border">Доступен</th>
             <th className="p-2 border">Скрыт</th>
             <th className="p-2 border">Действия</th>
@@ -50,23 +50,21 @@ const BouquetTable: React.FC<Props> = ({
               {/* <td className="p-2 border">{bq.tags.join(', ')}</td>
               <td className="p-2 border">{bq.categories.join(', ')}</td> */}
 
-              {/* Пока скрыты ...................................*/}
-              <td className="p-2 border hidden">
+              
+              <td className="p-2 border">
                 <input
                   type="checkbox"
                   checked={bq.available}
                   onChange={() => onToggleAvailable(bq._id, !bq.available)}
                 />
               </td>
-              <td className="p-2 border hidden">
+              <td className="p-2 border">
                 <input
                   type="checkbox"
                   checked={bq.hidden}
                   onChange={() => onToggleHidden(bq._id, !bq.hidden)}
                 />
               </td>
-
-                {/* ............................................... */}
 
               <td className="p-2 border">
                 <div className="flex gap-2">

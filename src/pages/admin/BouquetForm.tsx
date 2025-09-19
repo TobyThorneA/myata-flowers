@@ -2,7 +2,7 @@
 // форма добавления/редактирования
 
 import React, { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type {  IBouquet } from './types';
@@ -140,6 +140,67 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
   const promotion = watch('promotion');
   const promotionActive = promotion?.active ?? false;
 
+  /////////////////////////////////////////////////////////////////////////////////////////////
+
+// ...внутри BouquetForm, перед submit
+const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+const [uploading, setUploading] = useState(false);
+
+// const handleFilesUpload = async (files: FileList | null) => {
+//   if (!files || files.length === 0) return;
+
+//   const formData = new FormData();
+//   formData.append('bouquetName', watch('name') || 'Без названия'); // используем текущее имя букета
+//   Array.from(files).forEach((file) => formData.append('files', file));
+
+//   try {
+//     setUploading(true);
+//     const res = await fetch('https://api-v2.myata-flowers.ru/api/bouquets/upload', {
+//       method: 'POST',
+//       body: formData,
+//     });
+//     const data = await res.json();
+//     if (data.images) {
+//       setUploadedImages(data.images);
+//       // Обновляем поле images формы, чтобы сохранить ссылки
+//       reset({ ...watch(), images: data.images.join('\n') });
+//     }
+//   } catch (err) {
+//     console.error('Ошибка загрузки файлов', err);
+//   } finally {
+//     setUploading(false);
+//   }
+// };
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+const handleFilesUpload = async (files: FileList | null) => {
+  if (!files || files.length === 0) return;
+
+  const formData = new FormData();
+  formData.append('name', watch('name') || 'Без названия'); // 👈 теперь совпадает с бэком
+  Array.from(files).forEach((file) => formData.append('images', file)); // 👈 имя поля совпадает с multer
+
+  try {
+    setUploading(true);
+    const res = await fetch('https://api-v2.myata-flowers.ru/api/bouquets/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await res.json();
+    if (data.urls) { // 👈 бэкенд возвращает { urls }, не { images }
+      setUploadedImages(data.urls);
+      reset({ ...watch(), images: data.urls.join('\n') });
+    }
+  } catch (err) {
+    console.error('Ошибка загрузки файлов', err);
+  } finally {
+    setUploading(false);
+  }
+};
+
+
+
   const submit = async (data: BouquetFormInput) => {
     try {
       const parsedData = bouquetSchema.parse(data); // <- здесь всё приведётся к правильному виду
@@ -213,6 +274,33 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
           {errors.images && <p className="text-red-600 text-sm">{errors.images.message}</p>}
         </div>
 
+        {/*Новый механизм загрузки изображений*/}
+
+        {/* Загрузка изображений */}
+<div className="mb-4">
+  <label>Фотографии букета</label>
+  <input
+    type="file"
+    multiple
+    accept="image/*"
+    onChange={(e) => handleFilesUpload(e.target.files)}
+    className="w-full border p-1 rounded"
+  />
+
+  {uploading && <p className="text-blue-600 text-sm">Загрузка...</p>}
+
+  {uploadedImages.length > 0 && (
+    <div className="mt-2 flex flex-wrap gap-2">
+      {uploadedImages.map((url, idx) => (
+        <img key={idx} src={url} alt={`bouquet-${idx}`} className="h-20 w-20 object-cover rounded border" />
+      ))}
+    </div>
+  )}
+
+  {errors.images && <p className="text-red-600 text-sm">{errors.images.message}</p>}
+</div>
+
+
         {/* Цветы */}
         <div className="mb-4">
           <label>Цветы *</label>
@@ -281,10 +369,44 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
         </div>
 
         {/* Чекбоксы */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label><input type="checkbox" {...register('available')} className="mr-2" />Доступен</label>
           <label className="ml-4"><input type="checkbox" {...register('hidden')} className="mr-2" />Скрыт</label>
-        </div>
+        </div> */}
+
+        <div className="mb-4">
+  <Controller
+    name="available"
+    control={control}
+    render={({ field }) => (
+      <label>
+        <input
+          type="checkbox"
+          checked={field.value}
+          onChange={(e) => field.onChange(e.target.checked)}
+          className="mr-2"
+        />
+        Доступен
+      </label>
+    )}
+  />
+
+  <Controller
+    name="hidden"
+    control={control}
+    render={({ field }) => (
+      <label className="ml-4">
+        <input
+          type="checkbox"
+          checked={field.value}
+          onChange={(e) => field.onChange(e.target.checked)}
+          className="mr-2"
+        />
+        Скрыт
+      </label>
+    )}
+  />
+</div>
 
         {/* Теги и категории */}
         <div className="mb-2">
