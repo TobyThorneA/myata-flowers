@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "@store/app/hook";
@@ -7,15 +7,12 @@ import ImageGallery from "./ImageGallery";
 import BouquetInfo from "./BouquetInfo";
 import { useModalNavigation } from "@hooks/useModalNavigation";
 import CloseButton from "./closeButton";
-import { useModalEscapeClose } from "@hooks/useModalEscapeClose";
 import { usePortalRoot } from "@hooks/usePortalRoot";
 
 interface BouquetModalProps {
   bouquet?: IBouquet; // ❗ Сделаем optional
   onClose?: () => void;
 }
-
-// const modalRoot = document.getElementById("modal-root")!;
 
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClose }) => {
   const { id } = useParams();
@@ -24,8 +21,23 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClo
   const bouquets = useAppSelector((state) => state.bouquet.items);
   const bouquet = propBouquet || bouquets.find((b) => b._id === id);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const handleClose = useModalNavigation(onClose)
-  useModalEscapeClose(overlayRef, handleClose);
+  const handleClose = useModalNavigation(onClose);
+
+  // Старая версия до рефакторинга из BouquetModal.tsx
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === overlayRef.current) {
