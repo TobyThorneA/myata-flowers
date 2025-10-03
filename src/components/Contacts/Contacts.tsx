@@ -6,7 +6,7 @@ import Phone from "../../assets/phone.png";
 import Avito from "../../assets/avito.png";
 
 interface Props {
-  hideText: boolean;
+  hideText?: boolean;
 }
 
 const Contacts = ({ hideText = false }: Props) => {
@@ -19,31 +19,51 @@ const Contacts = ({ hideText = false }: Props) => {
   };
 
   const handleTouchMove = () => {
-    movedRef.current = true; // свайп — не тач
+    movedRef.current = true;
   };
 
   const isValidTap = () => {
-    const now = Date.now();
-    if (touchStartRef.current && !movedRef.current) {
-      const diff = now - touchStartRef.current;
-      return diff > 100 && diff < 500;
+    if (!touchStartRef.current || movedRef.current) return false;
+    const diff = Date.now() - touchStartRef.current;
+    return diff > 100 && diff < 500;
+  };
+
+  const sendGoal = (goal: string) => {
+    if (window.ym) {
+      window.ym(102322325, "reachGoal", goal);
     }
-    return false;
   };
 
   const handleTouchEnd = (goal: string) => {
-    if (isValidTap()) {
-      window.ym?.(102322325, "reachGoal", goal);
-    }
+    if (isValidTap()) sendGoal(goal);
     touchStartRef.current = null;
     movedRef.current = false;
   };
 
-  const handleDesktopClick = (goal: string) => {
-    if (window.innerWidth >= 768) {
-      window.ym?.(102322325, "reachGoal", goal);
-    }
+  const handleClick = (goal: string) => {
+    sendGoal(goal);
   };
+
+  const messengers = [
+    {
+      href: "https://t.me/myata_flow",
+      img: Telegram,
+      label: "Telegram",
+      goal: "click_telegram",
+    },
+    {
+      href: "https://wa.me/79270387435",
+      img: WhatsApp,
+      label: "WhatsApp",
+      goal: "click_whatsapp",
+    },
+    {
+      href: "https://avito.ru/brands/myata",
+      img: Avito,
+      label: "Avito",
+      goal: "click_avito",
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-2 items-center justify-between py-1 md:gap-2">
@@ -52,7 +72,7 @@ const Contacts = ({ hideText = false }: Props) => {
           hideText ? "gap-4" : "gap-2"
         }`}
       >
-        {/* Телефон — мобилка (иконка) */}
+        {/* Телефон — мобилка */}
         <li className="md:mx-4">
           <a
             href="tel:+79656003600"
@@ -73,26 +93,7 @@ const Contacts = ({ hideText = false }: Props) => {
         </li>
 
         {/* Telegram, WhatsApp, Avito */}
-        {[
-          {
-            href: "https://t.me/myata_flow",
-            img: Telegram,
-            label: "Telegram",
-            goal: "click_telegram",
-          },
-          {
-            href: "https://wa.me/79270387435",
-            img: WhatsApp,
-            label: "WhatsApp",
-            goal: "click_whatsapp",
-          },
-          {
-            href: "https://avito.ru/brands/myata",
-            img: Avito,
-            label: "Avito",
-            goal: "click_avito",
-          },
-        ].map(({ href, img, label, goal }) => (
+        {messengers.map(({ href, img, label, goal }) => (
           <li className="md:mx-4 md:mt-5" key={label}>
             <a
               href={href}
@@ -102,7 +103,7 @@ const Contacts = ({ hideText = false }: Props) => {
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={() => handleTouchEnd(goal)}
-              onClick={() => handleDesktopClick(goal)}
+              onClick={() => handleClick(goal)}
             >
               <img
                 className={`w-8 h-8 rounded-full md:w-16 md:h-16 transition-transform duration-500 ease-in-out ${
@@ -121,7 +122,7 @@ const Contacts = ({ hideText = false }: Props) => {
         href="tel:+79656003600"
         aria-label="Phone number"
         className="hidden md:inline-block text-base font-medium text-color-text pt-5"
-        onClick={() => handleDesktopClick("click_phone")}
+        onClick={() => handleClick("click_phone")}
       >
         +7 (965) 600-36-00
       </a>
@@ -140,6 +141,7 @@ const Contacts = ({ hideText = false }: Props) => {
 export default Contacts;
 
 
+// // Contacts.tsx
 // import { useRef } from "react";
 // import Telegram from "../../assets/telegram.png";
 // import WhatsApp from "../../assets/whatsapp.png";
@@ -160,7 +162,7 @@ export default Contacts;
 //   };
 
 //   const handleTouchMove = () => {
-//     movedRef.current = true; // был свайп, а не тап
+//     movedRef.current = true; // свайп — не тач
 //   };
 
 //   const isValidTap = () => {
@@ -193,7 +195,7 @@ export default Contacts;
 //           hideText ? "gap-4" : "gap-2"
 //         }`}
 //       >
-//         {/* Телефон — мобилка */}
+//         {/* Телефон — мобилка (иконка) */}
 //         <li className="md:mx-4">
 //           <a
 //             href="tel:+79656003600"
@@ -202,7 +204,6 @@ export default Contacts;
 //             onTouchStart={handleTouchStart}
 //             onTouchMove={handleTouchMove}
 //             onTouchEnd={() => handleTouchEnd("click_phone")}
-//             onClick={() => handleDesktopClick("click_phone")}
 //           >
 //             <img
 //               className={`w-8 h-8 rounded-full transition-transform duration-500 ease-in-out ${
@@ -259,9 +260,14 @@ export default Contacts;
 //       </ul>
 
 //       {/* Телефон текстом на десктопе */}
-//       <span className="hidden md:inline-block text-base font-medium text-color-text pt-5">
+//       <a
+//         href="tel:+79656003600"
+//         aria-label="Phone number"
+//         className="hidden md:inline-block text-base font-medium text-color-text pt-5"
+//         onClick={() => handleDesktopClick("click_phone")}
+//       >
 //         +7 (965) 600-36-00
-//       </span>
+//       </a>
 
 //       <address
 //         className={`not-italic flex text-[8px] md:text-base md:mt-1 justify-end duration-500 ease-in-out ${
@@ -275,4 +281,3 @@ export default Contacts;
 // };
 
 // export default Contacts;
-

@@ -6,7 +6,7 @@ import type { IBouquet } from "@pages/admin/types";
 import ImageGallery from "./ImageGallery";
 import BouquetInfo from "./BouquetInfo";
 import { useModalNavigation } from "@hooks/useModalNavigation";
-import CloseButton from "./closeButton";
+import CloseButton from "./CloseButton";
 import { usePortalRoot } from "@hooks/usePortalRoot";
 
 interface BouquetModalProps {

@@ -1,14 +1,14 @@
 import type { OrderState } from "../store/slices/orderSlice";
 
 export const sendToTelegram = async (data: OrderState) => {
-  console.log('🚀 /api/telegram/send вызван');
+  // console.log('🚀 /api/telegram/send вызван');
   if (data.honeypot && data.honeypot.trim() !== "") {
     console.warn("Бот обнаружен, отправка отменена.");
     return;
   }
 
   try {
-    const response = await fetch("http://localhost:3002/api/telegram/send", {
+    const response = await fetch("/api/telegram/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const sendToTelegram = async (data: OrderState) => {
       throw new Error("Ошибка при отправке заявки");
     }
 
-    console.log("Заявка отправлена!");
+    // console.log("Заявка отправлена!");
   } catch (error) {
     console.error("Ошибка Telegram:", error);
   }

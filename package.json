@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.12.2",
     "clsx": "^2.1.1",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
@@ -35,6 +36,7 @@
     "@types/babel__traverse": "^7.20.7",
     "@types/estree": "^1.0.8",
     "@types/json-schema": "^7.0.15",
+    "@types/node": "^24.5.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-helmet": "^6.1.11",
