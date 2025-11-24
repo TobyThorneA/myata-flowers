@@ -1,3 +1,8 @@
+// =========================
+// src/pages/CatalogPage.tsx
+// =========================
+
+
 import Catalog from "@components/bouquetsGrid/bouquetGrid";
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -11,6 +16,17 @@ const CatalogPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // const handleOrderClick = (bouquetName?: string) => {
+  //   navigate('/order', {
+  //     state: {
+  //       from: location.pathname + location.search, // сохраняем путь + query
+  //       scrollY: window.scrollY,                   // для восстановления скролла
+  //       bouquetName,
+  //       watchField: false
+  //     }
+  //   });
+  // };
 
   const backgroundLocation = location.state?.backgroundLocation;
 
@@ -52,11 +68,6 @@ const CatalogPage = () => {
         bouquets={filteredBouquets}
         title={title}
         shortDescription={shortDescription}
-        // onViewBouquet={(b) =>
-        //   navigate(`/catalog/${category || ''}/${b._id}`, {
-        //     state: { backgroundLocation: location },
-        //   })
-        // }
         onViewBouquet={(b) =>
           navigate(
             `/catalog/${category || 'all'}/${b._id}`.replace(/\/{2,}/g, '/'),
@@ -65,7 +76,7 @@ const CatalogPage = () => {
             }
           )
         }
-        className="px-4 my-20 md:my-5"
+        className="my-20 md:mt-5"
         showSeeMoreCard={false}
       />
 

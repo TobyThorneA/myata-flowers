@@ -35,15 +35,15 @@ const Header = () => {
         <div className="flex flex-col items-center justify-center" >
           <h1
             className={clsx(
-              "text-base font-semibold transition-transform duration-300",
+              "text-base font-medium transition-transform duration-300",
               hideText ? "scale-90 translate-y-1" : "scale-100"
             )}
           >
-            Myata Flowers
+            Мята Flowers
           </h1>
           <p
             className={clsx(
-              "text-[9px] text-color-icons transition-opacity duration-300 min-w-max",
+              "font-sansSerif font-semibold text-[10px] text-color-icons transition-opacity duration-300 min-w-max",
               hideText ? "opacity-0 h-0 pointer-events-none" : "opacity-100"
             )}
           >
@@ -69,8 +69,8 @@ const Header = () => {
             />
           </Link>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold text-color-text">МЯТА flowers</h1>
-            <p className="text-xl text-color-icons mt-1">Качественно, быстро, с душой</p>
+            <h1 className="font-medium text-4xl font-bold text-color-text">МЯТА Flowers</h1>
+            <p className="font-sansSerif mt-3 text-xl text-color-icons mt-1">Качественно, быстро, с душой</p>
           </div>
           {/* Контакты */}
           <Contacts hideText={false} />

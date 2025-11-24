@@ -1,53 +1,69 @@
-import "./reviews.scss"
-import useEmblaCarousel from 'embla-carousel-react'
-import one0 from "../../assets/reviews/anastasiya.jpg"
-import one1 from "../../assets/reviews/artem.jpg"
-import one2 from "../../assets/reviews/elena.jpg"
-import one3 from "../../assets/reviews/lyaisan.jpg"
-import CaruselArrows from "../caruselArrows/CaruselArrows"
+import useEmblaCarousel from "embla-carousel-react";
+import CaruselArrows from "../caruselArrows/CaruselArrows";
+import ReviewsExamles, { reviewsExample } from "./ReviewsExamles";
 
-const Reviwes = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, dragFree: true });
+const Reviews = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    dragFree: true,
+  });
 
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className="reviews" id="reviews">
-      <div className="reviews__wrapper">
-        <h2 className="reviews__title">Отзывы</h2>
-        <div className="reviews__link-wrapper">
-          <p className="reviews__text">Мы гордимся реальными отзывами на площадке Авито, которые подтверждают нашу репутацию. 
+    <div className="bg-bg-collor pb-4" id="reviews">
+      <div className="mx-8 my-4 relative md:mt-6 lg:mt-8">
+
+        <h2 className="py-2 text-center font-semibold text-xl">Отзывы</h2>
+
+        {/* <div className="flex flex-col text-center mb-4 md:flex-row md:items-center md:justify-between">
+          <p className="text-[14px] md:text-[14px]">
+            Мы гордимся реальными отзывами на площадке Авито, которые подтверждают нашу репутацию.
           </p>
           <a
-            className="reviews__link"
-            href="https://www.avito.ru/brands/myata//all?sellerId=93c75d7c8a25a5154afa63c278765e44" 
-            target="_blank" 
-            rel="noopener noreferrer">
-            <button className="reviews__button">Посмотреть отзывы</button>
+            href="https://www.avito.ru/brands/myata//all?sellerId=93c75d7c8a25a5154afa63c278765e44"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 md:mt-0"
+          >
+            <button className="border border-black bg-color-action text-white rounded-xl w-[90%] h-[30px] mx-auto font-bold md:w-[400px]">
+              Посмотреть отзывы
+            </button>
           </a>
-        </div>
-        <div className="reviews__carusel" ref={emblaRef}>
-          <div className="reviews__container">
-            <div className="reviews__slide">
-              <img src={one0} alt="" />
-            </div>
-            <div className="reviews__slide">
-              <img src={one1} alt="" />
-            </div>
-            <div className="reviews__slide">
-              <img src={one2} alt="" />
-            </div>
-            <div className="reviews__slide">
-              <img src={one3} alt="" />
-            </div>
+        </div> */}
+
+        <div className="flex flex-col text-center mb-4 items-center">
+  <p className="text-[14px] max-w-[700px]">
+    Мы гордимся реальными отзывами на площадке Авито, которые подтверждают нашу репутацию.
+  </p>
+
+  <a
+    href="https://www.avito.ru/brands/myata//all?sellerId=93c75d7c8a25a5154afa63c278765e44"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-3 w-full flex justify-center"
+  >
+    <button className="border border-black bg-color-action text-white rounded-xl w-[90%] h-[30px] font-bold md:w-[400px]">
+      Посмотреть отзывы
+    </button>
+  </a>
+</div>
+
+
+        {/* Карусель */}
+        <div ref={emblaRef} className="overflow-hidden -mx-8 mb-4">
+          <div className="flex will-change-transform">
+            {reviewsExample.map((review) => (
+              <ReviewsExamles reviewExample={review} />
+            ))}
           </div>
-            <CaruselArrows onPrev={scrollPrev} onNext={scrollNext} />
+
+          <CaruselArrows onPrev={scrollPrev} onNext={scrollNext} />
         </div>
       </div>
-      
     </div>
-  )
-}
+  );
+};
 
-export default Reviwes
+export default Reviews;

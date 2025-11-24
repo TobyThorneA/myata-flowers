@@ -1,15 +1,11 @@
 // orderForm
-import ReactDOM from "react-dom";
-import { useEffect } from "react";
-import "./popup.scss";
-import { useAppDispatch } from "../../store/app/hook";
-import { setBouquetName } from "../../store/slices/orderSlice";
-import OrderFormComponent from "./OrderFormComponent";
-import SuccessMessage from "./SuccessMessage";
-import { usePreventScroll } from "@hooks/usePreventScroll";
-import { useOrderForm } from "@hooks/useOrderForm";
-
-
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../store/app/hook';
+import { setBouquetName } from '../../store/slices/orderSlice';
+import OrderFormComponent from './OrderFormComponent';
+import SuccessMessage from './SuccessMessage';
+import { usePreventScroll } from '@hooks/usePreventScroll';
+import { useOrderForm } from '@hooks/useOrderForm';
 
 interface OrderFormProps {
   onClose: () => void;
@@ -17,61 +13,48 @@ interface OrderFormProps {
   hideExtraFields?: boolean;
 }
 
-const modalRoot = document.getElementById("modal-root")!;
-
-const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormProps ) => {
-
+const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormProps) => {
   const { isSubmitted, handleFormData, handleSubmit } = useOrderForm(bouquetName);
-
   const dispatch = useAppDispatch();
 
-
-
-    // Добавляем эффект для обновления bouquetName при изменении пропса
+  // Устанавливаем название букета
   useEffect(() => {
-    const finalBouquetName = bouquetName === undefined ? 'Не указан' : bouquetName;
+    const finalBouquetName = bouquetName ?? 'Не указан';
     dispatch(setBouquetName(finalBouquetName));
-
   }, [bouquetName, dispatch]);
 
-  // Для закрытия скролла на айфоне
+  // Для закрытия скролла на iOS
   usePreventScroll();
 
-// обработчик esc
+  // Esc закрывает форму
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === 'Escape') onClose();
     };
-
     document.addEventListener('keydown', handleEscape);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-    };
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  return ReactDOM.createPortal(
-    <div className="popup-overlay" onClick={onClose}>
-      <div className="popup" onClick={(e) => e.stopPropagation()}>
-        <button className="popup__close" onClick={onClose}>×</button>
+  return (
+    <div className="order-page-container p-6 md:p-8 max-w-lg mx-auto">
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-color-text text-2xl font-bold hover:text-color-action"
+      >
+        ×
+      </button>
 
-        {!isSubmitted ? (
-          <OrderFormComponent
-            handleFormData={handleFormData}
-            handleSubmit={handleSubmit}
-            onClose={onClose}
-            hideExtraFields={hideExtraFields}
-          />
-        ) : (
-          <SuccessMessage
-            onClose={onClose} 
-          />
-        )}
-      </div>
-    </div>,
-    modalRoot
+      {!isSubmitted ? (
+        <OrderFormComponent
+          handleFormData={handleFormData}
+          handleSubmit={handleSubmit}
+          onClose={onClose}
+          hideExtraFields={hideExtraFields}
+        />
+      ) : (
+        <SuccessMessage onClose={onClose} />
+      )}
+    </div>
   );
 };
 

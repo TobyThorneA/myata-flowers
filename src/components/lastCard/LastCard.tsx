@@ -27,7 +27,7 @@ const LastCard = ({nameNav}: LastCardProps) => {
         className="absolute inset-0 w-full h-full object-cover opacity-40"
       />
       <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <span className="text-white text-lg font-semibold group-hover:underline">
+        <span className="fint-main text-sm md:text-xl text-white text-lg text-center font-semibold group-hover:underline">
           Больше букетов
         </span>
       </div>

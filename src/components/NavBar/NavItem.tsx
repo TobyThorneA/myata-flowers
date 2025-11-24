@@ -34,7 +34,7 @@ const NavItem = ({ to, label, Icon, badgeLength }: NavItemProps) => (
           </div>
         )}
         <span
-          className={`text-sm transition-all duration-300 ${
+          className={`transition-all duration-300 ${
             isActive ? 'font-bold -translate-y-[1px]' : ''
           }`}
         >

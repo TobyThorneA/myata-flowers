@@ -1,27 +1,33 @@
+
 // OrderPage.tsx
 import { useLocation, useNavigate } from 'react-router-dom';
 import OrderForm from '@components/orderForm/OrderForm';
 
-interface LocationState {
-  backgroundLocation?: { pathname: string };
-}
-
 const OrderPage = () => {
-    const location = useLocation();
-    const backgroundLocation = (location.state as LocationState)?.backgroundLocation;
-
-    const handleClose = () => {
-    if (backgroundLocation) {
-      navigate(backgroundLocation.pathname);
-    } else {
-      navigate('/', { replace: true });
-    }
-  };
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { bouquetName?: string; watchField?: boolean; scrollY?: number; form?: string } | undefined;
+
+const handleClose = () => {
+  // @ts-ignore
+   const to = state?.form ?? '/'; // если from нет, fallback на главную
+   const y = state?.scrollY ?? 0;
+  navigate(to, { replace: true });
+
+    setTimeout(() => {
+    window.scrollTo(0, y);
+  }, 250);
+
+};
+
   return (
-    <div >
-      <OrderForm onClose={() => handleClose()} />
-     </div>
+    <div className="page-container">
+      <OrderForm
+        onClose={handleClose}
+        bouquetName={state?.bouquetName}
+        hideExtraFields={state?.watchField ?? false}
+      />
+    </div>
   );
 };
 

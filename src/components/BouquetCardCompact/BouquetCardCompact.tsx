@@ -26,7 +26,7 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
     <div
       className="
         flex flex-col h-full
-        bg-colorPrimary rounded-xl shadow-md
+        bg-bg-card rounded-xl shadow-md
         hover:shadow-lg hover:scale-[1.02]
         transition-transform duration-200
         cursor-pointer select-none
@@ -46,12 +46,12 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
           {bouquet.available 
           ? ''
           : (
-            <p className="absolute bg-white bg-opacity-70 px-2 py-1 rounded text-sm font-semibold text-green-600">под заказ ⏳</p>
+            <p className="text-xs absolute bg-white bg-opacity-70 px-2 py-1 ml-1 mt-1  rounded text-sm font-semibold text-color-action">под заказ ⏳</p>
           )}
           <button onClick={handleToggleFavorite} className="p-1">
             <HeartFavorite
-              className={`w-6 h-6 transition-colors ${
-                isFavorite ? "fill-red-500" : "fill-white"
+              className={`w-6 h-6 mt-1 mr-0.5 transition-colors ${
+                isFavorite ? "fill-red-500" : "fill-white" 
               }`}
             />
           </button>
@@ -60,26 +60,18 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
         <img
           src={bouquet.images?.[0] ?? "/placeholder.jpg"}
           alt={bouquet.name}
-          className="w-full h-full object-cover"
+          className="p-2 rounded-2xl w-full h-full object-cover"
           loading="lazy"
         />
       </div>
 
       <div className="flex flex-col flex-1 p-3 text-center gap-2">
-        <div className="text-base font-semibold text-[#333] truncate">{bouquet.name}</div>
+        <div className="font-cursive font-semibold text-md md:text-2xl text-color-text truncate">{bouquet.name}</div>
 
-        {bouquet.description && (
-          <div className="text-sm text-[#777] leading-tight truncate">
-            {bouquet.description.length > 50
-              ? `${bouquet.description.substring(0, 50)}...`
-              : bouquet.description}
-          </div>
-        )}
-
-        <div className="flex justify-center items-center gap-2 mt-1">
-          <span className="text-base font-bold text-[#e91e63]">{bouquet.price} ₽</span>
+        <div className="font-cursive font-semibold text-md md:text-sm flex justify-center items-center gap-2 ">
+          <span className="text-xl md:text-2xl text-color-action">{bouquet.price} ₽</span>
           {oldPrice > bouquet.price && (
-            <span className="text-sm text-[#aaa] line-through">{bouquet.oldPrice} ₽</span>
+            <span className="text-[#aaa] line-through">{bouquet.oldPrice} ₽</span>
           )}
         </div>
 
@@ -90,7 +82,7 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
           }}
         >
           <OrderButton
-            popup
+            modal
             bouquetName={bouquet.name}
             contextNameButton="Заказать"
             watchField

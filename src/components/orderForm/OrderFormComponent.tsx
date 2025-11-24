@@ -1,4 +1,4 @@
-// // OrderFormComponent.tsx
+// OrderFormComponent.tsx
 import React, { useState } from "react";
 import type { ChangeEventHandler } from "react";
 import { useAppSelector } from "../../store/app/hook";
@@ -23,39 +23,85 @@ const OrderFormComponent = ({
   hideExtraFields,
 }: PropsOrder) => {
   const order = useAppSelector((state) => state.order as OrderState);
-
-  // Локальное состояние для чекбокса согласия
   const [consentChecked, setConsentChecked] = useState(false);
 
   const onConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConsentChecked(e.target.checked);
   };
 
-  // Чтобы форму нельзя было отправить без согласия — блокируем кнопку если не отмечено
   const isSubmitDisabled = !consentChecked;
 
   return (
-    <div className="popup-overlay" onClick={onClose}>
-      <div className="popup" onClick={(e) => e.stopPropagation()}>
-        <button className="popup__close" onClick={onClose}>
+    <div
+      className="
+        fixed inset-0 z-[1000] 
+        bg-color-text bg-opacity-50 backdrop-blur-sm
+        overflow-y-auto 
+      "
+      style={{
+        paddingTop: "env(safe-area-inset-top)",
+        paddingBottom: "env(safe-area-inset-bottom)",
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
+      }}
+      onClick={onClose}
+    >
+      <div
+        className="
+          bg-bg-card rounded-2xl shadow-xl 
+          w-full max-w-lg 
+          my-6 mx-auto
+          p-6 md:p-8 
+          relative
+        "
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {/* Скрытый scroll для Webkit */}
+        <style>{`
+          div::-webkit-scrollbar { display: none; }
+        `}</style>
+
+        {/* Кнопка закрытия */}
+        <button
+          onClick={onClose}
+          className="
+            absolute top-4 right-4 
+            text-color-text text-2xl font-bold 
+            hover:text-color-action transition-colors
+          "
+        >
           ×
         </button>
 
-        <form onSubmit={handleSubmit} className="popup__form">
-          <h2>Подобрать букет</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+          <h2 className="text-2xl md:text-3xl font-cursive font-bold text-mint-700 text-center">
+            Подобрать букет
+          </h2>
 
           <HoneypotInput onChange={handleFormData} />
           <NameInput value={order.name} onChange={handleFormData} />
           <PhoneInput value={order.phone} onChange={handleFormData} />
           <ExtraQuestions watchField={hideExtraFields} onChange={handleFormData} />
 
-          <div className="contact-methods">
-            <p>Предпочтительный способ связи:</p>
-            <div className="method-options">
+          <div className="mt-2">
+            <p className="font-medium text-color-text mb-2">
+              Предпочтительный способ связи:
+            </p>
+
+            <div className="flex flex-col md:flex-row md:gap-3 gap-2">
               {CONTACTS_METHODS_NAMES.map((method) => (
                 <label
                   key={method}
-                  className={`method-option ${order.contactMethod === method ? "active" : ""}`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer border ${
+                    order.contactMethod === method
+                      ? "border-color-action bg-color-action text-white"
+                      : "border-color-icons bg-bg-collor text-color-text hover:border-color-action hover:bg-color-action hover:text-white transition-colors"
+                  }`}
                 >
                   <input
                     type="radio"
@@ -63,13 +109,16 @@ const OrderFormComponent = ({
                     name="contactMethod"
                     checked={order.contactMethod === method}
                     onChange={handleFormData}
+                    className="hidden"
                   />
-                  <span className="option-icon">
+
+                  <span className="text-lg">
                     {method === "call" && "📞"}
                     {method === "telegram" && "✈️"}
                     {method === "whatsapp" && "💬"}
                   </span>
-                  <span className="option-text">
+
+                  <span className="text-sm md:text-base">
                     {{
                       call: "Позвонить",
                       telegram: "Telegram",
@@ -81,8 +130,8 @@ const OrderFormComponent = ({
             </div>
           </div>
 
-          {/* Чекбокс согласия */}
-          <label className="mt-4 grid grid-cols-[auto_1fr] gap-2 items-start text-[9px] md:text-base cursor-pointer max-w-full">
+          {/* Согласие на обработку */}
+          <label className="mt-4 flex items-start gap-2 text-[10px] md:text-base cursor-pointer">
             <input
               type="checkbox"
               checked={consentChecked}
@@ -90,13 +139,13 @@ const OrderFormComponent = ({
               required
               className="mt-1"
             />
-            <span className="whitespace-normal break-words">
+            <span className="text-color-text text-sm md:text-base">
               Я даю согласие на обработку моих персональных данных (имя и телефон) в соответствии с{" "}
               <a
                 href="/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-color-action underline break-words"
+                className="text-color-action underline"
               >
                 политикой конфиденциальности
               </a>
@@ -104,12 +153,17 @@ const OrderFormComponent = ({
             </span>
           </label>
 
+          {/* Кнопка */}
           <button
             type="submit"
             disabled={isSubmitDisabled}
-            className={`mt-6 px-6 py-3 rounded bg-color-action text-white font-semibold transition-colors ${
-              isSubmitDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-green-700"
-            }`}
+            className={`
+              mt-6 px-6 py-3 rounded-xl 
+              bg-color-action text-white font-semibold text-lg 
+              transition-colors
+              mb-[env(safe-area-inset-bottom)]
+              ${isSubmitDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-mint-700"}
+            `}
           >
             Заказать
           </button>
@@ -120,4 +174,3 @@ const OrderFormComponent = ({
 };
 
 export default OrderFormComponent;
-

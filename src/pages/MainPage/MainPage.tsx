@@ -7,14 +7,25 @@ import ProductDescription from "@components/productDescription/ProductDescriptio
 import Reviwes from "@components/reviews/Reviews";
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
 import { fetchBouquetsByCategoryThunk } from "@store/slices/bouquetSlice";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import BouquetModal from '@components/bouquetModal/BouquetModal';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { createPortal } from 'react-dom';
+import SpecialOfferPage from "@pages/specialOfferPage/SpecialOfferPage";
+
 const MainPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+
+  const state = location.state as { scrollY?: number } | undefined;
+
+  useLayoutEffect(() => {
+    if (state?.scrollY !== undefined) {
+      window.scrollTo(0, state.scrollY);
+    }
+  }, [state?.scrollY]);
+
   const bouquetsByCategory = useAppSelector(state => state.bouquet.bouquetsByCategory);
 
   const { bouquetId } = useParams<{ bouquetId?: string }>();
@@ -43,11 +54,14 @@ const MainPage = () => {
 
   return (
     <div className="pt-12 md:pt-0">
+      <SpecialOfferPage />
       <Carusel />
+      <div className="mb-5">
         <OrderCTA
           title={'Незнаете какой букет выбрать?'}
           CTA={'Оставьть заявку, мы свяжемся с вами в течении 10 минут и подберем тот букет который нужен именно Вам'}
         />
+      </div>
 
       {categories.map(bouquetCategory => {
 
@@ -61,10 +75,12 @@ const MainPage = () => {
             key={bouquetCategory.name}
             title={bouquetCategory.name}
             bouquets={(sortedAsc || []).slice(0, 9)}
-            // bouquets={(bouquetsByCategory[bouquetCategory.name] || []).slice(0, 9)}
             shortDescription={bouquetCategory.description}
-            onViewBouquet={(b) => navigate(`/${b._id}`, { state: { backgroundLocation: location } })}
-            className={"px-4 my-10 md:mt-0"}
+
+            // маршрут надо вынести в константу
+            onViewBouquet={(b) => navigate(`/bouquet/${b._id}`, { state: { backgroundLocation: location } })}
+            
+            className="my-10 md:mt-0"
             showSeeMoreCard={true}
             onSeeMoreClick={() => navigate(`/catalog/${encodeURIComponent(bouquetCategory.name)}`)}
           />
@@ -76,6 +92,7 @@ const MainPage = () => {
       <OrderCTA 
         title={'Ничего не нашли?'}
         CTA={'Оставьть заявку, мы свяжемся с вами в течении 10 минут и подберем тот букет который нужен именно вам'}
+        bgCollor='' 
       />
 
       {/* Рендер модалки поверх, если есть backgroundLocation и букет */}

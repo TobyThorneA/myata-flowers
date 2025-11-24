@@ -46,7 +46,7 @@ const Carusel = () => {
       bouquetId: bouquet._id,
       bouquetName: bouquet.name,
     })
-    navigate(`/${bouquet._id}`, { state: { backgroundLocation: location } })
+    navigate(`/bouquet/${bouquet._id}`, { state: { backgroundLocation: location } })
   }
 
 
@@ -54,7 +54,7 @@ const Carusel = () => {
   return (
     <div className="relative px-4 mt-10 md:px-12 md:mt-5">
       <div className="text-center mb-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-color-text">Популярное</h2>
+        <h2 className="font-cursive font-normal text-3xl md:text-4xl font-bold text-color-text">Популярное</h2>
         <p className="text-color-icons mt-1 text-base md:text-lg">Часто выбирают в Казани 🌸</p>
         <div className="w-20 h-1 bg-color-action mx-auto mt-3 rounded-full" />
       </div>

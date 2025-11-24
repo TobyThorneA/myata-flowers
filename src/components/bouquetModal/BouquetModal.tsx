@@ -1,3 +1,7 @@
+// =========================
+// src/components/bouquetModal/BouquetModal.tsx
+// =========================
+
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
@@ -61,14 +65,14 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClo
     <div
       ref={overlayRef}
       onClick={handleOverlayClick}
-      className="fixed inset-0 z-[1000] bg-black bg-opacity-70 backdrop-blur-sm overflow-y-auto p-4 flex justify-center items-start md:pt-8"
+      className="fixed inset-0 z-[1000] bg-color-text bg-opacity-70 backdrop-blur-sm overflow-y-auto p-4 flex justify-center items-start md:pt-8"
       aria-modal="true"
       role="dialog"
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
       <div
-        className="bg-colorPrimary rounded-2xl shadow-xl w-full max-w-5xl mt-8 md:mt-0 flex flex-col md:flex-row overflow-visible"
+        className="bg-bg-card rounded-2xl shadow-xl w-full max-w-5xl mt-8 md:mt-0 flex flex-col md:flex-row overflow-visible"
         style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }}
       >
 

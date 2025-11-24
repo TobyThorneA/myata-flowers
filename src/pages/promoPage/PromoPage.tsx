@@ -4,14 +4,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchBouquetsByCategoryThunk } from "@store/slices/bouquetSlice";
 import { selectBouquetsByCategory } from "@store/selectors/bouquetSelectors";
-
-/////////////////////////////////
 import BouquetModal from '@components/bouquetModal/BouquetModal';
 import { createPortal } from 'react-dom';
-
-
-
-
 
 const TITLE_NAME = "Букеты по акции"
 const CATEGORY_NAME = "Акция"
@@ -45,12 +39,11 @@ const PromoPage = () =>  {
   return (
     <>
       <Promo 
-        bouquets={sortedAsc} 
-        // bouquets={promoBouquets} 
+        bouquets={sortedAsc}
         title={TITLE_NAME}
         shortDescription="Приятные цены, скидки на доставку до 100% ✨"
         onViewBouquet={(b) => navigate(`/promo/${b._id}`, { state: { backgroundLocation: location } })}
-        className={"px-4 my-20 md:mt-5"}
+        className="my-20 md:mt-5"
       />
       {/* Рендер модалки поверх, если есть backgroundLocation и букет */}
       {backgroundLocation && modalBouquet &&

@@ -128,7 +128,7 @@ const Contacts = ({ hideText = false }: Props) => {
       </a>
 
       <address
-        className={`not-italic flex text-[8px] md:text-base md:mt-1 justify-end duration-500 ease-in-out ${
+        className={`fonst-sansSerif font-semibold not-italic flex text-[8px] md:text-base md:mt-1 justify-end duration-500 ease-in-out ${
           hideText ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >

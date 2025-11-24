@@ -1,3 +1,4 @@
+// 🔥 1. Всё как было — импорты не трогаем
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -24,99 +25,110 @@ import { fetchBouquetsThunk } from '@store/slices/bouquetSlice';
 import PrivateRouteCustom from '@components/privateRouteCustom/privateRouteCustom';
 import DesctopMenu from '@components/header/DesctopMenu';
 import BouquetModal from '@components/bouquetModal/BouquetModal';
+import SpecialOffer from '@components/specialOffer/SpecialOffer';
+import SpecialOfferPage from '@pages/specialOfferPage/SpecialOfferPage';
 
 const App = () => {
+  // 🔥 2. Логика модалок — БЕЗ изменений (она ок)
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const backgroundLocation = state?.backgroundLocation;
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
   const isAdminRoute = location.pathname.startsWith('/admin/');
 
-  // backgroundLocation — если была программная навигация (navigate(...))
-  // Определяем, нужно ли рендерить модалку:
-  // const isModal = backgroundLocation !== undefined || location.pathname.match(/\/(\w+\/)?\w{24}$/); //Проверка \w{24} — это ID букета из MongoDB.
-
-  // Паттерн для MongoDB ObjectId: 24 символа, hex
   const bouquetIdPattern = /^[a-f0-9]{24}$/i;
 
   const isModal = 
-    (backgroundLocation !== undefined && bouquetIdPattern.test(location.pathname.split('/').pop() ?? ''))
+    (backgroundLocation !== undefined &&
+      bouquetIdPattern.test(location.pathname.split('/').pop() ?? ''))
     || bouquetIdPattern.test(location.pathname.split('/').pop() ?? '');
 
   useEffect(() => {
-    // @ts-expect-error вызов thunk с типами
-    dispatch(fetchBouquetsThunk({isAdmin: false}));
+    // @ts-expect-error вызов thunk
+    dispatch(fetchBouquetsThunk({ isAdmin: false }));
   }, [dispatch]);
 
   return (
     <div className="container">
       {!isAdminRoute && <Header />}
 
+      {/* 🔥 3. Главные маршруты — ТУТ убрали /:bouquetId (ВАЖНО) */}
       <Routes location={backgroundLocation || location}>
-  <Route path="/" element={<MainPage />} />
-  <Route path="/store" element={<MainPage />} />
-  <Route path="/order" element={<OrderPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/store" element={<MainPage />} />
+        <Route path="/order" element={<OrderPage />} />
 
-  {/* Каталог */}
-  <Route path="/catalog" element={<CatalogPage />} />
-  <Route path="/catalog/:category" element={<CatalogPage />} />
-  <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
+        {/* Каталог */}
+        <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/catalog/:category" element={<CatalogPage />} />
+        <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
 
-  {/* Избранное */}
-  <Route path="/favorites" element={<FavoritesPage />} />
+        {/* Избранное */}
+        <Route path="/favorites" element={<FavoritesPage />} />
 
-  {/* Акции */}
-  <Route path="/promo" element={<PromoPage />} />
+        {/* Акции */}
+        <Route path="/promo" element={<PromoPage />} />
+        <Route path="/specialOffer/" element={<SpecialOfferPage />} />
+        <Route path="/specialOffer/:category" element={<SpecialOffer />} />
 
-  {/* Прямые ссылки на букеты (вне каталога) */}
-  <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
+        {/* 🔥 4. Прямые ссылки на букет */}
+        {/* Оставили только bouquet/:bouquetId — ЭТО ПРАВИЛЬНО */}
+        <Route path="/bouquet/:bouquetId" element={<BouquetModal />} />
 
-  {/* Главная страница — тут сделаем универсальный маршрут для модалки */}
-  <Route path="/:bouquetId" element={<MainPage />} />
+        {/* Остальные страницы */}
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contacts" element={<ContactPage />} />
+        <Route path="/delivery" element={<DeliveryMethodsPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/warranty" element={<WarrantyPage />} />
 
-  {/* Остальные страницы */}
-  <Route path="/about" element={<AboutUs />} />
-  <Route path="/contacts" element={<ContactPage />} />
-  <Route path="/delivery" element={<DeliveryMethodsPage />} />
-  <Route path="/payment" element={<PaymentPage />} />
-  <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-  <Route path="/warranty" element={<WarrantyPage />} />
+        {/* Админ */}
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <PrivateRouteCustom>
+              <>
+                <DesctopMenu />
+                <Dashboard />
+              </>
+            </PrivateRouteCustom>
+          }
+        />
 
-  {/* Админ */}
-  <Route path="/admin" element={<AdminLogin />} />
-  <Route path="/admin/dashboard" element={
-    <PrivateRouteCustom>
-      <>
-        <DesctopMenu />
-        <Dashboard />
-      </>
-    </PrivateRouteCustom>
-  } />
+        {/* Страница 404 */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      
 
-  <Route path="*" element={<NotFoundPage />} />
-</Routes>
+      {/* ---------- 🔥 5. МОДАЛКИ ПОСЛЕ ОСНОВНЫХ ---------- */}
 
-{/* Модалки поверх, для всех вариантов */}
-{backgroundLocation && (
-  <Routes>
-    <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
-    <Route path="/promo/:bouquetId" element={<PromoPage />} />
-    <Route path="/favorites/:bouquetId" element={<FavoritesPage />} />
-    <Route path="/:bouquetId" element={<MainPage />} />
-  </Routes>
-)}
+      {/* Если был фон → модалка поверх текущей страницы */}
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/catalog/:category/:bouquetId" element={<CatalogPage />} />
+          <Route path="/promo/:bouquetId" element={<PromoPage />} />
+          <Route path="/favorites/:bouquetId" element={<FavoritesPage />} />
 
-{isModal && (
-  <Routes >
-    <Route path="/catalog/:category/:id" element={<BouquetModal />} />
-    <Route path="/promo/:id" element={<BouquetModal />} />
-    <Route path="/favorites/:id" element={<BouquetModal />} />
-    <Route path="/bouquet/:id" element={<BouquetModal />} />  {/* вот сюда */}
-    <Route path="/:id" element={<BouquetModal />} />
-  </Routes>
-)}
+          {/* 🔥 Исправлено — раньше было MainPage, НО ТАК НЕ ДОЛЖНО БЫТЬ */}
+          <Route path="/bouquet/:bouquetId" element={<MainPage />} />
+        </Routes>
+      )}
 
+      {/* Если модальный режим — сама модалка */}
+      {isModal && (
+        <Routes>
+          <Route path="/catalog/:category/:id" element={<BouquetModal />} />
+          <Route path="/promo/:id" element={<BouquetModal />} />
+          <Route path="/favorites/:id" element={<BouquetModal />} />
+          <Route path="/bouquet/:id" element={<BouquetModal />} />
+
+          {/* 🔥 Самое главное — УБРАНО: "/:id" */}
+          {/* <Route path="/:id" element={<BouquetModal />} /> */}
+        </Routes>
+      )}
 
       {!isAdminRoute && <Footer />}
     </div>
