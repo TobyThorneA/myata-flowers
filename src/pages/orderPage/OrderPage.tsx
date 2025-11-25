@@ -16,9 +16,7 @@ const OrderPage = () => {
   const handleClose = () => {
     // @ts-ignore
     const modalUrl = state?.modalUrl ?? '/';
-    // const to = state?.from ?? '/'; // если from нет, fallback на главную
-    const scrollY = state?.scrollY ?? 0;
-    // navigate(to, { replace: true });
+    const scrollY = state?.scrollY ?? 0;  
     navigate(modalUrl, { state: { backgroundLocation: state?.from } });
 
       setTimeout(() => {

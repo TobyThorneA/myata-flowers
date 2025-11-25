@@ -6,7 +6,6 @@ interface SpecialOfferCardSquareProps {
 }
 
 const SpecialOfferCardSquare: React.FC<SpecialOfferCardSquareProps> = ({ bouquet, onViewBouquet }) => {
-  console.log('click', bouquet)
 
   const handleViewBouquet = (bouquet: IBouquet) => {
     window.ym?.(102322325, "reachGoal", "bouquet_view", {
@@ -24,7 +23,6 @@ const SpecialOfferCardSquare: React.FC<SpecialOfferCardSquareProps> = ({ bouquet
             <img
               src={bouquet.images[0]}
               alt={bouquet.name}
-              // className="absolute top-0 left-0 w-full h-full object-cover md:relative md:w-full md:h-full"
               className="absolute top-0 left-0 w-full h-full object-cover md:relative md:w-full md:h-full pointer-events-none"
             />
           </div>

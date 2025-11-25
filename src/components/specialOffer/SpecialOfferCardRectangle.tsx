@@ -8,7 +8,6 @@ interface SpecialOfferCardRectangleProps {
 
 const SpecialOfferCardRectangle: React.FC<SpecialOfferCardRectangleProps> = ({ bouquet, onViewBouquet }) => {
     const handleViewBouquet = (bouquet: IBouquet) => {
-    console.log('click')
     window.ym?.(102322325, "reachGoal", "bouquet_view", {
       bouquetId: bouquet._id,
       bouquetName: bouquet.name,

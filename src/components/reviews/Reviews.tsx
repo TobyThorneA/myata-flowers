@@ -17,22 +17,6 @@ const Reviews = () => {
 
         <h2 className="py-2 text-center font-semibold text-xl">Отзывы</h2>
 
-        {/* <div className="flex flex-col text-center mb-4 md:flex-row md:items-center md:justify-between">
-          <p className="text-[14px] md:text-[14px]">
-            Мы гордимся реальными отзывами на площадке Авито, которые подтверждают нашу репутацию.
-          </p>
-          <a
-            href="https://www.avito.ru/brands/myata//all?sellerId=93c75d7c8a25a5154afa63c278765e44"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 md:mt-0"
-          >
-            <button className="border border-black bg-color-action text-white rounded-xl w-[90%] h-[30px] mx-auto font-bold md:w-[400px]">
-              Посмотреть отзывы
-            </button>
-          </a>
-        </div> */}
-
         <div className="flex flex-col text-center mb-4 items-center">
   <p className="text-[14px] max-w-[700px]">
     Мы гордимся реальными отзывами на площадке Авито, которые подтверждают нашу репутацию.
@@ -55,7 +39,9 @@ const Reviews = () => {
         <div ref={emblaRef} className="overflow-hidden -mx-8 mb-4">
           <div className="flex will-change-transform">
             {reviewsExample.map((review) => (
-              <ReviewsExamles reviewExample={review} />
+              <ReviewsExamles
+                key={review.id}
+                name={review.name} />
             ))}
           </div>
 

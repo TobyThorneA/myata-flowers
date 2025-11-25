@@ -12,11 +12,11 @@ import CloseButton from "./CloseButton";
 import { usePortalRoot } from "@hooks/usePortalRoot";
 
 interface BouquetModalProps {
-  bouquet?: IBouquet; // ❗ Сделаем optional
+  bouquet?: IBouquet;
   onClose?: () => void;
 }
 
-const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClose }) => {
+const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet }) => {
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -26,19 +26,12 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClo
   const bouquets = useAppSelector((state) => state.bouquet.items);
   const bouquet = propBouquet || bouquets.find((b) => b._id === id);
   const overlayRef = useRef<HTMLDivElement>(null);
-  // const handleClose = useModalNavigation(onClose);
   const handleClose = () => {
     const to = (location.state as any)?.backgroundLocation || '/';
-    // const scrollY = (location.state as any)?.scrollY ?? 0;
 
     navigate(to, { replace: true });
-
-    // setTimeout(() => {
-    //   window.scrollTo(0, scrollY);
-    // }, 250);
   };
 
-  // Старая версия до рефакторинга из BouquetModal.tsx
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -70,7 +63,7 @@ const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClo
     );
   }
 
-  if (!modalRoot) return null; // ⚡ пока root не найден — ничего не рендерим
+  if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
     <div

@@ -4,15 +4,17 @@ import one2 from "../../assets/reviews/elena.jpg";
 import one3 from "../../assets/reviews/lyaisan.jpg";
 
 interface ReviewsExamlesProps {
-  reviewExample: string,
+    id?: string,
+    name: string,
+  
 }
 
-export const reviewsExample: Array<string> = [one0, one1, one2, one3]
+export const reviewsExample: Array<ReviewsExamlesProps> = [{id: '0', name: one0}, {id: '1', name: one1}, {id: '2', name: one2}, {id: '3', name: one3}]
 
-const ReviewsExamles: React.FC<ReviewsExamlesProps> = ({ reviewExample }) => {
+const ReviewsExamles: React.FC<ReviewsExamlesProps> = ({ name }) => {
   return (
     <div className="relative flex-[0_0_80%] px-2 md:flex-[0_0_40%] landscape:flex-[0_0_40%]">
-      <img src={ reviewExample } alt="" className="w-full rounded-lg" />
+      <img src={ name } alt="" className="w-full rounded-lg" />
     </div>
   )
 }

@@ -82,7 +82,6 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
           }}
         >
           <OrderButton
-            modal
             bouquetName={bouquet.name}
             contextNameButton="Заказать"
             watchField
