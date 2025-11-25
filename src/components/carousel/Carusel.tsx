@@ -10,20 +10,20 @@ import { fetchBouquetsByCategoryThunk } from '@store/slices/bouquetSlice'
 import { selectBouquetsByCategory } from '@store/selectors/bouquetSelectors'
 import LastCard from '@components/lastCard/LastCard'
 
-const CATEGORY_NAME_POPULAR = "Популярное";
-const CATEGORY_NAME_SPEC = "september";
+// const CATEGORY_NAME_POPULAR = "Популярное";
+const CATEGORY_NAME_SPEC = "pop";
 // const CATEGORY_NAME_SPEC = "Спец";
 
 const Carusel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true })
   const dispatch = useAppDispatch()
-  const popularBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_POPULAR))
+  // const popularBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_POPULAR))
   const specBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_SPEC))
 
   // конкатенация и удаление дубликатов
   const bouquets = [
     ...new Map(
-      [...popularBouquets, ...specBouquets].map(b => [b._id, b])
+      [...specBouquets].map(b => [b._id, b])
     ).values()
   ]
 
@@ -34,7 +34,7 @@ const Carusel = () => {
   const sortedAsc = [...bouquets].sort((a, b) => a.price - b.price);
 
   useEffect(() => {
-    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_POPULAR))
+    // dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_POPULAR))
     dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_SPEC))
   }, [dispatch])
 

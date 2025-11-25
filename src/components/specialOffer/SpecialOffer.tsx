@@ -5,10 +5,14 @@ import SpecialOfferCardSquare from "./SpecialOfferCardSquare";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const categoryNames: Record<string, string> = {
-  rosesmam: "Розы",
-  tulipsmam: "Тюльпаны",
+  rosemom: "Розы",
+  pionmom: "Кустовые Розы",
   hrissmam: "Хризантемы",
-  liliesmam: "Лилии",
+  mixmom: "Сборные",
+  staymom: "Стойкие",
+  gigamom: "Гиганты",
+  boxmom: "Композиции",
+  avtor: "Авторские",
   // добавляешь свои
 };
 

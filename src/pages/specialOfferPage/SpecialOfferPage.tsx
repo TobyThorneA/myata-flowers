@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 // Карты категорий (чисто названия)
 const categories = [
-  { id: "rosesmam", title: "Розы" },
-  { id: "pionrosesmam", title: "Пионовидные Розы" },
-  { id: "alstromam", title: "Альстромерия" },
+  { id: "rosemom", title: "Розы" },
+  { id: "pionmom", title: "Кустовые Розы" },
   { id: "hrissmam", title: "Хризантемы" },
-  { id: "sbornye", title: "Сборные" },
-  { id: "avtorsky", title: "Авторские" },
-  { id: "compositions", title: "Композиции" },
-  { id: "Seasons", title: "Сезонные" },
+  { id: "mixmom", title: "Сборные" },
+  { id: "staymom", title: "Стойкие" },
+  { id: "gigamom", title: "Гиганты" },
+  { id: "boxmom", title: "Композиции" },
+  { id: "avtor", title: "Авторские" },
 ];
+
 
 const SpecialOfferPage = () => {
   const navigate = useNavigate();
