@@ -3,6 +3,7 @@ import { useAppSelector } from "@store/app/hook";
 import SpecialOfferCardRectangle from "./SpecialOfferCardRectangle";
 import SpecialOfferCardSquare from "./SpecialOfferCardSquare";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const categoryNames: Record<string, string> = {
   rosemom: "Розы",
@@ -31,6 +32,10 @@ const SpecialOffer = () => {
     .filter(b => b.categories?.includes(normalizedCategory))
 
     const sorted = [...bouquets].sort((a, b) => a.price - b.price)
+    
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }, []);
 
   return (
     <div className="mt-16 pb-16 px-4 md:mt-0 md:px-8 bg-bg-collor font-cursive">

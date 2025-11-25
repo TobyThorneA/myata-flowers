@@ -1,11 +1,11 @@
 // orderForm
-import { useEffect } from 'react';
 import { useAppDispatch } from '../../store/app/hook';
 import { setBouquetName } from '../../store/slices/orderSlice';
 import OrderFormComponent from './OrderFormComponent';
 import SuccessMessage from './SuccessMessage';
 import { usePreventScroll } from '@hooks/usePreventScroll';
 import { useOrderForm } from '@hooks/useOrderForm';
+import { useEffect } from 'react';
 
 interface OrderFormProps {
   onClose: () => void;
@@ -43,6 +43,17 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
       >
         ×
       </button>
+
+      {/* {!isSubmitted ? (
+        <OrderFormComponent
+          handleFormData={handleFormData}
+          handleSubmit={handleSubmit}
+          onClose={onClose}
+          hideExtraFields={hideExtraFields}
+        />
+      ) : (
+        <SuccessMessage onClose={onClose} />
+      )} */}
 
       {!isSubmitted ? (
         <OrderFormComponent

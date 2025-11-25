@@ -1,4 +1,3 @@
-// 🔥 1. Всё как было — импорты не трогаем
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 

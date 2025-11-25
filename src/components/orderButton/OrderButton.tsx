@@ -1,4 +1,3 @@
-
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface OrderButtonProps {
@@ -15,10 +14,19 @@ const OrderButton = ({
   const navigate = useNavigate();
   const location = useLocation();
 
+  const from = (location.state as any)?.backgroundLocation?.pathname || location.pathname;
+
   const handleClick = () => {
     window.ym?.(102322325, 'click_order_button');
     const scrollY = window.scrollY;
-    navigate('/order', { state: { bouquetName, watchField, scrollY, form:location.pathname } });
+    navigate('/order', { state: { 
+      bouquetName, 
+      watchField, 
+      scrollY, 
+      from, 
+      modalUrl: location.pathname // URL самой модалки 
+      } 
+    });
   };
 
   return (

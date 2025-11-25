@@ -1,15 +1,13 @@
-// =========================
-// src/components/bouquetModal/BouquetModal.tsx
-// =========================
-
+// // =========================
+// // src/components/bouquetModal/BouquetModal.tsx
+// // =========================
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "@store/app/hook";
 import type { IBouquet } from "@pages/admin/types";
 import ImageGallery from "./ImageGallery";
 import BouquetInfo from "./BouquetInfo";
-import { useModalNavigation } from "@hooks/useModalNavigation";
 import CloseButton from "./CloseButton";
 import { usePortalRoot } from "@hooks/usePortalRoot";
 
@@ -21,11 +19,24 @@ interface BouquetModalProps {
 const BouquetModal: React.FC<BouquetModalProps> = ({ bouquet: propBouquet, onClose }) => {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const modalRoot = usePortalRoot("modal-root");
   const bouquets = useAppSelector((state) => state.bouquet.items);
   const bouquet = propBouquet || bouquets.find((b) => b._id === id);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const handleClose = useModalNavigation(onClose);
+  // const handleClose = useModalNavigation(onClose);
+  const handleClose = () => {
+    const to = (location.state as any)?.backgroundLocation || '/';
+    // const scrollY = (location.state as any)?.scrollY ?? 0;
+
+    navigate(to, { replace: true });
+
+    // setTimeout(() => {
+    //   window.scrollTo(0, scrollY);
+    // }, 250);
+  };
 
   // Старая версия до рефакторинга из BouquetModal.tsx
   useEffect(() => {
