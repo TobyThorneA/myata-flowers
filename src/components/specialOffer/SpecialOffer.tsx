@@ -41,7 +41,7 @@ const SpecialOffer = () => {
     <div className="mt-16 pb-16 px-4 md:mt-0 md:px-8 bg-bg-collor font-cursive">
       {/* Заголовок акции */}
       <h2 className="font-cursive font-normal pt-4 text-2xl md:text-5xl text-center mb-8 text-color-text">
-        Специальное предложение на день Мамы
+        Специальное предложение
         {readableCategory && ` (${readableCategory})`}
       </h2>
 
