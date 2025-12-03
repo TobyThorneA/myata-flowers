@@ -47,7 +47,7 @@ const SpecialOfferPage = () => {
       <h2 
       className="font-cursive font-normal pt-4 text-2xl md:text-5xl text-center mb-8 text-color-text"
       >
-        Специальные предложения ко дню мамы 
+        Специальные предложения
       </h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
