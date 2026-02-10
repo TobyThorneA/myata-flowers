@@ -1,4 +1,3 @@
-import React from 'react';
 import type { IBouquet } from './types';
 
 interface Props {
@@ -17,48 +16,51 @@ const BouquetTable: React.FC<Props> = ({
   onToggleHidden,
 }) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full text-sm table-auto border">
-        <thead className="bg-gray-100 text-xs uppercase text-gray-600">
+    <div className="scrollbar-hide min-w-full">
+    {/* <div className=" h-[calc(100vh-100px)] overflow-y-auto scrollbar-hide min-w-full"> */}
+      <table className=" text-sm table-auto min-w-full">
+        {/* <thead className="bg-gray-100 text-xs uppercase text-gray-600 sticky top-0 z-10"> */}
+        {/* <thead className="bg-gray-100 text-xs uppercase text-gray-600"> */}
+        <thead className="sticky top-[59px] border border-black z-10 bg-gray-300 shadow-sm">
           <tr>
-            <th className="p-2 border">Фото</th>
-            <th className="p-2 border">Название</th>
-            <th className="p-2 border">Цена</th>
-            <th className="p-2 border">Размер</th>
+            <th className="p-2 border border-gray-400">Фото</th>
+            <th className="p-2 border border-gray-400">Название</th>
+            <th className="p-2 border border-gray-400">Цена</th>
+            <th className="p-2 border border-gray-400">Размер</th>
             {/* <th className="p-2 border">Теги</th>
             <th className="p-2 border">Категории</th> */}
-            <th className="p-2 border">Доступен</th>
-            <th className="p-2 border">Скрыт</th>
-            <th className="p-2 border">Действия</th>
+            <th className="p-2 border border-gray-400">Доступен</th>
+            <th className="p-2 border border-gray-400">Скрыт</th>
+            <th className="p-2 border border-gray-400">Действия</th>
           </tr>
         </thead>
         <tbody>
           {bouquets.map((bq) => (
             <tr key={bq._id} className="hover:bg-gray-50">
-              <td className="p-2 border">
+              <td className="p-2 border border-gray-400">
                 <img
                   src={bq.images?.[0]}
                   alt={bq.name}
                   className="w-16 h-16 object-cover"
                 />
               </td>
-              <td className="p-2 border">{bq.name}</td>
-              <td className="p-2 border">
+              <td className="p-2 border border-gray-400">{bq.name}</td>
+              <td className="p-2 border border-gray-400">
                 {bq.price}₽ {bq.oldPrice ? <span className="line-through text-gray-400 ml-1">{bq.oldPrice}₽</span> : null}
               </td>
-              <td className="p-2 border">{bq.textSize}</td>
+              <td className="p-2 border border-gray-400">{bq.textSize}</td>
               {/* <td className="p-2 border">{bq.tags.join(', ')}</td>
               <td className="p-2 border">{bq.categories.join(', ')}</td> */}
 
               
-              <td className="p-2 border">
+              <td className="p-2 border border-gray-400">
                 <input
                   type="checkbox"
                   checked={bq.available}
                   onChange={() => onToggleAvailable(bq._id, !bq.available)}
                 />
               </td>
-              <td className="p-2 border">
+              <td className="p-2 border border-gray-400">
                 <input
                   type="checkbox"
                   checked={bq.hidden}
@@ -66,7 +68,7 @@ const BouquetTable: React.FC<Props> = ({
                 />
               </td>
 
-              <td className="p-2 border">
+              <td className="p-2 border border-gray-400">
                 <div className="flex gap-2">
                   <button
                     className="bg-blue-500 text-white px-2 py-1 text-xs rounded"
@@ -89,6 +91,5 @@ const BouquetTable: React.FC<Props> = ({
     </div>
   );
 };
-
 
 export default BouquetTable

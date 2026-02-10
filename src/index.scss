@@ -1,2 +1,30 @@
 // index.scss
-@use './tailwind.css'
+@use './tailwind.css';
+
+// .scrollbar-hide {
+//   -ms-overflow-style: none;  /* IE и Edge */
+//   scrollbar-width: none;     /* Firefox */
+// }
+
+// .scrollbar-hide::-webkit-scrollbar {
+//   display: none; /* Chrome, Safari и Opera */
+// }
+
+// html {
+//   scrollbar-width: none; /* Firefox */
+//   -ms-overflow-style: none; /* IE/Edge */
+// }
+
+// html::-webkit-scrollbar {
+//   display: none; /* Chrome/Safari */
+// }
+
+
+// .admin-scroll {
+//   scrollbar-width: none;
+//   -ms-overflow-style: none;
+// }
+
+// .admin-scroll::-webkit-scrollbar {
+//   display: none;
+// }

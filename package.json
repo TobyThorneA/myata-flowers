@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mob": "vite --host"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -21,7 +22,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "^7.60.0",
+    "react-hook-form": "^7.71.1",
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",

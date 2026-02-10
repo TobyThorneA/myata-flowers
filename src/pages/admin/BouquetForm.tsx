@@ -1,11 +1,10 @@
 // src/pages/admin/BouquetForm.tsx
-// форма добавления/редактирования
-
-import React, { useState } from 'react';
+// форма добавления/редактирования  
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type {  IBouquet } from './types';
+import { useState } from 'react';
 
 //   name: z.string().min(1, 'Название обязательно'),
 //   price: z.number().min(1, 'Укажите цену'),

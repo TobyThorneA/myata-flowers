@@ -9,16 +9,12 @@ import { useEffect } from 'react'
 import { fetchBouquetsByCategoryThunk } from '@store/slices/bouquetSlice'
 import { selectBouquetsByCategory } from '@store/selectors/bouquetSelectors'
 import LastCard from '@components/lastCard/LastCard'
-
-// const CATEGORY_NAME_POPULAR = "Популярное";
-const CATEGORY_NAME_SPEC = "pop";
-// const CATEGORY_NAME_SPEC = "Спец";
+import { BOUQUET_CATEGORIES } from '../../shared/categories/config/bouquetCategories'
 
 const Carusel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, dragFree: true })
   const dispatch = useAppDispatch()
-  // const popularBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_POPULAR))
-  const specBouquets = useAppSelector(state => selectBouquetsByCategory(state, CATEGORY_NAME_SPEC))
+  const specBouquets = useAppSelector(state => selectBouquetsByCategory(state, BOUQUET_CATEGORIES.POP.key))
 
   // конкатенация и удаление дубликатов
   const bouquets = [
@@ -34,8 +30,7 @@ const Carusel = () => {
   const sortedAsc = [...bouquets].sort((a, b) => a.price - b.price);
 
   useEffect(() => {
-    // dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_POPULAR))
-    dispatch(fetchBouquetsByCategoryThunk(CATEGORY_NAME_SPEC))
+    dispatch(fetchBouquetsByCategoryThunk(BOUQUET_CATEGORIES.POP.key))
   }, [dispatch])
 
   const scrollPrev = () => emblaApi?.scrollPrev()
@@ -54,7 +49,7 @@ const Carusel = () => {
   return (
     <div className="relative px-4 mt-10 md:px-12 md:mt-5">
       <div className="text-center mb-6">
-        <h2 className="font-cursive font-normal text-3xl md:text-4xl font-bold text-color-text">Популярное</h2>
+        <h2 className="font-cursive  text-3xl md:text-4xl font-bold text-color-text">Популярное</h2>
         <p className="text-color-icons mt-1 text-base md:text-lg">Часто выбирают в Казани 🌸</p>
         <div className="w-20 h-1 bg-color-action mx-auto mt-3 rounded-full" />
       </div>

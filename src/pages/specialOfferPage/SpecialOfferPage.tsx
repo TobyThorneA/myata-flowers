@@ -1,17 +1,18 @@
 import { useAppSelector } from "@store/app/hook";
 import { useNavigate } from "react-router-dom";
+import { SPECIAL_OFFERS_CATEGORIES } from "../../shared/categories/config/specialOffersCategories"
 
 // Карты категорий (чисто названия)
-const categories = [
-  { id: "rosemom", title: "Розы" },
-  { id: "pionmom", title: "Кустовые Розы" },
-  { id: "hrissmam", title: "Хризантемы" },
-  { id: "mixmom", title: "Сборные" },
-  { id: "staymom", title: "Стойкие" },
-  { id: "gigamom", title: "Гиганты" },
-  { id: "boxmom", title: "Композиции" },
-  { id: "avtor", title: "Авторские" },
-];
+// const categories = [
+//   { id: "rosemom", title: "Розы" },
+//   { id: "pionmom", title: "Кустовые Розы" },
+//   { id: "hrissmam", title: "Хризантемы" },
+//   { id: "mixmom", title: "Сборные" },
+//   { id: "staymom", title: "Стойкие" },
+//   { id: "gigamom", title: "Гиганты" },
+//   { id: "boxmom", title: "Композиции" },
+//   { id: "avtor", title: "Авторские" },
+// ];
 
 
 const SpecialOfferPage = () => {
@@ -52,7 +53,8 @@ const SpecialOfferPage = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 
-        {categories.map(cat => (
+        {SPECIAL_OFFERS_CATEGORIES.map(cat => (
+        // {categories.map(cat => (
           <div
             key={cat.id}
             onClick={() => handleClick(cat.id)}
