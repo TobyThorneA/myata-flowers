@@ -3,7 +3,7 @@ import { useRef } from "react";
 import Telegram from "../../assets/telegram.png";
 import WhatsApp from "../../assets/whatsapp.png";
 import Phone from "../../assets/phone.png";
-import Avito from "../../assets/avito.png";
+import Max from "../../assets/max.png";
 
 interface Props {
   hideText?: boolean;
@@ -58,10 +58,10 @@ const Contacts = ({ hideText = false }: Props) => {
       goal: "click_whatsapp",
     },
     {
-      href: "https://avito.ru/brands/myata",
-      img: Avito,
-      label: "Avito",
-      goal: "click_avito",
+      href: "https://max.ru/u/f9LHodD0cOIOfIqWUQWsvjdGVVKvB2tm5Z-KljGiCM0Emoqv9WHY7xsy1MQ",
+      img: Max,
+      label: "Max",
+      goal: "click_max",
     },
   ];
 

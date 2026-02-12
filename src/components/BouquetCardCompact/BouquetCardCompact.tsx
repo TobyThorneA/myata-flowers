@@ -46,7 +46,7 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
           {bouquet.available 
           ? ''
           : (
-            <p className="text-xs absolute bg-white bg-opacity-70 px-2 py-1 ml-1 mt-1  rounded text-sm font-semibold text-color-action">под заказ ⏳</p>
+            <p className="text-xs absolute bg-white bg-opacity-70 px-2 py-1 ml-1 mt-1  rounded  font-semibold text-color-action">под заказ ⏳</p>
           )}
           <button onClick={handleToggleFavorite} className="p-1">
             <HeartFavorite
