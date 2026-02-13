@@ -1,0 +1,1 @@
+export type ContactMethod = "call" | "telegram" | "whatsapp" | "max";

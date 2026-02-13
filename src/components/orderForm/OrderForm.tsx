@@ -44,17 +44,6 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
         ×
       </button>
 
-      {/* {!isSubmitted ? (
-        <OrderFormComponent
-          handleFormData={handleFormData}
-          handleSubmit={handleSubmit}
-          onClose={onClose}
-          hideExtraFields={hideExtraFields}
-        />
-      ) : (
-        <SuccessMessage onClose={onClose} />
-      )} */}
-
       {!isSubmitted ? (
         <OrderFormComponent
           handleFormData={handleFormData}

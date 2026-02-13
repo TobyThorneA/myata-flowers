@@ -28,8 +28,6 @@ const MainPage = () => {
 
   const bouquetsByCategory = useAppSelector(state => state.bouquet.bouquetsByCategory);
 
-  console.log("bouquetsCategory", bouquetsByCategory)
-
   const { bouquetId } = useParams<{ bouquetId?: string }>();
   const bouquets = useAppSelector(state => state.bouquet.items);
 

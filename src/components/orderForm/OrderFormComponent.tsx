@@ -7,7 +7,10 @@ import NameInput from "./fields/NameInput";
 import HoneypotInput from "./fields/HoneypotInput";
 import PhoneInput from "./fields/PhoneInput";
 import ExtraQuestions from "./fields/ExtraQuestions";
-import { CONTACTS_METHODS_NAMES } from "../../constants/contactMethods";
+// import { CONTACTS_METHODS_NAMES } from "../../constants/contactMethodsConfig";
+// import type { ContactMethod } from "types/typesContacts";
+// import { iconsContacts } from "../../icons/iconsContacts/iconsContact";
+import ContactMethodSelector from "./ContactMethodSelector";
 
 interface PropsOrder {
   handleSubmit: (e: React.FormEvent) => void;
@@ -89,15 +92,20 @@ const OrderFormComponent = ({
           <ExtraQuestions watchField={hideExtraFields} onChange={handleFormData} />
 
           <div className="mt-2">
-            <p className="font-medium text-color-text mb-2">
+            <ContactMethodSelector
+              value={order.contactMethod}
+              onChange={handleFormData}
+            />
+            {/* <p className="font-medium text-color-text mb-2">
               Предпочтительный способ связи:
             </p>
 
-            <div className="flex flex-col md:flex-row md:gap-3 gap-2">
-              {CONTACTS_METHODS_NAMES.map((method) => (
+            <div className="flex flex-col  md:gap-3 gap-2">
+              {CONTACTS_METHODS_NAMES.map((method: ContactMethod) => (
+                
                 <label
                   key={method}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer border ${
+                  className={`flex items-center justify-center gap-2 px-3 py-2 rounded-xl cursor-pointer border ${
                     order.contactMethod === method
                       ? "border-color-action bg-color-action text-white"
                       : "border-color-icons bg-bg-collor text-color-text hover:border-color-action hover:bg-color-action hover:text-white transition-colors"
@@ -113,21 +121,54 @@ const OrderFormComponent = ({
                   />
 
                   <span className="text-lg">
-                    {method === "call" && "📞"}
-                    {method === "telegram" && "✈️"}
-                    {method === "whatsapp" && "💬"}
+                    {
+                      method === "call" 
+                        && 
+                        (<div 
+                          className="w-6 h-6 flex justify-center items-center"
+                        >
+                          <img src={iconsContacts.call} alt="Max" className="w-5 h-5 text-green-500" />
+                        </div>)
+                    }
+                    {
+                      method === "telegram" 
+                        && 
+                        (<div 
+                          className="w-6 h-6 flex justify-center items-center"
+                        >
+                          <img src={iconsContacts.telegram} alt="Max" className="w-5 h-5 text-green-500" />
+                        </div>)
+                    }
+                    {
+                      method === "whatsapp" 
+                        && 
+                        (<div 
+                          className="w-6 h-6 flex justify-center items-center"
+                        >
+                          <img src={iconsContacts.whatsapp} alt="Max" className="w-5 h-5 text-green-500" />
+                        </div>)
+                    }
+                    {
+                      method === "max" 
+                        && 
+                        (<div 
+                          className="w-6 h-6 flex justify-center items-center"
+                        >
+                          <img src={iconsContacts.max} alt="Max" className="w-5 h-5 text-green-500" />
+                        </div>)
+                    }
                   </span>
-
-                  <span className="text-sm md:text-base">
+                  <span className="text-sm md:text-base w-20">
                     {{
                       call: "Позвонить",
                       telegram: "Telegram",
                       whatsapp: "WhatsApp",
+                      max: "Max"
                     }[method]}
                   </span>
                 </label>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Согласие на обработку */}

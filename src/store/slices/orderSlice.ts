@@ -4,7 +4,7 @@ export interface OrderState {
   name: string,
   bouquetName: string,
   phone: string,
-  contactMethod: 'call' | 'telegram' | 'whatsapp' | '',
+  contactMethod: 'call' | 'telegram' | 'whatsapp' | 'max',
   kindOfFlowers: string,
   whomGifts: string,
   flowerDesign: string,
@@ -35,7 +35,7 @@ const orderSlice = createSlice({
     setPhone(state, action: PayloadAction<string>){
       state.phone = action.payload
     },
-    setContactMethod(state, action: PayloadAction<'call' | 'telegram' | 'whatsapp' | ''>){
+    setContactMethod(state, action: PayloadAction<'call' | 'telegram' | 'whatsapp' | 'max'>){
       state.contactMethod = action.payload
     },
     setKindOfFlowers(state, action: PayloadAction<string>){
