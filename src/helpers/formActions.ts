@@ -29,6 +29,6 @@ export const actionMap = {
   whomGifts: setWhomGifts,
   flowerDesign: setFlowerDesign,
   honeypot: setHoneypot,
-  contactMethod: (value: "call" | "telegram" | "whatsapp" | "") =>
+  contactMethod: (value: "call" | "telegram" | "whatsapp" | "max") =>
     setContactMethod(value),
 } as const;
