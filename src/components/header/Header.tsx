@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logo.png";
 import Contacts from "@components/Contacts/Contacts";
 import NavBar from "@components/NavBar/NavBar";
 import DesctopMenu from "./DesctopMenu";
@@ -39,7 +39,7 @@ const Header = () => {
               hideText ? "scale-90 translate-y-1" : "scale-100"
             )}
           >
-            Мята Flowers
+            Мята wветочная студия
           </h1>
           <p
             className={clsx(
