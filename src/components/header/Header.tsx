@@ -39,7 +39,7 @@ const Header = () => {
               hideText ? "scale-90 translate-y-1" : "scale-100"
             )}
           >
-            Мята wветочная студия
+            Мята цветочный
           </h1>
           <p
             className={clsx(
@@ -69,7 +69,7 @@ const Header = () => {
             />
           </Link>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="font-medium text-4xl  text-color-text">МЯТА Flowers</h1>
+            <h1 className="font-medium text-4xl  text-color-text">МЯТА цветочная студия</h1>
             <p className="font-sansSerif mt-3 text-xl text-color-icons">Качественно, быстро, с душой</p>
           </div>
           {/* Контакты */}
