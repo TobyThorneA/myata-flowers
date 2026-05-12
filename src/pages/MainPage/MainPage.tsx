@@ -54,7 +54,7 @@ const MainPage = () => {
 
   return (
     <div className="pt-12 md:pt-0">
-      <SpecialOfferPage />
+      {/* <SpecialOfferPage /> */}
       <Carusel />
       <div className="mb-5">
         <OrderCTA

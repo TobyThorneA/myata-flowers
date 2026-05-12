@@ -6,7 +6,7 @@ export type BouquetCategory = {
 
 export const BOUQUET_CATEGORIES = {
   POP: {
-    key: "pop",
+    key: "Популярное",
     title: "Популярное",
   },
   ROSES: {
