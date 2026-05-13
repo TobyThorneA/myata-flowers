@@ -11,7 +11,7 @@ import { useEffect, useLayoutEffect } from "react";
 import BouquetModal from '@components/bouquetModal/BouquetModal';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { createPortal } from 'react-dom';
-import SpecialOfferPage from "@pages/specialOfferPage/SpecialOfferPage";
+// import SpecialOfferPage from "@pages/specialOfferPage/SpecialOfferPage";
 
 const MainPage = () => {
   const navigate = useNavigate();

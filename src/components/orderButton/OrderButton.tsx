@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { reachGoal } from '@lib/metrika';
 
 interface OrderButtonProps {
   bouquetName?: string;
@@ -17,7 +18,7 @@ const OrderButton = ({
   const from = (location.state as any)?.backgroundLocation?.pathname || location.pathname;
 
   const handleClick = () => {
-    window.ym?.(102322325, 'click_order_button');
+    reachGoal('click_order_button', { bouquetName });
     const scrollY = window.scrollY;
     navigate('/order', { state: { 
       bouquetName, 

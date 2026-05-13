@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../store/app/hook";
 import { type OrderState } from "../store/slices/orderSlice";
 import { actionMap, type FormFieldName } from "../helpers/formActions";
 import { sendToTelegram } from "../lib/telegram";
+import { reachGoal } from "../lib/metrika";
 
 export const useOrderForm = (bouquetName?: string) => {
   const dispatch = useAppDispatch();
@@ -32,9 +33,13 @@ export const useOrderForm = (bouquetName?: string) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    window.ym?.(102322325, "reachGoal", "form_submit", {
+    const goalParams = {
       bouquetName: order.bouquetName,
-    });
+      contactMethod: order.contactMethod,
+    };
+
+    reachGoal("form_submit", goalParams);
+    reachGoal(`form_submit_${order.contactMethod}`, goalParams);
 
     sendToTelegram(order);
     setIsSubmitted(true);

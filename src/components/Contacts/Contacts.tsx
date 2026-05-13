@@ -1,6 +1,7 @@
 // Contacts.tsx
 import { iconsContacts } from "../../icons/iconsContacts/iconsContact";
 import { useRef } from "react";
+import { reachGoal } from "@lib/metrika";
 
 interface Props {
   hideText?: boolean;
@@ -26,9 +27,7 @@ const Contacts = ({ hideText = false }: Props) => {
   };
 
   const sendGoal = (goal: string) => {
-    if (window.ym) {
-      window.ym(102322325, "reachGoal", goal);
-    }
+    reachGoal(goal);
   };
 
   const handleTouchEnd = (goal: string) => {

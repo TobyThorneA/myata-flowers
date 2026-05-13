@@ -1,5 +1,7 @@
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaWhatsapp, FaTelegramPlane, FaMapMarkerAlt } from "react-icons/fa";
+import { reachGoal } from "@lib/metrika";
+import { iconsContacts } from "../../icons/iconsContacts/iconsContact";
 
 const ContactPage = () => {
   return (
@@ -30,6 +32,7 @@ const ContactPage = () => {
           <a
             href="tel:89656003600"
             className="text-base md:text-lg hover:text-color-action transition-colors"
+            onClick={() => reachGoal("click_phone")}
           >
             +7 965 600-3-600
           </a>
@@ -41,23 +44,38 @@ const ContactPage = () => {
             <FaWhatsapp className="text-green-500" />
             <a
               href="https://wa.me/79270387435"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-base md:text-lg hover:text-color-action transition-colors"
-            >
-              Написать в WhatsApp
-            </a>
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base md:text-lg hover:text-color-action transition-colors"
+            onClick={() => reachGoal("click_whatsapp")}
+          >
+            Написать в WhatsApp
+          </a>
           </div>
 
           <div className="flex items-center gap-4">
             <FaTelegramPlane className="text-sky-400" />
             <a
               href="https://t.me/myata_flow"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base md:text-lg hover:text-color-action transition-colors"
+            onClick={() => reachGoal("click_telegram")}
+          >
+              Написать в Telegram
+            </a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <img src={iconsContacts.max} alt="" className="h-4 w-4 rounded-full" />
+            <a
+              href="https://max.ru/u/f9LHodD0cOIOfIqWUQWsvjdGVVKvB2tm5Z-KljGiCM0Emoqv9WHY7xsy1MQ"
               target="_blank"
               rel="noopener noreferrer"
               className="text-base md:text-lg hover:text-color-action transition-colors"
+              onClick={() => reachGoal("click_max")}
             >
-              Написать в Telegram
+              Написать в Max
             </a>
           </div>
         </div>

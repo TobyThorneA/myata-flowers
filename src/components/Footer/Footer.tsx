@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { reachGoal } from "@lib/metrika";
 
 // components/Footer/Footer.tsx
 const Footer = () => {
@@ -20,9 +21,10 @@ const Footer = () => {
         <div>
           <h3 className="font-semibold mb-2">Контакты</h3>
           <ul className="space-y-1 text-white/80">
-            <li><a href="tel:89656003600">8 965 600 36 00</a></li>
-            <li><a href="https://t.me/myata_flow" target="_blank" rel="noreferrer">Telegram</a></li>
-            <li><a href="https://wa.me/79270387435" target="_blank" rel="noreferrer">WhatsApp</a></li>
+            <li><a href="tel:89656003600" onClick={() => reachGoal("click_phone")}>8 965 600 36 00</a></li>
+            <li><a href="https://t.me/myata_flow" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_telegram")}>Telegram</a></li>
+            <li><a href="https://wa.me/79270387435" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_whatsapp")}>WhatsApp</a></li>
+            <li><a href="https://max.ru/u/f9LHodD0cOIOfIqWUQWsvjdGVVKvB2tm5Z-KljGiCM0Emoqv9WHY7xsy1MQ" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_max")}>Max</a></li>
             <li>Казань, ул. Кул-Гали 27 (самовывоз)</li>
           </ul>
         </div>
