@@ -1,5 +1,5 @@
-import { createSelector } from '@reduxjs/toolkit';
-import type { RootState } from '@store/app/store';
+import { createSelector } from "@reduxjs/toolkit";
+import type { RootState } from "@store/app/store";
 
 const selectBouquetState = (state: RootState) => state.bouquet;
 
@@ -10,6 +10,6 @@ export const selectBouquetsByCategory = createSelector(
     const bouquetsByCategory = bouquetState.bouquetsByCategory[category];
 
     if (!bouquetsByCategory) return [];
-    return bouquetsByCategory.filter(bouquet => bouquet.categories?.includes(category));
-  }
+    return bouquetsByCategory.filter((bouquet) => bouquet.categories?.includes(category));
+  },
 );

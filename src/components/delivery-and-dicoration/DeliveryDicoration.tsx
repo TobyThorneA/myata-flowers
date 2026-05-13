@@ -1,8 +1,8 @@
 const DeliveryDicoration = () => {
   return (
-    <div className="font-sansSerif px-4 mt-4 md:mt-6 lg:mt-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="font-cursive font-normal text-2xl md:text-3xl font-bold mb-6 text-center">
+    <div className="mt-4 px-4 font-sansSerif md:mt-6 lg:mt-8">
+      <div className="mx-auto max-w-4xl">
+        <h2 className="mb-6 text-center font-cursive text-2xl font-bold font-normal md:text-3xl">
           Почему выбирают нас
         </h2>
 
@@ -18,8 +18,7 @@ const DeliveryDicoration = () => {
                   <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z" />
                 </>
               ),
-              text:
-                "Только свежие цветы из проверенных источников — мы гарантируем качество и свежесть каждого букета",
+              text: "Только свежие цветы из проверенных источников — мы гарантируем качество и свежесть каждого букета",
             },
             {
               icon: (
@@ -31,18 +30,21 @@ const DeliveryDicoration = () => {
                   <path d="M3 4h8" />
                 </>
               ),
-              text:
-                "Индивидуальный подход к каждому заказу — учитываем ваши пожелания и создаём букеты с заботой",
+              text: "Индивидуальный подход к каждому заказу — учитываем ваши пожелания и создаём букеты с заботой",
             },
             {
               icon: (
-                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 
-                0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 
-                0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 
-                14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                <path
+                  d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1
+
+                0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963
+
+                0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5
+
+                14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                />
               ),
-              text:
-                "Высокое качество и эстетика — наши флористы делают всё, чтобы ваши цветы выглядели безупречно",
+              text: "Высокое качество и эстетика — наши флористы делают всё, чтобы ваши цветы выглядели безупречно",
             },
             {
               icon: (
@@ -55,17 +57,19 @@ const DeliveryDicoration = () => {
                   <path d="m9 13 2 2 4-4" />
                 </>
               ),
-              text:
-                "Надежность и пунктуальность — мы ценим ваше время и выполняем заказы точно в срок",
+              text: "Надежность и пунктуальность — мы ценим ваше время и выполняем заказы точно в срок",
             },
             {
               icon: (
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 
-                0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 
-                2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76
+
+                0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0
+
+                2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
               ),
-              text:
-                "Душевное отношение — мы любим свою работу и хотим, чтобы каждый клиент остался доволен",
+              text: "Душевное отношение — мы любим свою работу и хотим, чтобы каждый клиент остался доволен",
             },
             {
               icon: (
@@ -76,19 +80,15 @@ const DeliveryDicoration = () => {
                   <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" />
                 </>
               ),
-              text:
-                "Укомплектуем букет до полного подарка — открытка, шоколад, мягкая игрушка и другое по вашему выбору",
+              text: "Укомплектуем букет до полного подарка — открытка, шоколад, мягкая игрушка и другое по вашему выбору",
             },
           ].map(({ icon, text }, idx) => (
             <li
               key={idx}
-              className="
-                flex flex-col items-center text-center
-                md:flex-row md:items-start md:text-left md:gap-4
-              "
+              className="flex flex-col items-center text-center md:flex-row md:items-start md:gap-4 md:text-left"
             >
               <svg
-                className="w-12 h-12 stroke-current text-color-icons shrink-0 mb-3 md:mb-0"
+                className="mb-3 h-12 w-12 shrink-0 stroke-current text-color-icons md:mb-0"
                 viewBox="0 0 24 24"
                 fill="none"
                 strokeWidth="1.5"
@@ -98,9 +98,7 @@ const DeliveryDicoration = () => {
                 {icon}
               </svg>
 
-              <p className="text-sm md:text-base lg:text-lg font-medium md:font-semibold">
-                {text}
-              </p>
+              <p className="text-sm font-medium md:text-base md:font-semibold lg:text-lg">{text}</p>
             </li>
           ))}
         </ul>

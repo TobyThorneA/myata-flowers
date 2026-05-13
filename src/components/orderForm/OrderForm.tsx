@@ -1,11 +1,12 @@
 // orderForm
-import { useAppDispatch } from '../../store/app/hook';
-import { setBouquetName } from '../../store/slices/orderSlice';
-import OrderFormComponent from './OrderFormComponent';
-import SuccessMessage from './SuccessMessage';
-import { usePreventScroll } from '@hooks/usePreventScroll';
-import { useOrderForm } from '@hooks/useOrderForm';
-import { useEffect } from 'react';
+import { useOrderForm } from "@hooks/useOrderForm";
+import { usePreventScroll } from "@hooks/usePreventScroll";
+import { useEffect } from "react";
+
+import { useAppDispatch } from "../../store/app/hook";
+import { setBouquetName } from "../../store/slices/orderSlice";
+import OrderFormComponent from "./OrderFormComponent";
+import SuccessMessage from "./SuccessMessage";
 
 interface OrderFormProps {
   onClose: () => void;
@@ -19,7 +20,7 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
 
   // Устанавливаем название букета
   useEffect(() => {
-    const finalBouquetName = bouquetName ?? 'Не указан';
+    const finalBouquetName = bouquetName ?? "Не указан";
     dispatch(setBouquetName(finalBouquetName));
   }, [bouquetName, dispatch]);
 
@@ -29,17 +30,17 @@ const OrderForm = ({ onClose, bouquetName, hideExtraFields = false }: OrderFormP
   // Esc закрывает форму
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [onClose]);
 
   return (
-    <div className="order-page-container p-6 md:p-8 max-w-lg mx-auto">
+    <div className="order-page-container mx-auto max-w-lg p-6 md:p-8">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-color-text text-2xl font-bold hover:text-color-action"
+        className="absolute right-4 top-4 text-2xl font-bold text-color-text hover:text-color-action"
       >
         ×
       </button>

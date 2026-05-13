@@ -8,7 +8,7 @@ export interface IFlower {
 
 export interface IPromotion {
   active: boolean;
-  type: 'discount' | 'free_delivery' | 'delivery_discount';
+  type: "discount" | "free_delivery" | "delivery_discount";
   description?: string;
 }
 
@@ -21,7 +21,7 @@ export interface IBouquet {
   description: string;
   images: string[];
   size: string;
-  textSize: 'маленький' | 'средний' | 'большой';
+  textSize: "маленький" | "средний" | "большой";
   promotion?: IPromotion;
   flowers: IFlower[];
   available: boolean;
@@ -38,10 +38,10 @@ export interface BouquetFormInput {
   description: string;
   images: string; // вводится как строка с ссылками
   size: string;
-  textSize: 'маленький' | 'средний' | 'большой';
+  textSize: "маленький" | "средний" | "большой";
   promotion?: {
     active: boolean;
-    type: 'discount' | 'free_delivery' | 'delivery_discount';
+    type: "discount" | "free_delivery" | "delivery_discount";
     description?: string;
   };
   flowers: {

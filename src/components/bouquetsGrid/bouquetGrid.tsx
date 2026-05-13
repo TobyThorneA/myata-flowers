@@ -1,7 +1,7 @@
 //BouquetGrid.tsx
-import type { IBouquet } from "@pages/admin/types";
 import BouquetCardCompact from "@components/BouquetCardCompact/BouquetCardCompact";
 import LastCard from "@components/lastCard/LastCard";
+import type { IBouquet } from "@pages/admin/types";
 
 type BouquetsGridProps = {
   title?: string;
@@ -22,43 +22,26 @@ const BouquetsGrid = ({
   showSeeMoreCard,
   onSeeMoreClick,
 }: BouquetsGridProps) => {
-  
-  if(showSeeMoreCard && bouquets.length === 9) {
-    bouquets.push({_id: 'see-more'} as IBouquet)
+  if (showSeeMoreCard && bouquets.length === 9) {
+    bouquets.push({ _id: "see-more" } as IBouquet);
   }
-  
+
   return (
     <div className={`${className}`}>
-      <h1 className="font-cursive text-4xl text-center mb-2 px-4 md:px-0">
-        {title}
-      </h1>
+      <h1 className="mb-2 px-4 text-center font-cursive text-4xl md:px-0">{title}</h1>
 
-      <p className="text-color-icons text-sm mt-1 text-base text-center md:text-lg px-4 md:px-0">
+      <p className="mt-1 px-4 text-center text-base text-sm text-color-icons md:px-0 md:text-lg">
         {shortDescription}
       </p>
 
-      <div className="w-20 h-1 bg-color-action mx-auto mt-3 mb-6 rounded-full" />
+      <div className="mx-auto mb-6 mt-3 h-1 w-20 rounded-full bg-color-action" />
 
       {/* --- фон, который должен идти до краёв --- */}
-      <div className="bg-bg-collor w-full px-0 md:px-8 py-6">
-
-        <div
-          className="
-            grid gap-4
-            grid-cols-2
-            sm:grid-cols-3
-            md:grid-cols-3
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-5
-            px-4 md:px-0
-          "
-        >
-          {bouquets.map(bouquet => {
+      <div className="w-full bg-bg-collor px-0 py-6 md:px-8">
+        <div className="grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-3 md:px-0 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
+          {bouquets.map((bouquet) => {
             if (bouquet._id === "see-more") {
-              return (
-                <LastCard key={bouquet._id} nameNav={onSeeMoreClick} />
-              );
+              return <LastCard key={bouquet._id} nameNav={onSeeMoreClick} />;
             }
 
             return (
@@ -76,7 +59,6 @@ const BouquetsGrid = ({
 };
 
 export default BouquetsGrid;
-
 
 // type BouquetsGridProps = {
 //   title?: string;
@@ -105,9 +87,9 @@ export default BouquetsGrid;
 //     onViewBouquet(bouquet);
 //   };
 
-  // if(showSeeMoreCard && bouquets.length === 9) {
-  //   bouquets.push({_id: 'see-more'} as IBouquet)
-  // }
+// if(showSeeMoreCard && bouquets.length === 9) {
+//   bouquets.push({_id: 'see-more'} as IBouquet)
+// }
 
 //   return (
 //     // <div className={` px-4 sm:px-6 lg:px-8 ${className}`}>
@@ -191,4 +173,3 @@ export default BouquetsGrid;
 // };
 
 // export default BouquetsGrid;
-

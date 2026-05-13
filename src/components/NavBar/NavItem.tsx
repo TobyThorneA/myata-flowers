@@ -1,6 +1,6 @@
 // components/NavBar/NavItem.tsx
-import { NavLink } from "react-router-dom";
 import type { ComponentType } from "react";
+import { NavLink } from "react-router-dom";
 
 interface NavItemProps {
   to: string;
@@ -14,28 +14,25 @@ const NavItem = ({ to, label, Icon, badgeLength }: NavItemProps) => (
     to={to}
     className={({ isActive }) =>
       `relative flex flex-col items-center transition-all duration-300 ${
-        isActive ? 'text-color-text scale-125 translate-y-[-1px]' : 'text-color-text'
+        isActive ? "translate-y-[-1px] scale-125 text-color-text" : "text-color-text"
       }`
     }
   >
     {({ isActive }) => (
       <>
         <Icon
-          className={`w-10 h-10 transition-all duration-300 ${
-            isActive ? 'drop-shadow-md brightness-125' : ''
+          className={`h-10 w-10 transition-all duration-300 ${
+            isActive ? "brightness-125 drop-shadow-md" : ""
           }`}
         />
         {badgeLength && (
-          <div className="
-            absolute -top-1 right-4 bg-red-500 text-white text-xs rounded-full
-            w-4 h-4 flex items-center justify-center shadow
-          ">
+          <div className="absolute -top-1 right-4 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white shadow">
             {badgeLength}
           </div>
         )}
         <span
           className={`transition-all duration-300 ${
-            isActive ? 'font-bold -translate-y-[1px]' : ''
+            isActive ? "-translate-y-[1px] font-bold" : ""
           }`}
         >
           {label}

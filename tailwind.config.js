@@ -1,19 +1,17 @@
 // tailwind.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx,html}"
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx,html}"],
   theme: {
     container: {
       center: true, // даст mx-auto
       padding: {
-        DEFAULT: '0',     // мобилки
+        DEFAULT: "0", // мобилки
         // sm: '0',           // ≥ 640px
         // md: '10rem',           // ≥ 768px
-        lg: '10rem',           // ≥ 1024px
+        lg: "10rem", // ≥ 1024px
         // xl: '20rem',           // ≥ 1280px
-        '2xl': '8rem',        // ≥ 1536px (большие экраны, телевизоры
+        "2xl": "8rem", // ≥ 1536px (большие экраны, телевизоры
       },
     },
     extend: {
@@ -21,20 +19,20 @@ module.exports = {
         colorPrimary: "#EAF6F3",
         colorBg: "#ffeded",
         // colorBg: "#e3ebe2",
-        'color-text': '#174142',
-        'color-icons': '#67A799',
-        'color-action': '#55A630',
-        'bg-collor': '#e3ebe2',
-        'bg-card': '#f1eee1',
+        "color-text": "#174142",
+        "color-icons": "#67A799",
+        "color-action": "#55A630",
+        "bg-collor": "#e3ebe2",
+        "bg-card": "#f1eee1",
       },
       fontFamily: {
         main: ["Playfair Display SC", "serif"],
         sansSerif: ["Jost", "sans-serif"],
-        handwriting: ['Caveat', 'cursive'],
-        cursive: ['Great Vibes', 'cursive'],
-        cormorant: ['Cormorant', 'serif'],
+        handwriting: ["Caveat", "cursive"],
+        cursive: ["Great Vibes", "cursive"],
+        cormorant: ["Cormorant", "serif"],
       },
     },
   },
   plugins: [],
-}
+};

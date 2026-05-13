@@ -1,9 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import orderReducer from '../slices/orderSlice';
+import { configureStore } from "@reduxjs/toolkit";
+
+import authReducer from "../slices/authSlice";
+import bouquetReducer from "../slices/bouquetSlice";
 // import bouquetsReducer from '../slices/bouquetsSlice';
-import favoriteReducer from '../slices/favoritesSlice';
-import authReducer from '../slices/authSlice';
-import bouquetReducer from '../slices/bouquetSlice';
+import favoriteReducer from "../slices/favoritesSlice";
+import orderReducer from "../slices/orderSlice";
 
 export const store = configureStore({
   reducer: {

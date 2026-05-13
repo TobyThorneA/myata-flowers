@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { reachGoal } from '@lib/metrika';
+import { reachGoal } from "@lib/metrika";
+import { type Location, useLocation, useNavigate } from "react-router-dom";
 
 interface OrderButtonProps {
   bouquetName?: string;
@@ -7,44 +7,39 @@ interface OrderButtonProps {
   watchField?: boolean;
 }
 
+type OrderButtonLocationState = {
+  backgroundLocation?: Location;
+};
+
 const OrderButton = ({
   bouquetName,
-  contextNameButton = 'Подобрать букет',
+  contextNameButton = "Подобрать букет",
   watchField = false,
 }: OrderButtonProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const locationState = location.state as OrderButtonLocationState | null;
 
-  const from = (location.state as any)?.backgroundLocation?.pathname || location.pathname;
+  const backgroundLocation = locationState?.backgroundLocation;
 
   const handleClick = () => {
-    reachGoal('click_order_button', { bouquetName });
+    reachGoal("click_order_button", { bouquetName });
     const scrollY = window.scrollY;
-    navigate('/order', { state: { 
-      bouquetName, 
-      watchField, 
-      scrollY, 
-      from, 
-      modalUrl: location.pathname // URL самой модалки 
-      } 
+    navigate("/order", {
+      state: {
+        backgroundLocation,
+        bouquetName,
+        watchField,
+        scrollY,
+        modalUrl: location.pathname, // URL самой модалки
+      },
     });
   };
 
   return (
     <button
       onClick={handleClick}
-      className="
-        w-full max-w-[500px] 
-        px-4 py-3 
-        text-white text-sm md:text-base font-semibold 
-        rounded-lg 
-        bg-gradient-to-br from-[#67A799] to-[#174142] 
-        transition-all duration-300 ease-in-out
-        hover:from-[#174142] hover:to-[#67A799]
-        hover:-translate-y-[2px]
-        hover:shadow-lg
-        active:translate-y-0
-      "
+      className="w-full max-w-[500px] rounded-lg bg-gradient-to-br from-[#67A799] to-[#174142] px-4 py-3 text-sm font-semibold text-white transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:from-[#174142] hover:to-[#67A799] hover:shadow-lg active:translate-y-0 md:text-base"
     >
       {contextNameButton}
     </button>

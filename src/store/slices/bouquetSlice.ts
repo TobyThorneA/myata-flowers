@@ -1,76 +1,80 @@
 // src/store/slices/bouquetSlice.ts
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { IBouquet } from '@pages/admin/types';
-import type { BouquetFormData } from '@pages/admin/BouquetForm';
+import type { BouquetFormData } from "@pages/admin/BouquetForm";
+import type { IBouquet } from "@pages/admin/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const API = 'https://api-v2.myata-flowers.ru/api/bouquets';
+const API = "https://api-v2.myata-flowers.ru/api/bouquets";
 
 // ===================== Async Thunks =====================
 
 // 1. Fetch all bouquets
-export const fetchBouquetsThunk = createAsyncThunk<IBouquet[], { isAdmin?: boolean } | void, { state: { auth: { token: string } } }>(
-  'bouquets/fetchAll',
-  async ({ isAdmin } = {}, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
-    const res = await axios.get<IBouquet[]>(API, {
-      params: { ...(isAdmin && { showHidden: true }) },
-      headers: isAdmin ? { Authorization: `Bearer ${token}` } : undefined,
-    });
-    return res.data;
-  }
-);
+export const fetchBouquetsThunk = createAsyncThunk<
+  IBouquet[],
+  { isAdmin?: boolean } | void,
+  { state: { auth: { token: string } } }
+>("bouquets/fetchAll", async ({ isAdmin } = {}, thunkAPI) => {
+  const token = thunkAPI.getState().auth.token;
+  const res = await axios.get<IBouquet[]>(API, {
+    params: { ...(isAdmin && { showHidden: true }) },
+    headers: isAdmin ? { Authorization: `Bearer ${token}` } : undefined,
+  });
+  return res.data;
+});
 
 // 2. Create bouquet
-export const createBouquetThunk = createAsyncThunk<IBouquet, BouquetFormData, { state: { auth: { token: string } } }>(
-  'bouquets/create',
-  async (data, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
-    const res = await axios.post<IBouquet>(API, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return res.data;
-  }
-);
+export const createBouquetThunk = createAsyncThunk<
+  IBouquet,
+  BouquetFormData,
+  { state: { auth: { token: string } } }
+>("bouquets/create", async (data, thunkAPI) => {
+  const token = thunkAPI.getState().auth.token;
+  const res = await axios.post<IBouquet>(API, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+});
 
 // 3. Update bouquet
-export const updateBouquetThunk = createAsyncThunk<IBouquet, { id: string; data: Partial<BouquetFormData> }, { state: { auth: { token: string } } }>(
-  'bouquets/update',
-  async ({ id, data }, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
-    const res = await axios.put<IBouquet>(`${API}/${id}`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return res.data;
-  }
-);
+export const updateBouquetThunk = createAsyncThunk<
+  IBouquet,
+  { id: string; data: Partial<BouquetFormData> },
+  { state: { auth: { token: string } } }
+>("bouquets/update", async ({ id, data }, thunkAPI) => {
+  const token = thunkAPI.getState().auth.token;
+  const res = await axios.put<IBouquet>(`${API}/${id}`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+});
 
 // 4. Delete bouquet
-export const deleteBouquetThunk = createAsyncThunk<string, string, { state: { auth: { token: string } } }>(
-  'bouquets/delete',
-  async (id, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
-    await axios.delete(`${API}/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return id;
-  }
-);
+export const deleteBouquetThunk = createAsyncThunk<
+  string,
+  string,
+  { state: { auth: { token: string } } }
+>("bouquets/delete", async (id, thunkAPI) => {
+  const token = thunkAPI.getState().auth.token;
+  await axios.delete(`${API}/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return id;
+});
 
 // 5. Fetch bouquets by category
-export const fetchBouquetsByCategoryThunk = createAsyncThunk<{ category: string; bouquets: IBouquet[] }, string>(
-  'bouquets/fetchByCategory',
-  async (category, thunkAPI) => {
-    try {
-      const res = await axios.get<IBouquet[]>(`${API}?categories=${encodeURIComponent(category)}`);
-      return { category, bouquets: res.data };
-    } catch (err) {
-      const msg = (err instanceof Error ? err.message : 'Ошибка загрузки по категории');
-      return thunkAPI.rejectWithValue(msg);
-    }
+export const fetchBouquetsByCategoryThunk = createAsyncThunk<
+  { category: string; bouquets: IBouquet[] },
+  string
+>("bouquets/fetchByCategory", async (category, thunkAPI) => {
+  try {
+    const res = await axios.get<IBouquet[]>(`${API}?categories=${encodeURIComponent(category)}`);
+    return { category, bouquets: res.data };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Ошибка загрузки по категории";
+    return thunkAPI.rejectWithValue(msg);
   }
-);
+});
 
 // ===================== Slice =====================
 
@@ -89,7 +93,7 @@ const initialState: BouquetState = {
 };
 
 const bouquetSlice = createSlice({
-  name: 'bouquets',
+  name: "bouquets",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -105,7 +109,7 @@ const bouquetSlice = createSlice({
       })
       .addCase(fetchBouquetsThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? 'Ошибка загрузки букетов';
+        state.error = action.error.message ?? "Ошибка загрузки букетов";
       })
 
       // create
@@ -115,13 +119,13 @@ const bouquetSlice = createSlice({
 
       // update
       .addCase(updateBouquetThunk.fulfilled, (state, action: PayloadAction<IBouquet>) => {
-        const idx = state.items.findIndex(b => b._id === action.payload._id);
+        const idx = state.items.findIndex((b) => b._id === action.payload._id);
         if (idx !== -1) state.items[idx] = action.payload;
       })
 
       // delete
       .addCase(deleteBouquetThunk.fulfilled, (state, action: PayloadAction<string>) => {
-        state.items = state.items.filter(b => b._id !== action.payload);
+        state.items = state.items.filter((b) => b._id !== action.payload);
       })
 
       // fetch by category
@@ -129,20 +133,22 @@ const bouquetSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchBouquetsByCategoryThunk.fulfilled, (state, action: PayloadAction<{ category: string; bouquets: IBouquet[] }>) => {
-        const { category, bouquets } = action.payload;
-        state.bouquetsByCategory[category] = bouquets;
-        state.loading = false;
-      })
+      .addCase(
+        fetchBouquetsByCategoryThunk.fulfilled,
+        (state, action: PayloadAction<{ category: string; bouquets: IBouquet[] }>) => {
+          const { category, bouquets } = action.payload;
+          state.bouquetsByCategory[category] = bouquets;
+          state.loading = false;
+        },
+      )
       .addCase(fetchBouquetsByCategoryThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) ?? 'Ошибка загрузки по категории';
+        state.error = (action.payload as string) ?? "Ошибка загрузки по категории";
       });
   },
 });
 
 export default bouquetSlice.reducer;
-
 
 // // src/store/slices/bouquetSlice.ts
 // import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
@@ -182,7 +188,6 @@ export default bouquetSlice.reducer;
 //     return res.data; // массив букетов
 //   }
 // );
-
 
 // // 2. Create bouquet
 // export const createBouquetThunk = createAsyncThunk(
@@ -253,7 +258,6 @@ export default bouquetSlice.reducer;
 //   loading: false,
 //   error: null,
 // };
-
 
 // const bouquetSlice = createSlice({
 //   name: 'bouquets',

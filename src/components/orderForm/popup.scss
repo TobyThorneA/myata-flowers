@@ -4,7 +4,7 @@
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,11 +77,10 @@
   touch-action: none; // для предотвращения нежелательных свайпов
 }
 
-
 // метод обратной связи
 .contact-methods {
   margin-bottom: 25px;
-  
+
   p {
     color: #174142;
     margin-bottom: 12px;
@@ -93,42 +92,43 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  
+
   .method-option {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 12px 5px;
-    border: 1px solid #EAF6F3;
+    border: 1px solid #eaf6f3;
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    
+
     input {
       position: absolute;
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .option-icon {
       font-size: 1.5rem;
       margin-bottom: 5px;
     }
-    
+
     .option-text {
       color: #174142;
       font-size: 0.85rem;
       text-align: center;
     }
-    
-    &:hover, &.active {
+
+    &:hover,
+    &.active {
       border-color: var(--color-button-action);
       background: rgba(85, 166, 48, 0.05);
     }
-    
+
     &.active {
       .option-text {
         color: var(--color-button-action);
@@ -139,7 +139,7 @@
 }
 
 .error-message {
-  color: #FF6F61;
+  color: #ff6f61;
   background: rgba(255, 111, 97, 0.1);
   padding: 12px;
   border-radius: var(--radius);
@@ -148,13 +148,12 @@
   font-size: 0.95rem;
 }
 
-
 // .method-option {
-//   transition: 
+//   transition:
 //     border-color 0.2s ease,
 //     background-color 0.2s ease,
 //     transform 0.1s ease;
-  
+
 //   &:active {
 //     transform: scale(0.98);
 //   }
@@ -162,32 +161,30 @@
 
 // ...........................................................................................................
 
-
-
 .short-order-form {
   font-family: var(--font-main);
   background: white;
   border-radius: var(--radius);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   padding: 25px;
   max-width: 480px;
   margin: 0 auto;
   transition: all 0.3s ease;
   border: 2px solid red;
-  
+
   .form-header {
     text-align: center;
     margin-bottom: 25px;
-    
+
     h3 {
       color: #174142;
       font-size: 1.5rem;
       margin-bottom: 10px;
       font-weight: 600;
     }
-    
+
     p {
-      color: #67A799;
+      color: #67a799;
       font-size: 1rem;
       line-height: 1.4;
     }
@@ -197,7 +194,7 @@
 .order-form {
   .input-group {
     margin-bottom: 20px;
-    
+
     label {
       display: block;
       color: #174142;
@@ -205,22 +202,22 @@
       font-size: 0.95rem;
       font-weight: 500;
     }
-    
+
     input {
       width: 100%;
       padding: 14px 20px;
-      border: 1px solid #EAF6F3;
+      border: 1px solid #eaf6f3;
       border-radius: var(--radius);
       font-size: 1rem;
       transition: border-color 0.3s ease;
-      
+
       &:focus {
         border-color: var(--color-icons);
         outline: none;
       }
-      
+
       &::placeholder {
-        color: #A9C8C1;
+        color: #a9c8c1;
       }
     }
   }
@@ -228,7 +225,7 @@
 
 .contact-methods {
   margin-bottom: 25px;
-  
+
   p {
     color: #174142;
     margin-bottom: 12px;
@@ -240,42 +237,43 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  
+
   .method-option {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 12px 5px;
-    border: 1px solid #EAF6F3;
+    border: 1px solid #eaf6f3;
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    
+
     input {
       position: absolute;
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .option-icon {
       font-size: 1.5rem;
       margin-bottom: 5px;
     }
-    
+
     .option-text {
       color: #174142;
       font-size: 0.85rem;
       text-align: center;
     }
-    
-    &:hover, &.active {
+
+    &:hover,
+    &.active {
       border-color: var(--color-button-action);
       background: rgba(85, 166, 48, 0.05);
     }
-    
+
     &.active {
       .option-text {
         color: var(--color-button-action);
@@ -286,7 +284,7 @@
 }
 
 .error-message {
-  color: #FF6F61;
+  color: #ff6f61;
   background: rgba(255, 111, 97, 0.1);
   padding: 12px;
   border-radius: var(--radius);
@@ -307,13 +305,13 @@
   width: 100%;
   transition: background 0.3s ease;
   position: relative;
-  
+
   &:hover {
-    background: #3D7C22;
+    background: #3d7c22;
   }
-  
+
   &:disabled {
-    background: #A9C8C1;
+    background: #a9c8c1;
     cursor: not-allowed;
   }
 }
@@ -329,15 +327,17 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .form-footer {
   margin-top: 20px;
   text-align: center;
-  
+
   p {
-    color: #A9C8C1;
+    color: #a9c8c1;
     font-size: 0.8rem;
     line-height: 1.4;
   }
@@ -346,7 +346,7 @@
 .success-message {
   text-align: center;
   padding: 20px;
-  
+
   .success-icon {
     width: 60px;
     height: 60px;
@@ -360,15 +360,15 @@
     font-weight: bold;
     margin: 0 auto 20px;
   }
-  
+
   h3 {
     color: #174142;
     font-size: 1.5rem;
     margin-bottom: 10px;
   }
-  
+
   p {
-    color: #67A799;
+    color: #67a799;
     margin-bottom: 25px;
     font-size: 1.1rem;
   }
@@ -384,7 +384,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: rgba(85, 166, 48, 0.1);
   }
@@ -395,29 +395,29 @@
   .short-order-form {
     padding: 20px 15px;
     border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
-  
+
   .form-header {
     h3 {
       font-size: 1.4rem;
     }
-    
+
     p {
       font-size: 0.95rem;
     }
   }
-  
+
   .method-options {
     grid-template-columns: 1fr;
     gap: 10px;
-    
+
     .method-option {
       flex-direction: row;
       justify-content: flex-start;
       padding: 12px 20px;
       text-align: left;
-      
+
       .option-icon {
         margin-right: 15px;
         margin-bottom: 0;
@@ -425,21 +425,21 @@
       }
     }
   }
-  
+
   .input-group input {
     padding: 16px 15px;
   }
-  
+
   .submit-button {
     padding: 18px;
     font-size: 1.1rem;
   }
-  
+
   .success-message {
     h3 {
       font-size: 1.4rem;
     }
-    
+
     p {
       font-size: 1rem;
     }
@@ -452,4 +452,3 @@
     box-sizing: border-box;
   }
 }
-

@@ -1,0 +1,5 @@
+echo "Running full project check before push..."
+npm run check
+
+echo "Building project..."
+npm run build

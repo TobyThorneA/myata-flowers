@@ -2,14 +2,13 @@
 // src/pages/CatalogPage.tsx
 // =========================
 
-
+import BouquetModal from "@components/bouquetModal/BouquetModal";
 import Catalog from "@components/bouquetsGrid/bouquetGrid";
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { fetchBouquetsByCategoryThunk } from "@store/slices/bouquetSlice";
-import BouquetModal from "@components/bouquetModal/BouquetModal";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const CatalogPage = () => {
   const { category, bouquetId } = useParams<{ category?: string; bouquetId?: string }>();
@@ -34,17 +33,19 @@ const CatalogPage = () => {
   const allBouquets = useAppSelector((state) => state.bouquet.items);
 
   // Если нет категории - показываем все букеты
-  const catalogBouquets = category && category !== 'all' ? (bouquetsByCategory[category] || []) : allBouquets || [];
+  const catalogBouquets =
+    category && category !== "all" ? bouquetsByCategory[category] || [] : allBouquets || [];
 
   // sort
-  const sortedAsc = [...catalogBouquets].sort((a, b) => a.price - b.price)
+  const sortedAsc = [...catalogBouquets].sort((a, b) => a.price - b.price);
 
   // Защита от undefined и фильтр по категории
-  const filteredBouquets = category && category !== 'all'
-    ? sortedAsc.filter((b) => b.categories?.includes(category))
-    : sortedAsc;
-    // ? catalogBouquets.filter((b) => b.categories?.includes(category))
-    // : catalogBouquets;
+  const filteredBouquets =
+    category && category !== "all"
+      ? sortedAsc.filter((b) => b.categories?.includes(category))
+      : sortedAsc;
+  // ? catalogBouquets.filter((b) => b.categories?.includes(category))
+  // : catalogBouquets;
 
   const title = category ? `Каталог: ${category}` : "Каталог букетов";
   const shortDescription = category
@@ -58,9 +59,7 @@ const CatalogPage = () => {
   }, [category, dispatch, bouquetsByCategory]);
 
   // По id букета для модалки
-  const modalBouquet = bouquetId
-    ? filteredBouquets.find((b) => b._id === bouquetId)
-    : null;
+  const modalBouquet = bouquetId ? filteredBouquets.find((b) => b._id === bouquetId) : null;
 
   return (
     <>
@@ -69,25 +68,22 @@ const CatalogPage = () => {
         title={title}
         shortDescription={shortDescription}
         onViewBouquet={(b) =>
-          navigate(
-            `/catalog/${category || 'all'}/${b._id}`.replace(/\/{2,}/g, '/'),
-            {
-              state: { backgroundLocation: location },
-            }
-          )
+          navigate(`/catalog/${category || "all"}/${b._id}`.replace(/\/{2,}/g, "/"), {
+            state: { backgroundLocation: location },
+          })
         }
         className="my-20 md:mt-5"
         showSeeMoreCard={false}
       />
 
-      {backgroundLocation && modalBouquet &&
+      {backgroundLocation &&
+        modalBouquet &&
         createPortal(
           <BouquetModal bouquet={modalBouquet} onClose={() => navigate(-1)} />,
-          document.getElementById("modal-root")!
+          document.getElementById("modal-root")!,
         )}
     </>
   );
 };
 
 export default CatalogPage;
-

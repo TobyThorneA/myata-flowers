@@ -1,12 +1,12 @@
 import {
-  setName,
-  setPhone,
   setBouquetName,
-  setKindOfFlowers,
-  setWhomGifts,
+  setContactMethod,
   setFlowerDesign,
   setHoneypot,
-  setContactMethod,
+  setKindOfFlowers,
+  setName,
+  setPhone,
+  setWhomGifts,
 } from "../store/slices/orderSlice";
 
 // Тип поля формы
@@ -29,6 +29,5 @@ export const actionMap = {
   whomGifts: setWhomGifts,
   flowerDesign: setFlowerDesign,
   honeypot: setHoneypot,
-  contactMethod: (value: "call" | "telegram" | "whatsapp" | "max") =>
-    setContactMethod(value),
+  contactMethod: (value: "call" | "telegram" | "whatsapp" | "max") => setContactMethod(value),
 } as const;

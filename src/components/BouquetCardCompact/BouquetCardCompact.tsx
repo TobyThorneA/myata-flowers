@@ -1,9 +1,9 @@
 //components/BouquetCardCompact/BouquetCardCompact.tsx
-import { useAppDispatch, useAppSelector } from "@store/app/hook";
-import OrderButton from "@components/orderButton/OrderButton";
-import { toggleFavorite } from "@store/slices/favoritesSlice";
 import HeartFavorite from "@assets/HeartFavorite.svg?react";
+import OrderButton from "@components/orderButton/OrderButton";
 import type { IBouquet } from "@pages/admin/types";
+import { useAppDispatch, useAppSelector } from "@store/app/hook";
+import { toggleFavorite } from "@store/slices/favoritesSlice";
 
 type Props = {
   bouquet: IBouquet;
@@ -24,34 +24,30 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
 
   return (
     <div
-      className="
-        flex flex-col h-full
-        bg-bg-card rounded-xl shadow-md
-        hover:shadow-lg hover:scale-[1.02]
-        transition-transform duration-200
-        cursor-pointer select-none
-      "
+      className="flex h-full cursor-pointer select-none flex-col rounded-xl bg-bg-card shadow-md transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg"
       style={{ WebkitTapHighlightColor: "transparent" }}
       onClick={onClick}
     >
-      <div className="relative w-full aspect-square rounded-t-xl overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 px-2 py-1 flex justify-between items-center z-10">
+      <div className="relative aspect-square w-full overflow-hidden rounded-t-xl">
+        <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-2 py-1">
           {badge ? (
-            <div className="w-10 h-6 bg-green-500 rounded-full text-white text-xs flex items-center justify-center shadow-md">
+            <div className="flex h-6 w-10 items-center justify-center rounded-full bg-green-500 text-xs text-white shadow-md">
               {badge}
             </div>
           ) : (
             <div />
           )}
-          {bouquet.available 
-          ? ''
-          : (
-            <p className="text-xs absolute bg-white bg-opacity-70 px-2 py-1 ml-1 mt-1  rounded  font-semibold text-color-action">под заказ ⏳</p>
+          {bouquet.available ? (
+            ""
+          ) : (
+            <p className="absolute ml-1 mt-1 rounded bg-white bg-opacity-70 px-2 py-1 text-xs font-semibold text-color-action">
+              под заказ ⏳
+            </p>
           )}
           <button onClick={handleToggleFavorite} className="p-1">
             <HeartFavorite
-              className={`w-6 h-6 mt-1 mr-0.5 transition-colors ${
-                isFavorite ? "fill-red-500" : "fill-white" 
+              className={`mr-0.5 mt-1 h-6 w-6 transition-colors ${
+                isFavorite ? "fill-red-500" : "fill-white"
               }`}
             />
           </button>
@@ -60,16 +56,18 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
         <img
           src={bouquet.images?.[0] ?? "/placeholder.jpg"}
           alt={bouquet.name}
-          className="p-2 rounded-2xl w-full h-full object-cover"
+          className="h-full w-full rounded-2xl object-cover p-2"
           loading="lazy"
         />
       </div>
 
-      <div className="flex flex-col flex-1 p-3 text-center gap-2">
-        <div className="font-cursive font-semibold text-md md:text-2xl text-color-text truncate">{bouquet.name}</div>
+      <div className="flex flex-1 flex-col gap-2 p-3 text-center">
+        <div className="text-md truncate font-cursive font-semibold text-color-text md:text-2xl">
+          {bouquet.name}
+        </div>
 
-        <div className="font-cursive font-semibold text-md md:text-sm flex justify-center items-center gap-2 ">
-          <span className="text-xl md:text-2xl text-color-action">{bouquet.price} ₽</span>
+        <div className="text-md flex items-center justify-center gap-2 font-cursive font-semibold md:text-sm">
+          <span className="text-xl text-color-action md:text-2xl">{bouquet.price} ₽</span>
           {oldPrice > bouquet.price && (
             <span className="text-[#aaa] line-through">{bouquet.oldPrice} ₽</span>
           )}
@@ -81,11 +79,7 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
             e.stopPropagation();
           }}
         >
-          <OrderButton
-            bouquetName={bouquet.name}
-            contextNameButton="Заказать"
-            watchField
-          />
+          <OrderButton bouquetName={bouquet.name} contextNameButton="Заказать" watchField />
         </div>
       </div>
     </div>
@@ -93,4 +87,3 @@ const BouquetCardCompact = ({ bouquet, onClick, badge }: Props) => {
 };
 
 export default BouquetCardCompact;
-

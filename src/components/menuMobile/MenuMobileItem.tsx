@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 
 interface MobileItemProps {
   name: string;
@@ -6,16 +6,16 @@ interface MobileItemProps {
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuMobileItem = ({name, path, setMenuOpen}: MobileItemProps) => {
+const MenuMobileItem = ({ name, path, setMenuOpen }: MobileItemProps) => {
   return (
     <NavLink
       to={path}
-      className="py-3 border-b border-color-icons hover:text-color-action transition-colors text-lg font-semibold"
+      className="border-b border-color-icons py-3 text-lg font-semibold transition-colors hover:text-color-action"
       onClick={() => setMenuOpen(false)}
     >
       {name}
     </NavLink>
-  )
-}
+  );
+};
 
-export default MenuMobileItem
+export default MenuMobileItem;

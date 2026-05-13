@@ -7,14 +7,7 @@ interface Props {
 }
 
 const NameInput = ({ value, onChange }: Props) => (
-  <input
-    type="text"
-    name="name"
-    placeholder="Имя"
-    required
-    value={value}
-    onChange={onChange}
-  />
+  <input type="text" name="name" placeholder="Имя" required value={value} onChange={onChange} />
 );
 
 export default NameInput;

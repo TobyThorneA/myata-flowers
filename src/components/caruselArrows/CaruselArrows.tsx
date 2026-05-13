@@ -1,4 +1,5 @@
-import "./caruselArrows.scss"
+import "./caruselArrows.scss";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarouselArrowsProps {
@@ -18,6 +19,6 @@ const CaruselArrows = ({ onPrev, onNext, className = "" }: CarouselArrowsProps) 
       </button>
     </div>
   );
-}
+};
 
-export default CaruselArrows
+export default CaruselArrows;

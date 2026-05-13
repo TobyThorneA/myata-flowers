@@ -1,74 +1,75 @@
+import HeartFavorite from "@assets/HeartFavorite.svg?react";
 import { useAppDispatch, useAppSelector } from "@store/app/hook";
 import { toggleFavorite } from "@store/slices/favoritesSlice";
 import { useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import HeartFavorite from "@assets/HeartFavorite.svg?react";
 
 type PhotosProps = {
-  id: string | undefined}
+  id: string | undefined;
+};
 
-const ImageGallery  = ({id} : PhotosProps ) => {
-
-  const dispatch = useAppDispatch()
+const ImageGallery = ({ id }: PhotosProps) => {
+  const dispatch = useAppDispatch();
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const bouquets = useAppSelector((state) => state.bouquet.items);
   const bouquet = bouquets.find((b) => b._id === id);
-  
+
   const favorietsIds = useAppSelector((state) => state.favoriets.favoriteIds);
   const isFavorite = bouquet ? favorietsIds.includes(bouquet._id) : false;
 
-
-
   const nextPhoto = () => {
-      setCurrentPhotoIndex((prev) =>
-        bouquet && bouquet.images ? (prev === bouquet.images.length - 1 ? 0 : prev + 1) : prev
-      );
-    };
-  
-    const prevPhoto = () => {
-      setCurrentPhotoIndex((prev) =>
-        bouquet && bouquet.images ? (prev === 0 ? bouquet.images.length - 1 : prev - 1) : prev
-      );
-    };
+    setCurrentPhotoIndex((prev) =>
+      bouquet && bouquet.images ? (prev === bouquet.images.length - 1 ? 0 : prev + 1) : prev,
+    );
+  };
 
-    const handleToggleFavorite = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      if(!bouquet) return
-      dispatch(toggleFavorite(bouquet._id));
-    };
-  
-    const swipeHandlers = useSwipeable({
-      onSwipedLeft: nextPhoto,
-      onSwipedRight: prevPhoto,
-      preventScrollOnSwipe: true,
-      // trackMouse: true, // если хочешь свайпы мышкой
-    });
+  const prevPhoto = () => {
+    setCurrentPhotoIndex((prev) =>
+      bouquet && bouquet.images ? (prev === 0 ? bouquet.images.length - 1 : prev - 1) : prev,
+    );
+  };
 
-    if(!bouquet) return
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!bouquet) return;
+    dispatch(toggleFavorite(bouquet._id));
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: nextPhoto,
+    onSwipedRight: prevPhoto,
+    preventScrollOnSwipe: true,
+    // trackMouse: true, // если хочешь свайпы мышкой
+  });
+
+  if (!bouquet) return;
 
   return (
-    <div className="flex-1 p-4 md:p-6 flex flex-col min-w-[280px]">
+    <div className="flex min-w-[280px] flex-1 flex-col p-4 md:p-6">
       <div
         {...swipeHandlers}
-        className="relative w-full max-h-[80vh] overflow-hidden rounded-xl flex justify-center items-center"
+        className="relative flex max-h-[80vh] w-full items-center justify-center overflow-hidden rounded-xl"
       >
         <div
           className="flex transition-transform duration-300 ease-in-out"
           style={{
-          transform: `translateX(-${currentPhotoIndex * 100}%)`,
-          width: `${bouquet.images.length * 100}%`,
-          maxHeight: "none",
+            transform: `translateX(-${currentPhotoIndex * 100}%)`,
+            width: `${bouquet.images.length * 100}%`,
+            maxHeight: "none",
           }}
         >
           {bouquet.images.map((img, i) => (
             <div
               key={i}
-              className="relative flex-shrink-0 w-full flex justify-center items-center px-2"
+              className="relative flex w-full flex-shrink-0 items-center justify-center px-2"
             >
               {/* кнопка добавить в избранное */}
-              <button onClick={handleToggleFavorite} className="p-1 absolute top-3 right-5 md:top-5 md:right-14 ">
+              <button
+                onClick={handleToggleFavorite}
+                className="absolute right-5 top-3 p-1 md:right-14 md:top-5"
+              >
                 <HeartFavorite
-                  className={`w-10 h-10 md:w-14 md:h-14 transition-colors  ${
+                  className={`h-10 w-10 transition-colors md:h-14 md:w-14 ${
                     isFavorite ? "fill-red-500" : "fill-white"
                   }`}
                 />
@@ -78,7 +79,7 @@ const ImageGallery  = ({id} : PhotosProps ) => {
                 src={img}
                 alt={`Фото ${i + 1}`}
                 loading="lazy"
-                className="w-full max-h-[80vh] object-contain rounded-xl"
+                className="max-h-[80vh] w-full rounded-xl object-contain"
                 draggable={false}
               />
             </div>
@@ -87,10 +88,10 @@ const ImageGallery  = ({id} : PhotosProps ) => {
       </div>
       {bouquet.images.length > 1 && (
         <>
-          <div className="flex justify-center items-center mt-4 gap-4 select-none">
+          <div className="mt-4 flex select-none items-center justify-center gap-4">
             <button
               onClick={prevPhoto}
-              className="bg-color-icons text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-color-action transition-colors shadow"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-color-icons text-white shadow transition-colors hover:bg-color-action"
               aria-label="Предыдущее фото"
             >
               ‹
@@ -100,14 +101,14 @@ const ImageGallery  = ({id} : PhotosProps ) => {
             </div>
             <button
               onClick={nextPhoto}
-              className="bg-color-icons text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-color-action transition-colors shadow"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-color-icons text-white shadow transition-colors hover:bg-color-action"
               aria-label="Следующее фото"
             >
               ›
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-4 p-1 justify-center overflow-x-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-color-icons">
+          <div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-color-icons mt-4 flex flex-wrap justify-center gap-3 overflow-x-auto p-1">
             {bouquet.images.map((photo, index) => (
               <img
                 key={index}
@@ -115,7 +116,7 @@ const ImageGallery  = ({id} : PhotosProps ) => {
                 alt={`Вариант ${index + 1}`}
                 loading="lazy"
                 onClick={() => setCurrentPhotoIndex(index)}
-                className={`w-16 h-16 rounded-md object-cover cursor-pointer transition-shadow duration-200 ${
+                className={`h-16 w-16 cursor-pointer rounded-md object-cover transition-shadow duration-200 ${
                   index === currentPhotoIndex
                     ? "ring-4 ring-color-action"
                     : "ring-0 hover:ring-2 hover:ring-color-icons"
@@ -126,6 +127,6 @@ const ImageGallery  = ({id} : PhotosProps ) => {
         </>
       )}
     </div>
-  )
-}
-export default ImageGallery
+  );
+};
+export default ImageGallery;

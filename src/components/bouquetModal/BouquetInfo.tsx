@@ -11,23 +11,22 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
   const watchField = true;
 
   return (
-    <div className="flex-1 bg-mint-50 p-8 rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl flex flex-col min-w-0 text-soft-text">
-
+    <div className="bg-mint-50 text-soft-text flex min-w-0 flex-1 flex-col rounded-b-2xl p-8 md:rounded-r-2xl md:rounded-bl-none">
       {/* Название */}
-      <h2 
+      <h2
         id="modal-title"
-        className=" font-cursive text-3xl md:text-4xl font-bold mb-6 text-mint-700"
+        className="text-mint-700 mb-6 font-cursive text-3xl font-bold md:text-4xl"
       >
         {bouquet.name}
       </h2>
 
       {/* Цена */}
-      <div className="font-cursive flex items-baseline gap-6 mb-2 flex-wrap">
-        <div className="text-4xl text-color-action font-extrabold text-mint-600 drop-shadow-sm">
+      <div className="mb-2 flex flex-wrap items-baseline gap-6 font-cursive">
+        <div className="text-mint-600 text-4xl font-extrabold text-color-action drop-shadow-sm">
           {bouquet.price.toLocaleString("ru-RU")} ₽
         </div>
         {oldPrice > 0 && (
-          <div className="line-through text-gray-500 text-xl">
+          <div className="text-xl text-gray-500 line-through">
             {oldPrice.toLocaleString("ru-RU")} ₽
           </div>
         )}
@@ -35,8 +34,8 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
 
       {/* Размер */}
       {bouquet.size && (
-        <div className="font-cursive mb-8 bg-soft-bg rounded-xl shadow-sm">
-          <strong >Размер:</strong> {bouquet.size}
+        <div className="bg-soft-bg mb-8 rounded-xl font-cursive shadow-sm">
+          <strong>Размер:</strong> {bouquet.size}
         </div>
       )}
 
@@ -54,23 +53,22 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
       {bouquet.description && (
         <div
           id="modal-description"
-          className="mb-8 p-5 bg-bg-collor font-sansSerif rounded-xl shadow-sm leading-relaxed"
+          className="mb-8 rounded-xl bg-bg-collor p-5 font-sansSerif leading-relaxed shadow-sm"
         >
-          <strong className="text-mint-700">Описание:</strong>{" "}
-          {bouquet.description}
+          <strong className="text-mint-700">Описание:</strong> {bouquet.description}
         </div>
       )}
 
       {/* Контакты */}
       <div>
-        <h3 className="font-cursive text-2xl font-semibold mb-4 text-mint-700">
+        <h3 className="text-mint-700 mb-4 font-cursive text-2xl font-semibold">
           Связаться с нами:
         </h3>
 
         <div className="flex flex-col gap-3">
           <a
             href="tel:+79656003600"
-            className="block px-4 py-3 rounded-xl font-semibold text-white bg-[#67A799] text-sm hover:bg-[#4f8b74] transition"
+            className="block rounded-xl bg-[#67A799] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#4f8b74]"
           >
             Позвонить: +7 (965) 600-3-600
           </a>
@@ -79,7 +77,7 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
             href="https://wa.me/79270387435"
             target="_blank"
             rel="noreferrer"
-            className="block px-4 py-3 rounded-xl font-semibold text-white bg-[#29A71A] hover:bg-[#238E17] transition"
+            className="block rounded-xl bg-[#29A71A] px-4 py-3 font-semibold text-white transition hover:bg-[#238E17]"
           >
             Написать в WhatsApp
           </a>
@@ -88,7 +86,7 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
             href="https://t.me/myata_flow"
             target="_blank"
             rel="noreferrer"
-            className="block px-4 py-3 rounded-xl font-semibold text-white bg-[#0088cc] hover:bg-[#0074ad] transition"
+            className="block rounded-xl bg-[#0088cc] px-4 py-3 font-semibold text-white transition hover:bg-[#0074ad]"
           >
             Написать в Telegram
           </a>
@@ -99,4 +97,3 @@ const BouquetInfo = ({ bouquet }: BouquetProps) => {
 };
 
 export default BouquetInfo;
-

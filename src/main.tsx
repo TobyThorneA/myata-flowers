@@ -1,20 +1,22 @@
 // main.tsx
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.scss'
-import App from './App/App.tsx'
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { store } from './store/app/store.ts'
-import ScrollToTop from '@components/scrollToTop/ScrollToTop.tsx'
+import "./index.scss";
 
-createRoot(document.getElementById('root')!).render(
+import ScrollToTop from "@components/scrollToTop/ScrollToTop.tsx";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
+import App from "./App/App.tsx";
+import { store } from "./store/app/store.ts";
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ScrollToTop/>
-          <App />
+        <ScrollToTop />
+        <App />
       </BrowserRouter>
     </Provider>
   </StrictMode>,
-)
+);

@@ -9,4 +9,4 @@ export const usePortalRoot = (id: string) => {
   }, [id]);
 
   return portalRoot;
-}
+};

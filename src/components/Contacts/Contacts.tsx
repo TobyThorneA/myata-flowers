@@ -1,7 +1,8 @@
 // Contacts.tsx
-import { iconsContacts } from "../../icons/iconsContacts/iconsContact";
-import { useRef } from "react";
 import { reachGoal } from "@lib/metrika";
+import { useRef } from "react";
+
+import { iconsContacts } from "../../icons/iconsContacts/iconsContact";
 
 interface Props {
   hideText?: boolean;
@@ -62,25 +63,23 @@ const Contacts = ({ hideText = false }: Props) => {
   ];
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-between py-1 md:gap-2">
+    <div className="flex flex-col items-center justify-between gap-2 py-1 md:gap-2">
       <ul
-        className={`flex transition-all duration-500 ease-in-out ${
-          hideText ? "gap-4" : "gap-2"
-        }`}
+        className={`flex transition-all duration-500 ease-in-out ${hideText ? "gap-4" : "gap-2"}`}
       >
         {/* Телефон — мобилка */}
         <li className="md:mx-4">
           <a
             href="tel:+79656003600"
             aria-label="Phone"
-            className="md:hidden block"
+            className="block md:hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={() => handleTouchEnd("click_phone")}
           >
             <img
-              className={`w-8 h-8 rounded-full transition-transform duration-500 ease-in-out ${
-                hideText ? "scale-125 translate-y-2.5" : "scale-100"
+              className={`h-8 w-8 rounded-full transition-transform duration-500 ease-in-out ${
+                hideText ? "translate-y-2.5 scale-125" : "scale-100"
               }`}
               src={iconsContacts.call}
               alt="Phone"
@@ -102,8 +101,8 @@ const Contacts = ({ hideText = false }: Props) => {
               onClick={() => handleClick(goal)}
             >
               <img
-                className={`w-8 h-8 rounded-full md:w-16 md:h-16 transition-transform duration-500 ease-in-out ${
-                  hideText ? "scale-125 translate-y-2.5" : "scale-100"
+                className={`h-8 w-8 rounded-full transition-transform duration-500 ease-in-out md:h-16 md:w-16 ${
+                  hideText ? "translate-y-2.5 scale-125" : "scale-100"
                 }`}
                 src={img}
                 alt={label}
@@ -117,15 +116,15 @@ const Contacts = ({ hideText = false }: Props) => {
       <a
         href="tel:+79656003600"
         aria-label="Phone number"
-        className="hidden md:inline-block text-base font-medium text-color-text pt-5"
+        className="hidden pt-5 text-base font-medium text-color-text md:inline-block"
         onClick={() => handleClick("click_phone")}
       >
         +7 (965) 600-36-00
       </a>
 
       <address
-        className={`fonst-sansSerif font-semibold not-italic flex text-[8px] md:text-base md:mt-1 justify-end duration-500 ease-in-out ${
-          hideText ? "opacity-0 pointer-events-none" : "opacity-100"
+        className={`fonst-sansSerif flex justify-end text-[8px] font-semibold not-italic duration-500 ease-in-out md:mt-1 md:text-base ${
+          hideText ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
         г. Казань, интернет магазин

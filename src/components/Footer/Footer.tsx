@@ -1,14 +1,13 @@
-import { NavLink } from "react-router-dom";
 import { reachGoal } from "@lib/metrika";
+import { NavLink } from "react-router-dom";
 
 // components/Footer/Footer.tsx
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-color-icons text-white py-8 px-4 text-sm mb-[70px] md:mb-1">
-      <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
-
+    <footer className="mb-[70px] bg-color-icons px-4 py-8 text-sm text-white md:mb-1">
+      <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
         {/* Лого и слоган */}
         <div>
           <h2 className="text-xl font-bold">Myata Flowers</h2>
@@ -19,40 +18,85 @@ const Footer = () => {
 
         {/* Контакты */}
         <div>
-          <h3 className="font-semibold mb-2">Контакты</h3>
+          <h3 className="mb-2 font-semibold">Контакты</h3>
           <ul className="space-y-1 text-white/80">
-            <li><a href="tel:89656003600" onClick={() => reachGoal("click_phone")}>8 965 600 36 00</a></li>
-            <li><a href="https://t.me/myata_flow" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_telegram")}>Telegram</a></li>
-            <li><a href="https://wa.me/79270387435" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_whatsapp")}>WhatsApp</a></li>
-            <li><a href="https://max.ru/u/f9LHodD0cOIOfIqWUQWsvjdGVVKvB2tm5Z-KljGiCM0Emoqv9WHY7xsy1MQ" target="_blank" rel="noreferrer" onClick={() => reachGoal("click_max")}>Max</a></li>
+            <li>
+              <a href="tel:89656003600" onClick={() => reachGoal("click_phone")}>
+                8 965 600 36 00
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://t.me/myata_flow"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => reachGoal("click_telegram")}
+              >
+                Telegram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://wa.me/79270387435"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => reachGoal("click_whatsapp")}
+              >
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://max.ru/u/f9LHodD0cOIOfIqWUQWsvjdGVVKvB2tm5Z-KljGiCM0Emoqv9WHY7xsy1MQ"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => reachGoal("click_max")}
+              >
+                Max
+              </a>
+            </li>
             <li>Казань, ул. Кул-Гали 27 (самовывоз)</li>
           </ul>
         </div>
 
         {/* Ссылки */}
         <div>
-          <h3 className="font-semibold mb-2">Информация</h3>
+          <h3 className="mb-2 font-semibold">Информация</h3>
           <ul className="space-y-1 text-white/80">
-            <li><NavLink to="/about">О компании</NavLink></li>
-            <li><NavLink to="/payment">Оплата</NavLink></li>
-            <li><NavLink to="/delivery">Доставка</NavLink></li>
-            <li><NavLink to="/privacy-policy">Политика конфиденциальности</NavLink></li>
+            <li>
+              <NavLink to="/about">О компании</NavLink>
+            </li>
+            <li>
+              <NavLink to="/payment">Оплата</NavLink>
+            </li>
+            <li>
+              <NavLink to="/delivery">Доставка</NavLink>
+            </li>
+            <li>
+              <NavLink to="/privacy-policy">Политика конфиденциальности</NavLink>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Юр. информация */}
-      <div className="mt-8 border-t border-white/20 pt-4 text-xs text-white/60 text-center space-y-1">
+      <div className="mt-8 space-y-1 border-t border-white/20 pt-4 text-center text-xs text-white/60">
+        <div>ИП Аширов Вячеслав Владимирович · ИНН 166007206323 · ОГРНИП 325169000023314</div>
+        <div>© {currentYear} Myata Flowers. Все права защищены.</div>
         <div>
-          ИП Аширов Вячеслав Владимирович · ИНН 166007206323 · ОГРНИП 325169000023314
-        </div>
-        <div>
-          © {currentYear} Myata Flowers. Все права защищены.
-        </div>
-        <div>
-          Разработка сайта — <a className="underline" href="https://t.me/VyacheslavVladimirovichA" target="_blank" rel="noreferrer">
+          Разработка сайта —{" "}
+          <a
+            className="underline"
+            href="https://t.me/VyacheslavVladimirovichA"
+            target="_blank"
+            rel="noreferrer"
+          >
             Вячеслав Аширов
-          </a> · <a className="underline" href="tel:89655800506">8 965 580 05 06</a>
+          </a>{" "}
+          ·{" "}
+          <a className="underline" href="tel:89655800506">
+            8 965 580 05 06
+          </a>
         </div>
       </div>
     </footer>

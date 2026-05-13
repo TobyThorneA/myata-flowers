@@ -6,17 +6,17 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function PhoneInput({value, onChange} : Props) {
+const PhoneInput = ({ value, onChange }: Props) => {
   return (
     <input
-      type="tel" 
-      name="phone" 
+      type="tel"
+      name="phone"
       placeholder="Телефон"
       required
-      value={value} 
-      onChange={onChange} 
-     />
-  )
-}
+      value={value}
+      onChange={onChange}
+    />
+  );
+};
 
-export default PhoneInput
+export default PhoneInput;

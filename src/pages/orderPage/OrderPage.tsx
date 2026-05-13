@@ -1,28 +1,32 @@
 // OrderPage.tsx
-import { useLocation, useNavigate } from 'react-router-dom';
-import OrderForm from '@components/orderForm/OrderForm';
+import OrderForm from "@components/orderForm/OrderForm";
+import { type Location, useLocation, useNavigate } from "react-router-dom";
+
+type OrderPageLocationState = {
+  backgroundLocation?: Location;
+  bouquetName?: string;
+  watchField?: boolean;
+  scrollY?: number;
+  modalUrl?: string;
+};
 
 const OrderPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as { 
-    bouquetName?: string; 
-    watchField?: boolean; 
-    scrollY?: number; 
-    from?: string;
-    modalUrl?: string;
-  } | undefined;
+  const state = location.state as OrderPageLocationState | null;
 
   const handleClose = () => {
-    // @ts-ignore
-    const modalUrl = state?.modalUrl ?? '/';
-    const scrollY = state?.scrollY ?? 0;  
-    navigate(modalUrl, { state: { backgroundLocation: state?.from } });
+    const modalUrl = state?.modalUrl ?? "/";
+    const scrollY = state?.scrollY ?? 0;
+    const backgroundLocation = state?.backgroundLocation;
 
-      setTimeout(() => {
+    navigate(modalUrl, {
+      state: backgroundLocation ? { backgroundLocation } : undefined,
+    });
+
+    setTimeout(() => {
       window.scrollTo(0, scrollY);
     }, 250);
-
   };
 
   return (

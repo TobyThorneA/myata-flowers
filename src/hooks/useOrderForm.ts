@@ -1,15 +1,16 @@
 // UserOrderForm
 
 import { useEffect, useState } from "react";
+
+import { actionMap, type FormFieldName } from "../helpers/formActions";
+import { reachGoal } from "../lib/metrika";
+import { sendToTelegram } from "../lib/telegram";
 import { useAppDispatch, useAppSelector } from "../store/app/hook";
 import { type OrderState } from "../store/slices/orderSlice";
-import { actionMap, type FormFieldName } from "../helpers/formActions";
-import { sendToTelegram } from "../lib/telegram";
-import { reachGoal } from "../lib/metrika";
 
 export const useOrderForm = (bouquetName?: string) => {
   const dispatch = useAppDispatch();
-  const order = useAppSelector(state => state.order as OrderState);
+  const order = useAppSelector((state) => state.order as OrderState);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Установка имени букета при монтировании
@@ -19,9 +20,7 @@ export const useOrderForm = (bouquetName?: string) => {
   }, [bouquetName, dispatch]);
 
   // Обработка изменения полей
-  const handleFormData = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleFormData = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const action = actionMap[name as FormFieldName];
     if (action) {

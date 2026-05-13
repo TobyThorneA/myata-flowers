@@ -1,6 +1,6 @@
 import { useAppSelector } from "@store/app/hook";
-import clsx from "clsx"
-import { NavLink } from "react-router-dom"
+import clsx from "clsx";
+import { NavLink } from "react-router-dom";
 
 const BASE_MENU_ITEMS = [
   { name: "Главная", path: "/" },
@@ -13,18 +13,22 @@ const BASE_MENU_ITEMS = [
   { name: "О нас", path: "/about" },
 ];
 
-function DesctopMenu() {
-    const favorietsLenth = useAppSelector(state => state.favoriets.favoriteIds.length)
-    const token = useAppSelector(state => state.auth.token);
+const DesctopMenu = () => {
+  const favorietsLenth = useAppSelector((state) => state.favoriets.favoriteIds.length);
+  const token = useAppSelector((state) => state.auth.token);
 
-    const menuItems = token
-    ? [...BASE_MENU_ITEMS, { name: "Админка", path: "/admin/dashboard" }, {name: "Спец.предл", path: "/specialOffer"}]
+  const menuItems = token
+    ? [
+        ...BASE_MENU_ITEMS,
+        { name: "Админка", path: "/admin/dashboard" },
+        { name: "Спец.предл", path: "/specialOffer" },
+      ]
     : BASE_MENU_ITEMS;
 
   return (
-    <div className="hidden md:flex font-sansSerif sticky top-0 z-40 bg-colorPrimary shadow-md  bg-colorPrimary/70 backdrop-blur-md">
+    <div className="sticky top-0 z-40 hidden bg-colorPrimary bg-colorPrimary/70 font-sansSerif shadow-md backdrop-blur-md md:flex">
       <nav className="mx-auto w-full max-w-7xl px-4">
-        <ul className="flex justify-center gap-10 text-lg text-color-text font-medium py-4">
+        <ul className="flex justify-center gap-10 py-4 text-lg font-medium text-color-text">
           {menuItems.map((item) => (
             <li key={item.path}>
               <NavLink
@@ -32,24 +36,23 @@ function DesctopMenu() {
                 className={({ isActive }) =>
                   clsx(
                     "relative pb-1 transition-colors duration-200 hover:text-color-icons",
-                    isActive && "text-color-icons font-semibold"
+                    isActive && "font-semibold text-color-icons",
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
                     {item.name}
-                    {
-                      item.name 
-                      === 'Избранное' 
-                      && !!favorietsLenth 
-                      ? <div className="w-5 h-5 bg-red-500 absolute -right-6 top-0 rounded-full text-white text-sm text-center">
-                          {favorietsLenth}
-                        </div> 
-                      : ''}
+                    {item.name === "Избранное" && !!favorietsLenth ? (
+                      <div className="absolute -right-6 top-0 h-5 w-5 rounded-full bg-red-500 text-center text-sm text-white">
+                        {favorietsLenth}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     {isActive && (
                       <span
-                        className="absolute bottom-0 left-0 w-full h-[2px] bg-color-text rounded-full"
+                        className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-color-text"
                         aria-hidden="true"
                       />
                     )}
@@ -61,7 +64,7 @@ function DesctopMenu() {
         </ul>
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default DesctopMenu
+export default DesctopMenu;

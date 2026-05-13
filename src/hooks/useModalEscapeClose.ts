@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { type RefObject, useEffect } from "react";
 
-export function useModalEscapeClose<T extends HTMLElement>(
-  ref: React.RefObject<T | null>,
-  onClose: () => void
-) {
+export const useModalEscapeClose = <T extends HTMLElement>(
+  ref: RefObject<T | null>,
+  onClose: () => void,
+) => {
   useEffect(() => {
     // Сохраняем текущее состояние прокрутки
     const originalOverflow = document.body.style.overflow;
@@ -26,4 +26,4 @@ export function useModalEscapeClose<T extends HTMLElement>(
       document.removeEventListener("click", handleClickOutside);
     };
   }, [ref, onClose]);
-}
+};

@@ -2,8 +2,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Great+Vibes&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Great+Vibes&family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Great+Vibes&family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,7 +10,7 @@
 
 @layer base {
   body {
-    @apply font-main text-color-text bg-colorBg;
+    @apply bg-colorBg font-main text-color-text;
   }
   html {
     font-size: 16px;
@@ -19,7 +18,7 @@
   }
 
   a {
-    @apply no-underline text-inherit;
+    @apply text-inherit no-underline;
   }
 
   img {
@@ -27,7 +26,7 @@
   }
 
   button {
-    @apply cursor-pointer bg-transparent border-none;
+    @apply cursor-pointer border-none bg-transparent;
     font: inherit;
   }
 }

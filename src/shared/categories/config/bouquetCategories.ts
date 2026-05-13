@@ -1,6 +1,6 @@
 export type BouquetCategory = {
-  key: string;        // то, что хранится в БД и летит в API
-  title: string;      // человекочитаемое
+  key: string; // то, что хранится в БД и летит в API
+  title: string; // человекочитаемое
   description?: string;
 };
 
@@ -28,4 +28,4 @@ export const BOUQUET_CATEGORIES = {
 } as const;
 
 export type BouquetCategoryKey =
-  typeof BOUQUET_CATEGORIES[keyof typeof BOUQUET_CATEGORIES]["key"];
+  (typeof BOUQUET_CATEGORIES)[keyof typeof BOUQUET_CATEGORIES]["key"];

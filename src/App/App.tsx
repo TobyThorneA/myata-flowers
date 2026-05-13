@@ -1,31 +1,28 @@
-import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-
-import MainPage from '@pages/MainPage/MainPage';
-import OrderPage from '@pages/orderPage/OrderPage';
-import CatalogPage from '@pages/catalogPage/catalogPage';
-import Header from '@components/header/Header';
-import Footer from '@components/Footer/Footer';
-import FavoritesPage from '@pages/favoritesPage/FavoritesPage';
-import PromoPage from '@pages/promoPage/PromoPage';
-import NotFoundPage from '@pages/notFoundPage/NotFounPage';
-import AboutUs from '@pages/aboutUsPage/AboutPage';
-import ContactPage from '@pages/contactPage/ContactPage';
-import DeliveryMethodsPage from '@pages/deliveryMethodsPage/DeliveryMethodPage';
-import PaymentPage from '@pages/paymentPage/PaymentPage';
-import WarrantyPage from '@pages/warrantyPage/WarrantyPage';
-import PrivacyPolicyPage from '@pages/privacyPolicyPage/PrivacyPolicyPage';
-import AdminLogin from '@pages/admin/AdminLogin';
-import Dashboard from '@pages/admin/AdminDashboard';
-
-import { useAppDispatch } from '@store/app/hook';
-import { fetchBouquetsThunk } from '@store/slices/bouquetSlice';
-
-import PrivateRouteCustom from '@components/privateRouteCustom/privateRouteCustom';
-import DesctopMenu from '@components/header/DesctopMenu';
-import BouquetModal from '@components/bouquetModal/BouquetModal';
-import SpecialOffer from '@components/specialOffer/SpecialOffer';
-import SpecialOfferPage from '@pages/specialOfferPage/SpecialOfferPage';
+import BouquetModal from "@components/bouquetModal/BouquetModal";
+import Footer from "@components/Footer/Footer";
+import DesctopMenu from "@components/header/DesctopMenu";
+import Header from "@components/header/Header";
+import PrivateRouteCustom from "@components/privateRouteCustom/privateRouteCustom";
+import SpecialOffer from "@components/specialOffer/SpecialOffer";
+import AboutUs from "@pages/aboutUsPage/AboutPage";
+import Dashboard from "@pages/admin/AdminDashboard";
+import AdminLogin from "@pages/admin/AdminLogin";
+import CatalogPage from "@pages/catalogPage/catalogPage";
+import ContactPage from "@pages/contactPage/ContactPage";
+import DeliveryMethodsPage from "@pages/deliveryMethodsPage/DeliveryMethodPage";
+import FavoritesPage from "@pages/favoritesPage/FavoritesPage";
+import MainPage from "@pages/MainPage/MainPage";
+import NotFoundPage from "@pages/notFoundPage/NotFounPage";
+import OrderPage from "@pages/orderPage/OrderPage";
+import PaymentPage from "@pages/paymentPage/PaymentPage";
+import PrivacyPolicyPage from "@pages/privacyPolicyPage/PrivacyPolicyPage";
+import PromoPage from "@pages/promoPage/PromoPage";
+import SpecialOfferPage from "@pages/specialOfferPage/SpecialOfferPage";
+import WarrantyPage from "@pages/warrantyPage/WarrantyPage";
+import { useAppDispatch } from "@store/app/hook";
+import { fetchBouquetsThunk } from "@store/slices/bouquetSlice";
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 const App = () => {
   // 🔥 2. Логика модалок — БЕЗ изменений (она ок)
@@ -34,14 +31,14 @@ const App = () => {
   const backgroundLocation = state?.backgroundLocation;
 
   const dispatch = useAppDispatch();
-  const isAdminRoute = location.pathname.startsWith('/admin/');
+  const isAdminRoute = location.pathname.startsWith("/admin/");
 
   const bouquetIdPattern = /^[a-f0-9]{24}$/i;
 
-  const isModal = 
+  const isModal =
     (backgroundLocation !== undefined &&
-      bouquetIdPattern.test(location.pathname.split('/').pop() ?? ''))
-    || bouquetIdPattern.test(location.pathname.split('/').pop() ?? '');
+      bouquetIdPattern.test(location.pathname.split("/").pop() ?? "")) ||
+    bouquetIdPattern.test(location.pathname.split("/").pop() ?? "");
 
   useEffect(() => {
     // @ts-expect-error вызов thunk
@@ -100,7 +97,6 @@ const App = () => {
         {/* Страница 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      
 
       {/* ---------- 🔥 5. МОДАЛКИ ПОСЛЕ ОСНОВНЫХ ---------- */}
 

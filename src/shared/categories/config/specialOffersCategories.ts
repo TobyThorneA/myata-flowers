@@ -1,6 +1,6 @@
 export type SpecialOffer = {
-  id: string;              // для URL
-  title: string;           // "Розы"
+  id: string; // для URL
+  title: string; // "Розы"
   // bouquetIds: string[];    // РОВНО те 3 букета
 };
 

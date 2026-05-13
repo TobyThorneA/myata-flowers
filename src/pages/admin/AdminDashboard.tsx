@@ -1,23 +1,23 @@
 // src/pages/admin/AdminDashboard.tsx
 // список букетов + удаление и т.д.
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@store/app/hook';
+import { useAppDispatch, useAppSelector } from "@store/app/hook";
 import {
-  fetchBouquetsThunk,
-  deleteBouquetThunk,
-  updateBouquetThunk,
   createBouquetThunk,
-} from '@store/slices/bouquetSlice';
-import BouquetForm, { type BouquetFormData } from './BouquetForm';
-import BouquetTable from './BouquetTable';
-import type { IBouquet } from './types';
+  deleteBouquetThunk,
+  fetchBouquetsThunk,
+  updateBouquetThunk,
+} from "@store/slices/bouquetSlice";
+import { useEffect, useState } from "react";
+
+import BouquetForm, { type BouquetFormData } from "./BouquetForm";
+import BouquetTable from "./BouquetTable";
+import type { IBouquet } from "./types";
 
 // const AdminDashboard = () => {
 //   const dispatch = useAppDispatch();
 //   const bouquets = useAppSelector((state) => state.bouquet.items);
 //   const [editingBouquet, setEditingBouquet] = useState<IBouquet | null>(null);
 //   const [showForm, setShowForm] = useState(false);
-
 
 //   const scrollPositionRef = useRef(0);
 //   const formContainerRef = useRef<HTMLDivElement>(null);
@@ -63,7 +63,6 @@ import type { IBouquet } from './types';
 //   //     window.scrollTo(0, scrollPosition);
 //   //   }, 0);
 //   // };
-
 
 //   const sortedAsc = [...bouquets].sort((a, b) => a.price - b.price);
 // //   const sortedAsc = [...bouquets].sort((a, b) => {
@@ -167,7 +166,6 @@ import type { IBouquet } from './types';
 //         //   </div>
 //         // </div>
 
-
 //         <div className="relative">
 //           {/* Кнопка - fixed в правом верхнем углу */}
 //           <button
@@ -211,25 +209,25 @@ const AdminDashboard = () => {
     setEditingBouquet(null);
     setShowForm(true);
     // Блокируем скролл страницы когда форма открыта
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const handleEdit = (bouquet: IBouquet) => {
     setEditingBouquet(bouquet);
     setShowForm(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const handleCancel = () => {
     setEditingBouquet(null);
     setShowForm(false);
     // Восстанавливаем скролл
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   };
 
   // ДОБАВЬ ЭТИ ОБРАБОТЧИКИ - они отсутствуют в моём коде
   const handleDelete = async (id: string) => {
-    if (window.confirm('Удалить букет?')) {
+    if (window.confirm("Удалить букет?")) {
       // @ts-expect-error вызов thunk с типами
       await dispatch(deleteBouquetThunk(id));
       // @ts-expect-error вызов thunk с типами
@@ -261,21 +259,19 @@ const AdminDashboard = () => {
     }
     setShowForm(false);
     setEditingBouquet(null);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
     // @ts-expect-error вызов thunk с типами
     dispatch(fetchBouquetsThunk({ isAdmin: true }));
   };
 
   return (
-    <div className="font-sansSerif pr-8 relative">
-      <h1 className="text-xl font-bold mb-1 text-center">
-        Админка: Управление букетами
-      </h1>
+    <div className="relative pr-8 font-sansSerif">
+      <h1 className="mb-1 text-center text-xl font-bold">Админка: Управление букетами</h1>
 
       {/* Основной интерфейс - всегда виден */}
       <div className="relative">
         <button
-          className="fixed right-4 top-24 bg-green-600 text-white px-4 py-2 rounded z-30 shadow-lg hover:bg-green-700"
+          className="fixed right-4 top-24 z-30 rounded bg-green-600 px-4 py-2 text-white shadow-lg hover:bg-green-700"
           onClick={handleCreate}
         >
           + Новый букет
@@ -292,18 +288,14 @@ const AdminDashboard = () => {
 
       {/* Форма как модальное окно поверх всего */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black bg-opacity-50 pt-20 pb-10 px-4">
-          <div className="relative bg-white rounded-lg shadow-xl w-full max-w-4xl">
-            <BouquetForm
-              initialData={editingBouquet}
-              onSave={handleSave}
-              onCancel={handleCancel}
-            />
-            
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black bg-opacity-50 px-4 pb-10 pt-20">
+          <div className="relative w-full max-w-4xl rounded-lg bg-white shadow-xl">
+            <BouquetForm initialData={editingBouquet} onSave={handleSave} onCancel={handleCancel} />
+
             {/* Кнопка закрытия сверху */}
             <button
               onClick={handleCancel}
-              className="absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl"
+              className="absolute -top-10 right-0 text-2xl text-white hover:text-gray-300"
             >
               ✕
             </button>
@@ -314,7 +306,4 @@ const AdminDashboard = () => {
   );
 };
 
-
 export default AdminDashboard;
-
-
