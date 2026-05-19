@@ -47,52 +47,79 @@ import type { IBouquet } from "./types";
 //   categories: z.array(z.string()).optional(),
 // });
 
-// До трансформации — форма
+const promotionTypeSchema = z.enum(["discount", "free_delivery", "delivery_discount"]);
+const textSizeSchema = z.enum(["маленький", "средний", "большой"]);
+
+const optionalNumber = (fallback: number | undefined = undefined) =>
+  z.number().optional().catch(fallback);
+
+const splitTextareaList = (value?: string) =>
+  (value ?? "")
+    .split(/[\n,]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+// До трансформации — форма. В админке поля не блокируют сохранение:
+// пустые значения приводятся к безопасным дефолтам перед отправкой.
 const bouquetFormInputSchema = z.object({
-  name: z.string().min(1, "Название обязательно"),
-  price: z.number().min(1, "Укажите цену"),
-  oldPrice: z.number().optional(),
-  description: z.string().min(1, "Описание обязательно"),
-  images: z.string().min(1, "Добавьте хотя бы одну ссылку"),
-  size: z.string().min(1, "Размер обязателен"),
-  textSize: z.enum(["маленький", "средний", "большой"]),
+  name: z.string().optional().catch(""),
+  price: optionalNumber(0),
+  oldPrice: optionalNumber(),
+  description: z.string().optional().catch(""),
+  images: z.string().optional().catch(""),
+  size: z.string().optional().catch(""),
+  textSize: textSizeSchema.optional().catch("маленький"),
   promotion: z
     .object({
-      active: z.boolean(),
-      type: z.enum(["discount", "free_delivery", "delivery_discount"]),
+      active: z.boolean().optional().catch(false),
+      type: promotionTypeSchema.optional().catch("discount"),
       description: z.string().optional(),
     })
     .optional(),
   flowers: z
     .array(
       z.object({
-        type: z.string().min(1),
-        sort: z.string().min(1),
-        color: z.string().min(1),
-        quantity: z.number().min(1),
+        type: z.string().optional().catch(""),
+        sort: z.string().optional().catch(""),
+        color: z.string().optional().catch(""),
+        quantity: optionalNumber(1),
       }),
     )
-    .min(1, "Добавьте хотя бы один цветок"),
-  available: z.boolean(),
-  hidden: z.boolean(),
-  tags: z.array(z.string()).optional(),
-  categories: z.array(z.string()).optional(),
+    .optional()
+    .catch([]),
+  available: z.boolean().optional().catch(true),
+  hidden: z.boolean().optional().catch(false),
+  tags: z.array(z.string()).optional().catch([]),
+  categories: z.array(z.string()).optional().catch([]),
 });
 
 // После трансформации — для сохранения
-const bouquetSchema = bouquetFormInputSchema.extend({
-  images: z
-    .string()
-    .transform((val) =>
-      val
-        .split(/[\n,]/)
-        .map((s) => s.trim())
-        .filter(Boolean),
-    )
-    .refine((arr: string[]) => arr.length > 0 && arr.every((url) => /^https?:\/\/.+/.test(url)), {
-      message: "Введите хотя бы одну корректную ссылку на изображение",
-    }),
-});
+const bouquetSchema = bouquetFormInputSchema.transform((data) => ({
+  name: data.name?.trim() || "Без названия",
+  price: Number.isFinite(data.price) ? data.price : 0,
+  oldPrice: Number.isFinite(data.oldPrice) ? data.oldPrice : undefined,
+  description: data.description?.trim() || "-",
+  images: splitTextareaList(data.images).filter((url) => /^https?:\/\/.+/.test(url)),
+  size: data.size?.trim() || "-",
+  textSize: data.textSize ?? "маленький",
+  promotion: {
+    active: data.promotion?.active ?? false,
+    type: data.promotion?.type ?? "discount",
+    description: data.promotion?.description?.trim() ?? "",
+  },
+  flowers: (data.flowers ?? [])
+    .filter((flower) => flower.type || flower.sort || flower.color || flower.quantity)
+    .map((flower) => ({
+      type: flower.type?.trim() || "-",
+      sort: flower.sort?.trim() || "-",
+      color: flower.color?.trim() || "-",
+      quantity: Number.isFinite(flower.quantity) && flower.quantity ? flower.quantity : 1,
+    })),
+  available: data.available ?? true,
+  hidden: data.hidden ?? false,
+  tags: data.tags ?? [],
+  categories: data.categories ?? [],
+}));
 
 export type BouquetFormInput = z.infer<typeof bouquetFormInputSchema>; // для формы
 export type BouquetFormData = z.infer<typeof bouquetSchema>; // после .transform
@@ -239,7 +266,7 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
 
         {/* Название */}
         <div className="mb-2">
-          <label className="block">Название *</label>
+          <label className="block">Название</label>
           <input {...register("name")} className="w-full rounded border p-1" />
           {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
         </div>
@@ -247,7 +274,7 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
         {/* Цена и старая цена */}
         <div className="mb-2 grid grid-cols-2 gap-4">
           <div>
-            <label>Цена *</label>
+            <label>Цена</label>
             <input
               type="number"
               step="0.01"
@@ -269,7 +296,7 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
 
         {/* Описание */}
         <div className="mb-2">
-          <label>Описание *</label>
+          <label>Описание</label>
           <textarea {...register("description")} className="w-full rounded border p-1" rows={3} />
           {errors.description && (
             <p className="text-sm text-red-600">{errors.description.message}</p>
@@ -278,7 +305,7 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
 
         {/* Изображения */}
         <div className="mb-4">
-          <label>Ссылки на изображения *</label>
+          <label>Ссылки на изображения</label>
           <textarea
             {...register("images")}
             rows={4}
@@ -321,7 +348,7 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
 
         {/* Цветы */}
         <div className="mb-4">
-          <label>Цветы *</label>
+          <label>Цветы</label>
           {flowersArray.fields.map((field, idx) => (
             <div key={field.id} className="mb-2 grid grid-cols-5 gap-2">
               <input
@@ -368,11 +395,11 @@ const BouquetForm: React.FC<Props> = ({ initialData, onSave, onCancel }) => {
         {/* Размер и размер текста */}
         <div className="mb-4 grid grid-cols-2 gap-4">
           <div>
-            <label>Размер *</label>
+            <label>Размер</label>
             <input {...register("size")} className="w-full rounded border p-1" />
           </div>
           <div>
-            <label>Размер текста *</label>
+            <label>Размер текста</label>
             <select {...register("textSize")} className="w-full rounded border p-1">
               <option value="маленький">маленький</option>
               <option value="средний">средний</option>

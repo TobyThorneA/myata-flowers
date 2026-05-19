@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import BouquetModal from "@components/bouquetModal/BouquetModal";
 import BouquetsGrid from "@components/bouquetsGrid/bouquetGrid";
 import Carusel from "@components/carousel/Carusel";
@@ -11,6 +10,8 @@ import { fetchBouquetsByCategoryThunk } from "@store/slices/bouquetSlice";
 import { useEffect, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+import { HOME_CATALOG_CATEGORIES } from "../../shared/categories/config/catalogCategories";
 // import SpecialOfferPage from "@pages/specialOfferPage/SpecialOfferPage";
 
 const MainPage = () => {
@@ -36,31 +37,11 @@ const MainPage = () => {
   // Получаем backgroundLocation из состояния (нужно, чтобы знать, есть ли фон)
   const backgroundLocation = location.state?.backgroundLocation;
 
-  const categories = [
-    {
-      name: "Розы",
-      description: "Классика, которая говорит о чувствах без слов — для особенных моментов 🌹",
-    },
-    {
-      name: "Хризантемы",
-      description: "Пышные и яркие — идеальный выбор, если нужно вау-эффект 🌼",
-    },
-    { name: "Стойкие", description: "Не подвянут через день — дарите с уверенностью 💪" },
-    { name: "Сезонные", description: "Самые свежие цветы по лучшей цене — только в сезон 🍂🌸" },
-    {
-      name: "Авторские букеты",
-      description: "Ничего лишнего — только стиль, вкус и вау-эффект ✨",
-    },
-    {
-      name: "Композиции",
-      description: "Эффектный подарок, который удобно поставить и приятно получить 🎁",
-    },
-    // ... другие категории
-  ];
-
   useEffect(() => {
-    categories.forEach((cat) => {
-      dispatch(fetchBouquetsByCategoryThunk(cat.name));
+    HOME_CATALOG_CATEGORIES.forEach((category) => {
+      if (category.filter.type === "apiKey") {
+        dispatch(fetchBouquetsByCategoryThunk(category.filter.apiKey));
+      }
     });
   }, [dispatch]);
 
@@ -77,16 +58,18 @@ const MainPage = () => {
         />
       </div>
 
-      {categories.map((bouquetCategory) => {
-        const bouquetsInCategory = bouquetsByCategory[bouquetCategory.name] || [];
+      {HOME_CATALOG_CATEGORIES.map((bouquetCategory) => {
+        const categoryApiKey =
+          bouquetCategory.filter.type === "apiKey" ? bouquetCategory.filter.apiKey : undefined;
+        const bouquetsInCategory = categoryApiKey ? bouquetsByCategory[categoryApiKey] || [] : [];
 
         // sort
         const sortedAsc = [...bouquetsInCategory].sort((a, b) => a.price - b.price);
 
         return (
           <BouquetsGrid
-            key={bouquetCategory.name}
-            title={bouquetCategory.name}
+            key={bouquetCategory.id}
+            title={bouquetCategory.title}
             bouquets={(sortedAsc || []).slice(0, 9)}
             shortDescription={bouquetCategory.description}
             // маршрут надо вынести в константу
@@ -95,7 +78,7 @@ const MainPage = () => {
             }
             className="my-10 md:mt-0"
             showSeeMoreCard={true}
-            onSeeMoreClick={() => navigate(`/catalog/${encodeURIComponent(bouquetCategory.name)}`)}
+            onSeeMoreClick={() => navigate(`/catalog/${bouquetCategory.slug}`)}
           />
         );
       })}

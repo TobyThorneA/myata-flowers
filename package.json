@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 5174 --strictPort",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -14,7 +14,7 @@
     "fix": "eslint . --fix && prettier . --write",
     "prepare": "husky",
     "preview": "vite preview",
-    "mob": "vite --host"
+    "mob": "vite --host 0.0.0.0 --port 5174 --strictPort"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
